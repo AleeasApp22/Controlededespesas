@@ -2,9 +2,11 @@ package com.imbres.controlededespesas.ui.theme.finish.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.imbres.controlededespesas.R
 
 // Set of Material typography styles to start with
 val Typography = Typography(
@@ -31,4 +33,19 @@ val Typography = Typography(
         letterSpacing = 0.5.sp
     )
     */
+)
+
+val robotoFontFamily = FontFamily(
+    Font(R.font.roboto_black, FontWeight.Black),
+    Font(R.font.roboto_blackitalic, FontWeight.Black),
+    Font(R.font.roboto_bold, FontWeight.Bold),
+    Font(R.font.roboto_bolditalic, FontWeight.Bold),
+    Font(R.font.roboto_italic, FontWeight.Black),
+    Font(R.font.roboto_light, FontWeight.Light),
+    Font(R.font.roboto_lightitalic, FontWeight.Light),
+    Font(R.font.roboto_medium, FontWeight.Medium),
+    Font(R.font.roboto_mediumitalic, FontWeight.Medium),
+    Font(R.font.roboto_regular, FontWeight.Normal),
+    Font(R.font.roboto_thin, FontWeight.Thin),
+    Font(R.font.roboto_thinitalic, FontWeight.Thin),
 )

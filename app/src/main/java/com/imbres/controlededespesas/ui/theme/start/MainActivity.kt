@@ -7,18 +7,15 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -34,117 +31,95 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.rememberNavController
 import com.imbres.controlededespesas.R
 import com.imbres.controlededespesas.ui.theme.finish.theme.ControleDeDespesasTheme
+import com.imbres.controlededespesas.ui.theme.finish.theme.robotoFontFamily
 import com.imbres.controlededespesas.ui.theme.navigation.SetupNavGraph
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            ControleDeDespesasTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    //Greeting("Android")
-                    val navController = rememberNavController()
-                    SetupNavGraph(navController = navController)
-                }
-            }
+            val navController = rememberNavController()
+            SetupNavGraph(navController = navController)
         }
     }
 }
 
 @Composable
 fun MainShow(){
-
-    Box(Modifier.fillMaxSize()) {
-        Image(
-            painter = painterResource(id = R.drawable.simple_blue_blank_background_vector_business_53876_169282),
-            contentDescription = "Fin",
-            contentScale = ContentScale.FillBounds,
-            modifier = Modifier.matchParentSize(),
-        )
-
-        Box(
+    ControleDeDespesasTheme{
+        Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 350.dp, bottom = 200.dp),
-            contentAlignment = Alignment.BottomCenter
+                .padding(top = 120.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
         ) {
-            Card(
+            Box(
+            ) {
+                Image(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 40.dp, end = 40.dp),
+                    painter = painterResource(id = R.drawable.logo_main),
+                    contentDescription = "Controle de despesas",
+                    contentScale = ContentScale.FillWidth
+                )
+            }
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight()
-                    .padding(20.dp),
-                //elevation = 20.dp,
-                shape = RoundedCornerShape(40.dp)
-            ) {
-                Column(
+                    .padding(top = 50.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+            ){
+
+                Text(
+                    "Bem-vindo controle de despesas!",
+                    fontFamily = robotoFontFamily,
+                    fontWeight = FontWeight.Black,
+                    fontSize = 23.sp,
+                    color = Color(0xFF3F51B5),
+                    )
+                Text(
+                    "Obrigado por criar sua conta conosco.",
+                    fontFamily = robotoFontFamily,
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 20.sp,
+                    color = colorResource(id = R.color.greenFinHeavy),
+                )
+
+                Column (
                     modifier = Modifier
-                        .padding(12.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Top
-                ) {
-                    Text(
-                        "Bem-vindo ao",
-                        //style = MaterialTheme.typography.h4,
-                        fontWeight = FontWeight.ExtraBold
-                    )
-                    Text(
-                        "Finance",
-                        //style = MaterialTheme.typography.h2,
-                        color = colorResource(R.color.greenFin),
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(
-                        "Seu melhor controle financeiro.",
-                        color = Color.Gray,
-                        fontWeight = FontWeight.ExtraBold,
-                        fontSize = 18.sp,
-                    )
+                        .fillMaxSize()
+                        .padding(20.dp, 60.dp),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ){
+                    Button(
+                        onClick = {},
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(70.dp),
+                        shape  = RoundedCornerShape(20.dp),
+                        elevation = ButtonDefaults.buttonElevation(
+                            defaultElevation = 10.dp,
+                        ),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.primary
+                        )
+                    ){
+                        Text("Próximo",
+                            fontSize = 25.sp,)
+                    }
                 }
             }
         }
 
-        Column(
-            modifier = Modifier
-                .padding(bottom = 50.dp)
-                .align(alignment = Alignment.BottomCenter),
-            verticalArrangement = Arrangement.spacedBy(20.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ){
-            Button(
-                modifier = Modifier
-                    .height(50.dp)
-                    .width(140.dp),
-                shape = RoundedCornerShape(10.dp),
-                elevation = ButtonDefaults.buttonElevation(
-                    defaultElevation = 20.dp
-                ),
-                onClick = { /*TODO*/ },
-            )
-            {
-                Text(text = "Continue")
-            }
-        }
-
     }
-
 }
 
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ControleDeDespesasTheme {
-        Greeting("Android")
-    }
+fun MainPreview(){
+    MainShow()
 }
