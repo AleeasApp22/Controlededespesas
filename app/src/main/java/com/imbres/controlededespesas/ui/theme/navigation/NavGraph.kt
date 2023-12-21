@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.imbres.controlededespesas.app.FinApp
+import com.imbres.controlededespesas.app.ControleApp
 import com.imbres.controlededespesas.ui.theme.start.SplashScreen
 
 @Composable
@@ -17,7 +17,7 @@ fun SetupNavGraph(navController: NavHostController) {
             SplashScreen(navController = navController)
         }
         composable(route = Screen.Home.route) {
-            FinApp()
+            ControleApp()
         }
     }
 }

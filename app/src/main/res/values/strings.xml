@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Controle de despesas</string>
+    <string name="app_name">Controle</string>
+    <string name="bem_vindo">Bem-vindo ao</string>
+    <string name="controle_despesas">Controle de despesas!</string>
 </resources>

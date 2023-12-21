@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.Color
 import com.imbres.controlededespesas.ui.theme.start.MainShow
 
 @Composable
-fun FinApp(){
+fun ControleApp(){
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = Color.White
