@@ -7,8 +7,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -23,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.imbres.controlededespesas.R
 import com.imbres.controlededespesas.components.BlackNormalTextComponent
+import com.imbres.controlededespesas.components.ButtonComponent
 import com.imbres.controlededespesas.components.NormalTextComponent
 import com.imbres.controlededespesas.ui.theme.finish.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.finish.theme.TextColorGreenHeavy
@@ -44,7 +47,7 @@ fun MainShow(){
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(8.dp)
+            .padding(12.dp)
     ) {
         Column (
             modifier = Modifier.fillMaxSize(),
@@ -61,6 +64,10 @@ fun MainShow(){
             BlackNormalTextComponent(value = stringResource(id = R.string.bem_vindo), size = 35, valueTextColor = TextColor)
 
             NormalTextComponent(value = stringResource(id = R.string.controle_despesas), size = 25, valueTextColor = TextColorGreenHeavy)
+
+            Spacer(modifier = Modifier.height(80.dp))
+
+            ButtonComponent(value = stringResource(id = R.string.iniciar))
 
         }
     }
