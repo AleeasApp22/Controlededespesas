@@ -4,5 +4,7 @@
     <string name="bem_vindo">Bem-vindo</string>
     <string name="controle_despesas">Controle de despesas!</string>
     <string name="iniciar">Iniciar</string>
-    <string name="login_account">Autentique-se</string>
+    <string name="login_account">Autentique-se em sua conta</string>
+    <string name="email">Email</string>
+    <string name="password">Senha</string>
 </resources>

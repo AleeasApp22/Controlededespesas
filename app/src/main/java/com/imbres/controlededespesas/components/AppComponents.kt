@@ -6,17 +6,27 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -77,7 +87,42 @@ fun NormalTextComponent(value: String, size: Int, valueTextColor: Color){
         textAlign = TextAlign.Center
     )
 }
+@Composable
+fun MyTextFieldComponent(
+    labelValue: String, painterResource: Painter,
+    onTextChanged: (String) -> Unit,
+    errorStatus: Boolean = false
+){
+    val textValue = remember {
+        mutableStateOf("")
+    }
+    val localFocusManager = LocalFocusManager.current
 
+    OutlinedTextField(
+        modifier = Modifier
+            .fillMaxWidth(),
+            //.clip(componentShapes.small),
+        label = { Text(text = labelValue) },
+        /*colors = TextFieldDefaults.outlinedTextFieldColors(
+            focusedBorderColor = Primary,
+            focusedLabelColor = Primary,
+            cursorColor = Primary,
+            backgroundColor = BgColor
+        ),*/
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+        singleLine = true,
+        maxLines = 1,
+        value = textValue.value,
+        onValueChange = {
+            textValue.value = it
+            onTextChanged(it)
+        },
+        leadingIcon = {
+            Icon(painter = painterResource, contentDescription = "")
+        },
+        isError = !errorStatus
+    )
+}
 @Composable
 fun ButtonComponent(value: String, onButtonClicked: () -> Unit, isEnabled: Boolean = false){
     Button(
