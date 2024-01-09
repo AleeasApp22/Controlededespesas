@@ -1,4 +1,4 @@
-package com.imbres.controlededespesas.ui.theme.navigation
+package com.imbres.controlededespesas.navigation
 
 sealed class Screen(val route: String) {
     object Splash : Screen("splash_screen")

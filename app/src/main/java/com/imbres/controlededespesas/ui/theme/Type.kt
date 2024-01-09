@@ -1,4 +1,4 @@
-package com.imbres.controlededespesas.ui.theme.finish.theme
+package com.imbres.controlededespesas.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

@@ -5,7 +5,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.imbres.controlededespesas.ui.theme.start.MainShow
+import com.imbres.controlededespesas.screeens.LoginScreen
 
 @Composable
 fun ControleApp(){
@@ -13,6 +13,7 @@ fun ControleApp(){
         modifier = Modifier.fillMaxSize(),
         color = Color.White
     ){
-        MainShow()
+        LoginScreen()
     }
 }
+

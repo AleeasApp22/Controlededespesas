@@ -1,4 +1,4 @@
-package com.imbres.controlededespesas.ui.theme.finish.theme
+package com.imbres.controlededespesas.ui.theme
 
 import android.app.Activity
 import android.os.Build
@@ -14,7 +14,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
-import androidx.compose.ui.res.colorResource
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(

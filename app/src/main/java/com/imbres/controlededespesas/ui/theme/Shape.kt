@@ -1,4 +1,4 @@
-package com.imbres.controlededespesas.ui.theme.finish.theme
+package com.imbres.controlededespesas.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Shapes

@@ -1,4 +1,4 @@
-package com.imbres.controlededespesas.ui.theme.finish.theme
+package com.imbres.controlededespesas.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
@@ -19,3 +19,4 @@ val greenFin = Color(0xFF83CDB6)
 val TextColorGreenLight = Color(0xFFABCDC3)
 val TextColorGreenHeavy = Color(0xFF1daa87)
 val TextColor = Color(0xFF29204d)
+val TextColorTitle = Color(0xFFFFFFFF)

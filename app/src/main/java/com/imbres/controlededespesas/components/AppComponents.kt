@@ -1,14 +1,12 @@
 package com.imbres.controlededespesas.components
 
-import android.content.ClipboardManager.OnPrimaryClipChangedListener
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,10 +20,27 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.imbres.controlededespesas.ui.theme.finish.theme.Primary
-import com.imbres.controlededespesas.ui.theme.finish.theme.Secondary
-import com.imbres.controlededespesas.ui.theme.finish.theme.robotoFontFamily
-import java.text.Collator
+import com.imbres.controlededespesas.ui.theme.Primary
+import com.imbres.controlededespesas.ui.theme.Secondary
+import com.imbres.controlededespesas.ui.theme.robotoFontFamily
+
+@Composable
+fun NormalTitleTextComponent(valueText: String, valueSize: Int, valueTextColor: Color){
+    Text(
+        text = valueText,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+        style = TextStyle(
+            fontFamily = robotoFontFamily,
+            fontSize = valueSize.sp,
+            fontWeight = FontWeight.Normal,
+            fontStyle = FontStyle.Normal,
+        ),
+        color = valueTextColor,
+        textAlign = TextAlign.Left
+    )
+}
 
 @Composable
 fun BlackNormalTextComponent(value: String, size: Int, valueTextColor: Color){
@@ -64,19 +79,20 @@ fun NormalTextComponent(value: String, size: Int, valueTextColor: Color){
 }
 
 @Composable
-fun ButtonComponent(value: String){
-    Button(onClick = { /*TODO*/ },
+fun ButtonComponent(value: String, onButtonClicked: () -> Unit, isEnabled: Boolean = false){
+    Button(
         modifier = Modifier
             .fillMaxWidth()
             .heightIn(48.dp),
+        onClick = { onButtonClicked.invoke() },
         contentPadding = PaddingValues(),
-        colors = ButtonDefaults.buttonColors(Color.Transparent)
+        colors = ButtonDefaults.buttonColors(Color.Transparent),
     ) {
         Box(modifier = Modifier
             .fillMaxWidth()
             .heightIn(48.dp)
             .background(
-                brush = Brush.horizontalGradient(listOf(Secondary,Primary))
+                brush = Brush.horizontalGradient(listOf(Secondary, Primary))
             ),
             contentAlignment = Alignment.Center){
             Text(text = value,

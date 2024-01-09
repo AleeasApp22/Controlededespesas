@@ -1,11 +1,11 @@
-package com.imbres.controlededespesas.ui.theme.navigation
+package com.imbres.controlededespesas.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.imbres.controlededespesas.app.ControleApp
-import com.imbres.controlededespesas.ui.theme.start.SplashScreen
+import com.imbres.controlededespesas.SplashScreen
 
 @Composable
 fun SetupNavGraph(navController: NavHostController) {

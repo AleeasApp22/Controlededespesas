@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Controle</string>
-    <string name="bem_vindo">Bem-vindo ao</string>
+    <string name="bem_vindo_ao">Bem-vindo ao</string>
+    <string name="bem_vindo">Bem-vindo</string>
     <string name="controle_despesas">Controle de despesas!</string>
     <string name="iniciar">Iniciar</string>
+    <string name="login_account">Autentique-se</string>
 </resources>
