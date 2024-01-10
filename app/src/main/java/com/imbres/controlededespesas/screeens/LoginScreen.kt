@@ -23,8 +23,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.imbres.controlededespesas.R
+import com.imbres.controlededespesas.components.BlackNormalTextComponent
+import com.imbres.controlededespesas.components.ButtonComponent
 import com.imbres.controlededespesas.components.MyTextFieldComponent
 import com.imbres.controlededespesas.components.NormalTitleTextComponent
+import com.imbres.controlededespesas.components.PasswordTextFieldComponent
 import com.imbres.controlededespesas.data.LoginViewModel
 import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.greenFinLight
@@ -44,6 +47,7 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()){
             color = greenFinLight
         ){
             Column (
+                modifier = Modifier.padding(start = 10.dp, end = 10.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
 
@@ -51,13 +55,15 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()){
                 NormalTitleTextComponent(
                     valueText = stringResource(id = R.string.bem_vindo),
                     valueSize = 30,
-                    valueTextColor = TextColor
+                    valueTextColor = TextColor,
+                    alignText = "Left"
                 )
 
                 NormalTitleTextComponent(
                     valueText = stringResource(id = R.string.login_account),
                     valueSize = 20,
-                    valueTextColor = TextColor
+                    valueTextColor = TextColor,
+                    alignText = "Left"
                 )
             }
         }
@@ -65,12 +71,13 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()){
         Surface (
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(1f),
+                .weight(5f),
             color = Color.Green
         ){
             Column(
                 modifier = Modifier
                     .fillMaxSize()
+
                     .background(color = colorResource(id = R.color.greenFinLight))
                     .drawWithCache {
                         val brush = Brush.linearGradient(
@@ -85,10 +92,10 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()){
                                 cornerRadius = CornerRadius(30.dp.toPx())
                             )
                         }
-                    },
+                    }
             ){
                 Column (
-                    modifier = Modifier.padding(start = 20.dp, top = 20.dp, end = 20.dp)
+                    modifier = Modifier.padding(start = 20.dp, top = 40.dp, end = 20.dp)
                 ){
                     MyTextFieldComponent(labelValue = stringResource(id = R.string.email),
                         painterResource(id = R.drawable.message),
@@ -98,17 +105,51 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()){
                         errorStatus = loginViewModel.loginUIState.value.emailError
                     )
 
-                    MyTextFieldComponent(labelValue = stringResource(id = R.string.password),
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    PasswordTextFieldComponent(labelValue = stringResource(id = R.string.password),
                         painterResource(id = R.drawable.lock),
-                        onTextChanged = {
-                            loginViewModel.onEvent(LoginUIEvent.EmailChanged(it))
+                        onTextSelected = {
+                            loginViewModel.onEvent(LoginUIEvent.PasswordChanged(it))
                         },
-                        errorStatus = loginViewModel.loginUIState.value.emailError
+                        errorStatus = loginViewModel.loginUIState.value.passwordError
+                    )
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    ButtonComponent(
+                        value = stringResource(id = R.string.login),
+                        onButtonClicked = {  },
+                        isEnabled = true
+                    )
+
+                    Spacer(modifier = Modifier.height(40.dp))
+
+                    NormalTitleTextComponent(
+                        valueText = stringResource(id = R.string.change_password),
+                        valueSize = 20,
+                        valueTextColor = TextColor,
+                        alignText = "Center"
                     )
                 }
             }
         }
-
+        Surface (
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f),
+            color = greenFinLight
+        ){
+            Column (
+                modifier = Modifier.padding(start = 20.dp, top = 20.dp, end = 20.dp)
+            ) {
+                BlackNormalTextComponent(
+                    valueText = stringResource(id = R.string.sign_up_account),
+                    valueSize = 18,
+                    valueTextColor = TextColor
+                )
+            }
+        }
     }
 }
 
@@ -123,13 +164,15 @@ fun LoginScreenBkp(loginViewModel: LoginViewModel = viewModel()) {
         NormalTitleTextComponent(
             valueText = stringResource(id = R.string.bem_vindo),
             valueSize = 30,
-            valueTextColor = TextColor
+            valueTextColor = TextColor,
+            alignText = "Left"
         )
 
         NormalTitleTextComponent(
             valueText = stringResource(id = R.string.login_account),
             valueSize = 25,
-            valueTextColor = TextColor
+            valueTextColor = TextColor,
+            alignText = "Left"
         )
 
         Column(
@@ -158,39 +201,36 @@ fun LoginScreenBkp(loginViewModel: LoginViewModel = viewModel()) {
             NormalTitleTextComponent(
                 valueText = stringResource(id = R.string.email),
                 valueSize = 20,
-                valueTextColor = TextColor
+                valueTextColor = TextColor,
+                alignText = "Left"
             )
 
             NormalTitleTextComponent(
                 valueText = stringResource(id = R.string.email),
                 valueSize = 20,
-                valueTextColor = TextColor
+                valueTextColor = TextColor,
+                alignText = "Left"
             )
 
             NormalTitleTextComponent(
                 valueText = stringResource(id = R.string.password),
                 valueSize = 20,
-                valueTextColor = TextColor
+                valueTextColor = TextColor,
+                alignText = "Left"
             )
 
             NormalTitleTextComponent(
                 valueText = stringResource(id = R.string.password),
                 valueSize = 20,
-                valueTextColor = TextColor
+                valueTextColor = TextColor,
+                alignText = "Left"
             )
 
             NormalTitleTextComponent(
                 valueText = stringResource(id = R.string.password),
                 valueSize = 20,
-                valueTextColor = TextColor
-            )
-
-            Spacer(modifier = Modifier.height(25.dp))
-
-            NormalTitleTextComponent(
-                valueText = stringResource(id = R.string.password),
-                valueSize = 20,
-                valueTextColor = TextColor
+                valueTextColor = TextColor,
+                alignText = "Left"
             )
 
             Spacer(modifier = Modifier.height(25.dp))
@@ -198,13 +238,24 @@ fun LoginScreenBkp(loginViewModel: LoginViewModel = viewModel()) {
             NormalTitleTextComponent(
                 valueText = stringResource(id = R.string.password),
                 valueSize = 20,
-                valueTextColor = TextColor
+                valueTextColor = TextColor,
+                alignText = "Left"
+            )
+
+            Spacer(modifier = Modifier.height(25.dp))
+
+            NormalTitleTextComponent(
+                valueText = stringResource(id = R.string.password),
+                valueSize = 20,
+                valueTextColor = TextColor,
+                alignText = "Left"
             )
 
             NormalTitleTextComponent(
                 valueText = stringResource(id = R.string.password),
                 valueSize = 20,
-                valueTextColor = TextColor
+                valueTextColor = TextColor,
+                alignText = "Left"
             )
 
             Spacer(modifier = Modifier.height(50.dp))
@@ -212,7 +263,8 @@ fun LoginScreenBkp(loginViewModel: LoginViewModel = viewModel()) {
             NormalTitleTextComponent(
                 valueText = stringResource(id = R.string.password),
                 valueSize = 20,
-                valueTextColor = TextColor
+                valueTextColor = TextColor,
+                alignText = "Left"
             )
 
         }

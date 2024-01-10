@@ -46,7 +46,7 @@ fun MessageScreen(){
                 contentScale = ContentScale.Crop
             )
 
-            BlackNormalTextComponent(value = stringResource(id = R.string.bem_vindo_ao), size = 35, valueTextColor = TextColor)
+            BlackNormalTextComponent(valueText = stringResource(id = R.string.bem_vindo_ao), valueSize = 35, valueTextColor = TextColor)
 
             NormalTextComponent(value = stringResource(id = R.string.controle_despesas), size = 25, valueTextColor = TextColorGreenHeavy)
 
