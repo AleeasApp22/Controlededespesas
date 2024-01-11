@@ -28,6 +28,7 @@ import com.imbres.controlededespesas.components.ButtonComponent
 import com.imbres.controlededespesas.components.MyTextFieldComponent
 import com.imbres.controlededespesas.components.NormalTitleTextComponent
 import com.imbres.controlededespesas.components.PasswordTextFieldComponent
+import com.imbres.controlededespesas.components.UnderLinedTextComponent
 import com.imbres.controlededespesas.data.LoginViewModel
 import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.greenFinLight
@@ -125,12 +126,8 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()){
 
                     Spacer(modifier = Modifier.height(40.dp))
 
-                    NormalTitleTextComponent(
-                        valueText = stringResource(id = R.string.change_password),
-                        valueSize = 20,
-                        valueTextColor = TextColor,
-                        alignText = "Center"
-                    )
+                    UnderLinedTextComponent(valueText = stringResource(id = R.string.change_password))
+
                 }
             }
         }
@@ -141,7 +138,8 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()){
             color = greenFinLight
         ){
             Column (
-                modifier = Modifier.padding(start = 20.dp, top = 20.dp, end = 20.dp)
+                modifier = Modifier.padding(start = 20.dp, top = 20.dp, end = 20.dp),
+                verticalArrangement = Arrangement.Center
             ) {
                 BlackNormalTextComponent(
                     valueText = stringResource(id = R.string.sign_up_account),

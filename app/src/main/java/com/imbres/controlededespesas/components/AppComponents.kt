@@ -1,12 +1,13 @@
 package com.imbres.controlededespesas.components
 
+import android.provider.CalendarContract.Colors
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.R
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -19,17 +20,12 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
@@ -43,16 +39,21 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.imbres.controlededespesas.ui.theme.BgColor
 import com.imbres.controlededespesas.ui.theme.Primary
 import com.imbres.controlededespesas.ui.theme.Secondary
-import com.imbres.controlededespesas.ui.theme.greenFin
+import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.robotoFontFamily
 
 @Composable
-fun NormalTitleTextComponent(valueText: String, valueSize: Int, valueTextColor: Color, alignText : String){
+fun NormalTitleTextComponent(
+    valueText: String,
+    valueSize: Int,
+    valueTextColor: Color,
+    alignText: String
+) {
     Text(
         text = valueText,
         modifier = Modifier
@@ -70,7 +71,7 @@ fun NormalTitleTextComponent(valueText: String, valueSize: Int, valueTextColor: 
 }
 
 @Composable
-fun BlackNormalTextComponent(valueText: String, valueSize: Int, valueTextColor: Color){
+fun BlackNormalTextComponent(valueText: String, valueSize: Int, valueTextColor: Color) {
     Text(
         text = valueText,
         modifier = Modifier
@@ -88,7 +89,7 @@ fun BlackNormalTextComponent(valueText: String, valueSize: Int, valueTextColor: 
 }
 
 @Composable
-fun NormalTextComponent(value: String, size: Int, valueTextColor: Color){
+fun NormalTextComponent(value: String, size: Int, valueTextColor: Color) {
     Text(
         text = value,
         modifier = Modifier
@@ -107,11 +108,12 @@ fun NormalTextComponent(value: String, size: Int, valueTextColor: Color){
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyTextFieldComponent(labelValue: String,
-                         painterResource: Painter,
-                         onTextChanged: (String) -> Unit,
-                         errorStatus: Boolean = false
-){
+fun MyTextFieldComponent(
+    labelValue: String,
+    painterResource: Painter,
+    onTextChanged: (String) -> Unit,
+    errorStatus: Boolean = false
+) {
     val localFocusManager = LocalFocusManager.current
 
     val textValue = remember {
@@ -122,9 +124,13 @@ fun MyTextFieldComponent(labelValue: String,
         modifier = Modifier.fillMaxWidth(),
         label = { Text(text = labelValue) },
         colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = Primary,
-            focusedLabelColor = Primary,
-            cursorColor = Primary,
+
+            focusedBorderColor = Color.Black,
+            focusedLabelColor = Color.Black,
+            cursorColor = Color.Black,
+            errorCursorColor = Color.Black,
+            errorBorderColor = Color.Black,
+            errorLabelColor = Color.Black,
             //backgroundColor = BgColor
         ),
         singleLine = true,
@@ -144,11 +150,12 @@ fun MyTextFieldComponent(labelValue: String,
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PasswordTextFieldComponent(labelValue: String,
-                               painterResource: Painter,
-                               onTextSelected: (String) -> Unit,
-                               errorStatus: Boolean = false
-){
+fun PasswordTextFieldComponent(
+    labelValue: String,
+    painterResource: Painter,
+    onTextSelected: (String) -> Unit,
+    errorStatus: Boolean = false
+) {
     val localFocusManager = LocalFocusManager.current
 
     val password = remember {
@@ -162,12 +169,16 @@ fun PasswordTextFieldComponent(labelValue: String,
     OutlinedTextField(
         modifier = Modifier
             .fillMaxWidth(),
-            //.clip(componentShapes.small),
+        //.clip(componentShapes.small),
         label = { Text(text = labelValue) },
         colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = Primary,
-            focusedLabelColor = Primary,
-            cursorColor = Primary,
+            focusedBorderColor = Color.Black,
+            focusedLabelColor = Color.Black,
+            cursorColor = Color.Black,
+            errorCursorColor = Color.Black,
+            errorBorderColor = Color.Black,
+            errorLabelColor = Color.Black,
+            errorPlaceholderColor = Color.Blue,
             //backgroundColor = BgColor
         ),
         keyboardOptions = KeyboardOptions(
@@ -203,7 +214,7 @@ fun PasswordTextFieldComponent(labelValue: String,
             }
 
             IconButton(onClick = { passwordVisible.value = !passwordVisible.value }) {
-                Icon(imageVector = iconImage, contentDescription = description)
+                Icon(imageVector = iconImage, contentDescription = description, tint = Color.Black)
             }
 
         },
@@ -212,13 +223,30 @@ fun PasswordTextFieldComponent(labelValue: String,
     )
 }
 
+@Composable
+fun UnderLinedTextComponent(valueText: String) {
+    Text(
+        text = valueText,
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(min = 40.dp),
+        style = TextStyle(
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Normal,
+            fontStyle = FontStyle.Normal
+        ), color = TextColor,
+        textAlign = TextAlign.Center,
+        textDecoration = TextDecoration.Underline
+    )
+
+}
 
 @Composable
 fun MyTextFieldComponent2(
     labelValue: String, painterResource: Painter,
     onTextChanged: (String) -> Unit,
     errorStatus: Boolean = false
-){
+) {
     val textValue = remember {
         mutableStateOf("")
     }
@@ -227,7 +255,7 @@ fun MyTextFieldComponent2(
     OutlinedTextField(
         modifier = Modifier
             .fillMaxWidth(),
-            //.clip(componentShapes.small),
+        //.clip(componentShapes.small),
         label = { Text(text = labelValue) },
         /*colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = Primary,
@@ -249,26 +277,32 @@ fun MyTextFieldComponent2(
         isError = !errorStatus
     )
 }
+
 @Composable
-fun ButtonComponent(value: String, onButtonClicked: () -> Unit, isEnabled: Boolean = false){
+fun ButtonComponent(value: String, onButtonClicked: () -> Unit, isEnabled: Boolean = false) {
     Button(
         modifier = Modifier
             .fillMaxWidth()
             .heightIn(48.dp),
+        shape = RoundedCornerShape(10.dp),
         onClick = { onButtonClicked.invoke() },
         contentPadding = PaddingValues(),
         colors = ButtonDefaults.buttonColors(Color.Transparent),
     ) {
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .heightIn(48.dp)
-            .background(
-                brush = Brush.horizontalGradient(listOf(Secondary, Primary))
-            ),
-            contentAlignment = Alignment.Center){
-            Text(text = value,
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(48.dp)
+                .background(
+                    brush = Brush.horizontalGradient(listOf(Secondary, Primary))
+                ),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = value,
                 fontSize = 20.sp,
-                fontWeight = FontWeight.Bold)
+                fontWeight = FontWeight.Bold
+            )
         }
     }
 }
