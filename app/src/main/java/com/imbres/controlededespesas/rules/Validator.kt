@@ -19,9 +19,15 @@ object Validator {
     }
 
     fun validateEmail(email: String): ValidationResult {
-        return ValidationResult(
-            (!email.isNullOrEmpty())
-        )
+        var returnValidate : Boolean
+        returnValidate = true
+
+        if (!isValidEmail(email)) {
+            returnValidate = false
+        }
+
+        return ValidationResult(returnValidate)
+
     }
 
     fun validatePassword(password: String): ValidationResult {
@@ -36,6 +42,11 @@ object Validator {
         )
     }
 
+}
+
+fun isValidEmail(email: String): Boolean {
+    val emailRegex = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+".toRegex()
+    return email.matches(emailRegex)
 }
 
 data class ValidationResult(

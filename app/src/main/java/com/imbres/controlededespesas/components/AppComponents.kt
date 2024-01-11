@@ -71,11 +71,18 @@ fun NormalTitleTextComponent(
 }
 
 @Composable
-fun BlackNormalTextComponent(valueText: String, valueSize: Int, valueTextColor: Color) {
+fun BlackNormalTextComponent(
+    valueText: String,
+    valuePadding: Int,
+    valueSize: Int,
+    valueTextColor: Color,
+    alignText: String
+) {
     Text(
         text = valueText,
         modifier = Modifier
             .fillMaxWidth()
+            .padding(valuePadding.dp)
             .heightIn(min = 40.dp),
         style = TextStyle(
             fontFamily = robotoFontFamily,
@@ -84,7 +91,7 @@ fun BlackNormalTextComponent(valueText: String, valueSize: Int, valueTextColor: 
             fontStyle = FontStyle.Normal,
         ),
         color = valueTextColor,
-        textAlign = TextAlign.Center
+        textAlign = if (alignText == "Left") TextAlign.Left else TextAlign.Center
     )
 }
 
@@ -128,9 +135,9 @@ fun MyTextFieldComponent(
             focusedBorderColor = Color.Black,
             focusedLabelColor = Color.Black,
             cursorColor = Color.Black,
-            errorCursorColor = Color.Black,
-            errorBorderColor = Color.Black,
-            errorLabelColor = Color.Black,
+//            errorCursorColor = Color.Black,
+//            errorBorderColor = Color.Black,
+//            errorLabelColor = Color.Black,
             //backgroundColor = BgColor
         ),
         singleLine = true,
@@ -174,11 +181,11 @@ fun PasswordTextFieldComponent(
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = Color.Black,
             focusedLabelColor = Color.Black,
-            cursorColor = Color.Black,
-            errorCursorColor = Color.Black,
-            errorBorderColor = Color.Black,
-            errorLabelColor = Color.Black,
-            errorPlaceholderColor = Color.Blue,
+//            cursorColor = Color.Black,
+//            errorCursorColor = Color.Black,
+//            errorBorderColor = Color.Black,
+//            errorLabelColor = Color.Black,
+//            errorPlaceholderColor = Color.Blue,
             //backgroundColor = BgColor
         ),
         keyboardOptions = KeyboardOptions(

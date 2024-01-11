@@ -1,10 +1,8 @@
-package com.imbres.controlededespesas.data
+package com.imbres.controlededespesas.data.login
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.imbres.controlededespesas.rules.Validator
-import com.nativemobilebits.loginflow.data.login.LoginUIEvent
-import com.nativemobilebits.loginflow.data.login.LoginUIState
 
 class LoginViewModel : ViewModel() {
 

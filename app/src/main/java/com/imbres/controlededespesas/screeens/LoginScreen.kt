@@ -29,10 +29,10 @@ import com.imbres.controlededespesas.components.MyTextFieldComponent
 import com.imbres.controlededespesas.components.NormalTitleTextComponent
 import com.imbres.controlededespesas.components.PasswordTextFieldComponent
 import com.imbres.controlededespesas.components.UnderLinedTextComponent
-import com.imbres.controlededespesas.data.LoginViewModel
+import com.imbres.controlededespesas.data.login.LoginViewModel
 import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.greenFinLight
-import com.nativemobilebits.loginflow.data.login.LoginUIEvent
+import com.imbres.controlededespesas.data.login.LoginUIEvent
 
 @Composable
 fun LoginScreen(loginViewModel: LoginViewModel = viewModel()){
@@ -53,9 +53,11 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()){
                 verticalArrangement = Arrangement.Center,
 
             ){
-                NormalTitleTextComponent(
+
+                BlackNormalTextComponent(
                     valueText = stringResource(id = R.string.bem_vindo),
-                    valueSize = 30,
+                    valuePadding = 8,
+                    valueSize = 25,
                     valueTextColor = TextColor,
                     alignText = "Left"
                 )
@@ -96,7 +98,8 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()){
                     }
             ){
                 Column (
-                    modifier = Modifier.padding(start = 20.dp, top = 40.dp, end = 20.dp)
+                    modifier = Modifier
+                        .padding(start = 20.dp, top = 40.dp, end = 20.dp)
                 ){
                     MyTextFieldComponent(labelValue = stringResource(id = R.string.email),
                         painterResource(id = R.drawable.message),
@@ -120,8 +123,10 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()){
 
                     ButtonComponent(
                         value = stringResource(id = R.string.login),
-                        onButtonClicked = {  },
-                        isEnabled = true
+                        onButtonClicked = {
+                            loginViewModel.onEvent(LoginUIEvent.LoginButtonClicked)
+                        },
+                        isEnabled = loginViewModel.allValidationsPassed.value
                     )
 
                     Spacer(modifier = Modifier.height(40.dp))
@@ -138,171 +143,20 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()){
             color = greenFinLight
         ){
             Column (
-                modifier = Modifier.padding(start = 20.dp, top = 20.dp, end = 20.dp),
+                modifier = Modifier
+                    .padding(start = 20.dp, top = 20.dp, end = 20.dp),
                 verticalArrangement = Arrangement.Center
             ) {
                 BlackNormalTextComponent(
                     valueText = stringResource(id = R.string.sign_up_account),
+                    valuePadding = 0,
                     valueSize = 18,
-                    valueTextColor = TextColor
+                    valueTextColor = TextColor,
+                    alignText = "Center"
                 )
             }
         }
     }
-}
-
-@Composable
-fun LoginScreenBkp(loginViewModel: LoginViewModel = viewModel()) {
-
-    Column(
-        modifier = Modifier
-            .background(color = colorResource(id = R.color.greenFinLight))
-            .padding(top = 20.dp),
-    ) {
-        NormalTitleTextComponent(
-            valueText = stringResource(id = R.string.bem_vindo),
-            valueSize = 30,
-            valueTextColor = TextColor,
-            alignText = "Left"
-        )
-
-        NormalTitleTextComponent(
-            valueText = stringResource(id = R.string.login_account),
-            valueSize = 25,
-            valueTextColor = TextColor,
-            alignText = "Left"
-        )
-
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(color = colorResource(id = R.color.greenFinLight))
-                .padding(top = 20.dp)
-                .drawWithCache {
-                    val brush = Brush.linearGradient(
-                        listOf(
-                            Color.White,
-                            Color.White
-                        )
-                    )
-                    onDrawBehind {
-                        drawRoundRect(
-                            brush,
-                            cornerRadius = CornerRadius(30.dp.toPx())
-                        )
-                    }
-                },
-        ) {
-
-            Spacer(modifier = Modifier.height(25.dp))
-
-            NormalTitleTextComponent(
-                valueText = stringResource(id = R.string.email),
-                valueSize = 20,
-                valueTextColor = TextColor,
-                alignText = "Left"
-            )
-
-            NormalTitleTextComponent(
-                valueText = stringResource(id = R.string.email),
-                valueSize = 20,
-                valueTextColor = TextColor,
-                alignText = "Left"
-            )
-
-            NormalTitleTextComponent(
-                valueText = stringResource(id = R.string.password),
-                valueSize = 20,
-                valueTextColor = TextColor,
-                alignText = "Left"
-            )
-
-            NormalTitleTextComponent(
-                valueText = stringResource(id = R.string.password),
-                valueSize = 20,
-                valueTextColor = TextColor,
-                alignText = "Left"
-            )
-
-            NormalTitleTextComponent(
-                valueText = stringResource(id = R.string.password),
-                valueSize = 20,
-                valueTextColor = TextColor,
-                alignText = "Left"
-            )
-
-            Spacer(modifier = Modifier.height(25.dp))
-
-            NormalTitleTextComponent(
-                valueText = stringResource(id = R.string.password),
-                valueSize = 20,
-                valueTextColor = TextColor,
-                alignText = "Left"
-            )
-
-            Spacer(modifier = Modifier.height(25.dp))
-
-            NormalTitleTextComponent(
-                valueText = stringResource(id = R.string.password),
-                valueSize = 20,
-                valueTextColor = TextColor,
-                alignText = "Left"
-            )
-
-            NormalTitleTextComponent(
-                valueText = stringResource(id = R.string.password),
-                valueSize = 20,
-                valueTextColor = TextColor,
-                alignText = "Left"
-            )
-
-            Spacer(modifier = Modifier.height(50.dp))
-
-            NormalTitleTextComponent(
-                valueText = stringResource(id = R.string.password),
-                valueSize = 20,
-                valueTextColor = TextColor,
-                alignText = "Left"
-            )
-
-        }
-    }
-
-    /*    Column(
-            modifier = Modifier
-                .background(color = Color.LightGray),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Top,
-        ) {
-            NormalTitleTextComponent(
-                valueText = stringResource(id = R.string.bem_vindo),
-                valueSize = 30,
-                valueTextColor = TextColor
-            )
-            NormalTitleTextComponent(
-                valueText = stringResource(id = R.string.login_account),
-                valueSize = 25,
-                valueTextColor = TextColor
-            )
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(color = Color.Red)
-                    .clip(
-                        RoundedCornerShape(
-                            topStart = 10.dp,
-                            topEnd = 10.dp
-                        )
-                    ),
-            ) {
-                NormalTitleTextComponent(
-                    valueText = stringResource(id = R.string.controle_despesas),
-                    valueSize = 25,
-                    valueTextColor = TextColor
-                )
-            }
-        }*/
-
 }
 
 @Preview(showBackground = true, showSystemUi = true)

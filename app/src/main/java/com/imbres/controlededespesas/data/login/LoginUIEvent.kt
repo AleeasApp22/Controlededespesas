@@ -1,4 +1,4 @@
-package com.nativemobilebits.loginflow.data.login
+package com.imbres.controlededespesas.data.login
 
 sealed class LoginUIEvent{
 
