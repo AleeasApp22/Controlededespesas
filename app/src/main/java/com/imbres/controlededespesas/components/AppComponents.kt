@@ -179,8 +179,10 @@ fun PasswordTextFieldComponent(
         //.clip(componentShapes.small),
         label = { Text(text = labelValue) },
         colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = Color.Black,
-            focusedLabelColor = Color.Black,
+            focusedBorderColor = Color.Gray,
+            focusedLabelColor = Color.Gray,
+            unfocusedBorderColor = Color.Gray,
+            unfocusedLabelColor = Color.Gray,
 //            cursorColor = Color.Black,
 //            errorCursorColor = Color.Black,
 //            errorBorderColor = Color.Black,
@@ -294,7 +296,13 @@ fun ButtonComponent(value: String, onButtonClicked: () -> Unit, isEnabled: Boole
         shape = RoundedCornerShape(10.dp),
         onClick = { onButtonClicked.invoke() },
         contentPadding = PaddingValues(),
-        colors = ButtonDefaults.buttonColors(Color.Transparent),
+        colors = ButtonDefaults.buttonColors(
+            Color.Transparent,
+            Color.White,
+            Color.Transparent,
+            Color.Gray,
+        ),
+        enabled = isEnabled
     ) {
         Box(
             modifier = Modifier

@@ -2,14 +2,17 @@
     <string name="app_name">Controle</string>
     <string name="bem_vindo_ao">Bem-vindo ao</string>
     <string name="bem_vindo">Bem-vindo</string>
+    <string name="recovery_password">Recuperar senha</string>
     <string name="controle_despesas">Controle de despesas!</string>
     <string name="iniciar">Iniciar</string>
     <string name="sign_up_account">Não possui conta?</string>
     <string name="login_account">Autentique-se em sua conta</string>
+    <string name="change_password">Atualizar minha senha</string>
     <string name="login">Login</string>
+    <string name="validar">Validar</string>
     <string name="email">Email</string>
     <string name="password">Senha</string>
-    <string name="change_password">Esqueci minha senha</string>
+    <string name="lost_password">Esqueci minha senha</string>
     <string name="hide_password">Hide password</string>
     <string name="show_password">Show password</string>
 </resources>

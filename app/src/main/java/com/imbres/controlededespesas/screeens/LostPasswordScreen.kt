@@ -1,6 +1,5 @@
 package com.imbres.controlededespesas.screeens
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,7 +19,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -31,15 +29,13 @@ import com.imbres.controlededespesas.components.MyTextFieldComponent
 import com.imbres.controlededespesas.components.NormalTitleTextComponent
 import com.imbres.controlededespesas.components.PasswordTextFieldComponent
 import com.imbres.controlededespesas.components.UnderLinedTextComponent
-import com.imbres.controlededespesas.data.login.LoginUIEvent
 import com.imbres.controlededespesas.data.login.LoginViewModel
 import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.greenFinLight
-
-private var errorButton = false
+import com.imbres.controlededespesas.data.login.LoginUIEvent
 
 @Composable
-fun LoginScreen(loginViewModel: LoginViewModel = viewModel()){
+fun LostPasswordScreen(loginViewModel: LoginViewModel = viewModel()){
 
     Column (
         modifier = Modifier.fillMaxSize(),
@@ -59,7 +55,7 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()){
             ){
 
                 BlackNormalTextComponent(
-                    valueText = stringResource(id = R.string.bem_vindo),
+                    valueText = stringResource(id = R.string.recovery_password),
                     valuePadding = 8,
                     valueSize = 25,
                     valueTextColor = TextColor,
@@ -67,7 +63,7 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()){
                 )
 
                 NormalTitleTextComponent(
-                    valueText = stringResource(id = R.string.login_account),
+                    valueText = stringResource(id = R.string.change_password),
                     valueSize = 20,
                     valueTextColor = TextColor,
                     alignText = "Left"
@@ -112,33 +108,29 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()){
                         },
                         errorStatus = loginViewModel.loginUIState.value.emailError
                     )
-                    errorButton = loginViewModel.loginUIState.value.emailError
 
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    PasswordTextFieldComponent(labelValue = stringResource(id = R.string.password),
+/*                    PasswordTextFieldComponent(labelValue = stringResource(id = R.string.password),
                         painterResource(id = R.drawable.lock),
                         onTextSelected = {
                             loginViewModel.onEvent(LoginUIEvent.PasswordChanged(it))
                         },
                         errorStatus = loginViewModel.loginUIState.value.passwordError
                     )
-                    errorButton = loginViewModel.loginUIState.value.passwordError
 
-                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.height(20.dp))*/
 
                     ButtonComponent(
-                        value = stringResource(id = R.string.login),
+                        value = stringResource(id = R.string.validar),
                         onButtonClicked = {
                             loginViewModel.onEvent(LoginUIEvent.LoginButtonClicked)
                         },
-                        isEnabled =  if (errorButton) loginViewModel.allValidationsPassed.value else false,
+                        isEnabled = loginViewModel.allValidationsPassed.value
                     )
 
-                    Spacer(modifier = Modifier.height(40.dp))
 
-                        UnderLinedTextComponent(valueText = stringResource(id = R.string.lost_password))
-                    }
+                }
             }
         }
         Surface (
@@ -166,6 +158,6 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()){
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun LoginScreenPreview() {
-    LoginScreen()
+fun LostPasswordScreenPreview() {
+    LostPasswordScreen()
 }
