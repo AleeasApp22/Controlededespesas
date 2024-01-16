@@ -11,12 +11,12 @@ import com.imbres.controlededespesas.SplashScreen
 fun SetupNavGraph(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = Screen.Splash.route
+        startDestination = ScreenSplash.Splash.route
     ) {
-        composable(route = Screen.Splash.route) {
+        composable(route = ScreenSplash.Splash.route) {
             SplashScreen(navController = navController)
         }
-        composable(route = Screen.Home.route) {
+        composable(route = ScreenSplash.Home.route) {
             ControleApp()
         }
     }

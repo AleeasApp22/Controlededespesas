@@ -34,6 +34,8 @@ import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.greenFinLight
 import com.imbres.controlededespesas.data.login.LoginUIEvent
 
+private var errorButton = false
+
 @Composable
 fun LostPasswordScreen(loginViewModel: LoginViewModel = viewModel()){
 
@@ -108,25 +110,16 @@ fun LostPasswordScreen(loginViewModel: LoginViewModel = viewModel()){
                         },
                         errorStatus = loginViewModel.loginUIState.value.emailError
                     )
+                    errorButton = loginViewModel.loginUIState.value.emailError
 
                     Spacer(modifier = Modifier.height(20.dp))
-
-/*                    PasswordTextFieldComponent(labelValue = stringResource(id = R.string.password),
-                        painterResource(id = R.drawable.lock),
-                        onTextSelected = {
-                            loginViewModel.onEvent(LoginUIEvent.PasswordChanged(it))
-                        },
-                        errorStatus = loginViewModel.loginUIState.value.passwordError
-                    )
-
-                    Spacer(modifier = Modifier.height(20.dp))*/
 
                     ButtonComponent(
                         value = stringResource(id = R.string.validar),
                         onButtonClicked = {
                             loginViewModel.onEvent(LoginUIEvent.LoginButtonClicked)
                         },
-                        isEnabled = loginViewModel.allValidationsPassed.value
+                        isEnabled =  if (errorButton) loginViewModel.allValidationsPassed.value else false,
                     )
 
 

@@ -1,6 +1,6 @@
 package com.imbres.controlededespesas.navigation
 
-sealed class Screen(val route: String) {
-    object Splash : Screen("splash_screen")
-    object Home : Screen("home_screen")
+sealed class ScreenSplash(val route: String) {
+    object Splash : ScreenSplash("splash_screen")
+    object Home : ScreenSplash("home_screen")
 }

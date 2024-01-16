@@ -1,13 +1,17 @@
 package com.imbres.controlededespesas.components
 
 import android.provider.CalendarContract.Colors
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.R
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -15,6 +19,7 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -31,7 +36,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -40,8 +47,10 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.imbres.controlededespesas.ui.theme.GrayColor
 import com.imbres.controlededespesas.ui.theme.Primary
 import com.imbres.controlededespesas.ui.theme.Secondary
 import com.imbres.controlededespesas.ui.theme.TextColor
@@ -132,9 +141,10 @@ fun MyTextFieldComponent(
         label = { Text(text = labelValue) },
         colors = TextFieldDefaults.outlinedTextFieldColors(
 
-            focusedBorderColor = Color.Black,
-            focusedLabelColor = Color.Black,
-            cursorColor = Color.Black,
+            focusedBorderColor = Color.Gray,
+            focusedLabelColor = Color.Gray,
+            unfocusedBorderColor = Color.Gray,
+            unfocusedLabelColor = Color.Gray,
 //            errorCursorColor = Color.Black,
 //            errorBorderColor = Color.Black,
 //            errorLabelColor = Color.Black,
@@ -251,43 +261,6 @@ fun UnderLinedTextComponent(valueText: String) {
 }
 
 @Composable
-fun MyTextFieldComponent2(
-    labelValue: String, painterResource: Painter,
-    onTextChanged: (String) -> Unit,
-    errorStatus: Boolean = false
-) {
-    val textValue = remember {
-        mutableStateOf("")
-    }
-    val localFocusManager = LocalFocusManager.current
-
-    OutlinedTextField(
-        modifier = Modifier
-            .fillMaxWidth(),
-        //.clip(componentShapes.small),
-        label = { Text(text = labelValue) },
-        /*colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = Primary,
-            focusedLabelColor = Primary,
-            cursorColor = Primary,
-            backgroundColor = BgColor
-        ),*/
-        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-        singleLine = true,
-        maxLines = 1,
-        value = textValue.value,
-        onValueChange = {
-            textValue.value = it
-            onTextChanged(it)
-        },
-        leadingIcon = {
-            Icon(painter = painterResource, contentDescription = "")
-        },
-        isError = !errorStatus
-    )
-}
-
-@Composable
 fun ButtonComponent(value: String, onButtonClicked: () -> Unit, isEnabled: Boolean = false) {
     Button(
         modifier = Modifier
@@ -321,3 +294,35 @@ fun ButtonComponent(value: String, onButtonClicked: () -> Unit, isEnabled: Boole
         }
     }
 }
+
+@Composable
+fun DividerTextComponent() {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+
+        Divider(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f),
+            color = Color.Gray,
+            thickness = 1.dp
+        )
+
+        Text(
+            modifier = Modifier.padding(8.dp),
+            text = stringResource(id = com.imbres.controlededespesas.R.string.ou),
+            fontSize = 16.sp,
+            color = TextColor
+        )
+        Divider(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f),
+            color = GrayColor,
+            thickness = 1.dp
+        )
+    }
+}
+
