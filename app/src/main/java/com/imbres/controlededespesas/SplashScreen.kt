@@ -14,10 +14,8 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.imbres.controlededespesas.navigation.PostOfficeAppRouter
-import com.imbres.controlededespesas.ui.theme.ControleDeDespesasTheme
-import com.imbres.controlededespesas.navigation.Screen
 import com.imbres.controlededespesas.navigation.ScreenSplash
+import com.imbres.controlededespesas.ui.theme.ControleDeDespesasTheme
 
 @Composable
 fun SplashScreen(navController: NavHostController) {

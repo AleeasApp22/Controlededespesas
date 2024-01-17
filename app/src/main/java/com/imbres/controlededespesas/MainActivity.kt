@@ -7,6 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import com.imbres.controlededespesas.navigation.SetupNavGraph
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -14,4 +15,6 @@ class MainActivity : ComponentActivity() {
             SetupNavGraph(navController = navController)
         }
     }
+
 }
+

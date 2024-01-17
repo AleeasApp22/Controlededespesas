@@ -1,17 +1,20 @@
 package com.imbres.controlededespesas.components
 
-import android.provider.CalendarContract.Colors
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.R
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -34,11 +37,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -47,7 +49,6 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.imbres.controlededespesas.ui.theme.GrayColor
@@ -326,3 +327,24 @@ fun DividerTextComponent() {
     }
 }
 
+@Composable
+fun ToastDisplay(msg: String) {
+    val ctx = LocalContext.current
+    Column(
+        Modifier
+            .fillMaxHeight()
+            .fillMaxWidth(), verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+/*        Text(text = "Hello $name", color = Color.Red,
+            modifier = Modifier
+                .background(Color.Green)
+                .clickable {
+                    Toast
+                        .makeText(ctx, "Welcome to the Compose World", Toast.LENGTH_SHORT)
+                        .show()
+                })*/
+        Toast.makeText(ctx, msg, Toast.LENGTH_SHORT).show()
+
+    }
+}

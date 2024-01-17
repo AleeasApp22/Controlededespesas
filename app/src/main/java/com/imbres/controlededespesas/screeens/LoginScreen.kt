@@ -25,7 +25,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.compose.rememberNavController
 import com.imbres.controlededespesas.R
 import com.imbres.controlededespesas.components.BlackNormalTextComponent
 import com.imbres.controlededespesas.components.ButtonComponent
@@ -33,39 +32,36 @@ import com.imbres.controlededespesas.components.DividerTextComponent
 import com.imbres.controlededespesas.components.MyTextFieldComponent
 import com.imbres.controlededespesas.components.NormalTitleTextComponent
 import com.imbres.controlededespesas.components.PasswordTextFieldComponent
+import com.imbres.controlededespesas.components.ToastDisplay
 import com.imbres.controlededespesas.components.UnderLinedTextComponent
 import com.imbres.controlededespesas.data.login.LoginUIEvent
 import com.imbres.controlededespesas.data.login.LoginViewModel
-import com.imbres.controlededespesas.navigation.PostOfficeAppRouter
-import com.imbres.controlededespesas.navigation.Screen
-import com.imbres.controlededespesas.navigation.ScreenSplash
-import com.imbres.controlededespesas.navigation.SetupNavGraph
-import com.imbres.controlededespesas.navigation.SystemBackButtonHandler
 import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.TextColorGreenHeavy
 import com.imbres.controlededespesas.ui.theme.greenFinLight
 
 private var errorButton = false
 
-@Composable
-fun LoginScreen(loginViewModel: LoginViewModel = viewModel()){
 
-    Column (
+@Composable
+fun LoginScreen(loginViewModel: LoginViewModel = viewModel()) {
+
+    Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-    ){
-        Surface (
+    ) {
+        Surface(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f),
             color = greenFinLight
-        ){
-            Column (
+        ) {
+            Column(
                 modifier = Modifier.padding(start = 10.dp, end = 10.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
 
-            ){
+                ) {
 
                 BlackNormalTextComponent(
                     valueText = stringResource(id = R.string.bem_vindo),
@@ -84,12 +80,12 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()){
             }
         }
 
-        Surface (
+        Surface(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(5f),
             color = Color.Green
-        ){
+        ) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -109,12 +105,14 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()){
                             )
                         }
                     }
-            ){
-                Column (
+            ) {
+                Column(
                     modifier = Modifier
                         .padding(start = 20.dp, top = 40.dp, end = 20.dp)
-                ){
-                    MyTextFieldComponent(labelValue = stringResource(id = R.string.email),
+                ) {
+
+                    MyTextFieldComponent(
+                        labelValue = stringResource(id = R.string.email),
                         painterResource(id = R.drawable.message),
                         onTextChanged = {
                             loginViewModel.onEvent(LoginUIEvent.EmailChanged(it))
@@ -125,7 +123,8 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()){
 
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    PasswordTextFieldComponent(labelValue = stringResource(id = R.string.password),
+                    PasswordTextFieldComponent(
+                        labelValue = stringResource(id = R.string.password),
                         painterResource(id = R.drawable.lock),
                         onTextSelected = {
                             loginViewModel.onEvent(LoginUIEvent.PasswordChanged(it))
@@ -141,7 +140,7 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()){
                         onButtonClicked = {
                             loginViewModel.onEvent(LoginUIEvent.LoginButtonClicked)
                         },
-                        isEnabled =  if (errorButton) loginViewModel.allValidationsPassed.value else false,
+                        isEnabled = if (errorButton) loginViewModel.allValidationsPassed.value else false
                     )
 
                     Spacer(modifier = Modifier.height(40.dp))
@@ -151,17 +150,20 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()){
                     Spacer(modifier = Modifier.height(40.dp))
 
                     UnderLinedTextComponent(valueText = stringResource(id = R.string.lost_password))
-                    }
+                }
             }
 
-            if(loginViewModel.loginInProgress.value) {
-                Column (
+            if (loginViewModel.loginInProgress.value) {
+                Column(
                     modifier = Modifier
                         .height(70.dp)
                         .width(70.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
-                ){
+                ) {
+
+                    ToastDisplay("Hello Login!")
+
                     CircularProgressIndicator(
                         color = TextColorGreenHeavy,
                         trackColor = Color.Green,
@@ -171,18 +173,20 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()){
             }
 
         }
+        /*
 
-        SystemBackButtonHandler {
-            PostOfficeAppRouter.navigateTo(Screen.SignUpScreen)
-        }
+                SystemBackButtonHandler {
+                    PostOfficeAppRouter.navigateTo(Screen.SignUpScreen)
+                }
+        */
 
-        Surface (
+        Surface(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f),
             color = greenFinLight
-        ){
-            Column (
+        ) {
+            Column(
                 modifier = Modifier
                     .padding(start = 20.dp, top = 20.dp, end = 20.dp),
                 verticalArrangement = Arrangement.Center

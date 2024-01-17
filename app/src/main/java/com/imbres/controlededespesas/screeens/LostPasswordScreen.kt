@@ -27,12 +27,10 @@ import com.imbres.controlededespesas.components.BlackNormalTextComponent
 import com.imbres.controlededespesas.components.ButtonComponent
 import com.imbres.controlededespesas.components.MyTextFieldComponent
 import com.imbres.controlededespesas.components.NormalTitleTextComponent
-import com.imbres.controlededespesas.components.PasswordTextFieldComponent
-import com.imbres.controlededespesas.components.UnderLinedTextComponent
+import com.imbres.controlededespesas.data.login.LoginUIEvent
 import com.imbres.controlededespesas.data.login.LoginViewModel
 import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.greenFinLight
-import com.imbres.controlededespesas.data.login.LoginUIEvent
 
 private var errorButton = false
 
@@ -121,8 +119,6 @@ fun LostPasswordScreen(loginViewModel: LoginViewModel = viewModel()){
                         },
                         isEnabled =  if (errorButton) loginViewModel.allValidationsPassed.value else false,
                     )
-
-
                 }
             }
         }
