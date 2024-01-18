@@ -36,6 +36,7 @@ import com.imbres.controlededespesas.ui.theme.TextColorGreenHeavy
 @Composable
 //fun MessageScreen(){
 fun MessageScreen(messageViewModel: MessageViewModel = viewModel()){
+
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -78,22 +79,21 @@ fun MessageScreen(messageViewModel: MessageViewModel = viewModel()){
                 isEnabled = true
             )
         }
-
-        if (messageViewModel.messageInProgress.value) {
-            Column(
-                modifier = Modifier
-                    .height(70.dp)
-                    .width(70.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-
-                LoginScreen()
-
-            }
-        }
     }
-}
+
+    if (messageViewModel.messageInProgress.value) {
+        Column(
+            modifier = Modifier
+                .height(70.dp)
+                .width(70.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+
+            LoginScreen()
+
+        }
+    }}
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
