@@ -26,8 +26,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.imbres.controlededespesas.R
 import com.imbres.controlededespesas.components.BlackNormalTextComponent
 import com.imbres.controlededespesas.components.ButtonComponent
+import com.imbres.controlededespesas.components.LoadingAnimation
 import com.imbres.controlededespesas.components.NormalTextComponent
-import com.imbres.controlededespesas.components.ToastDisplay
 import com.imbres.controlededespesas.data.message.MessageUIEvent
 import com.imbres.controlededespesas.data.message.MessageViewModel
 import com.imbres.controlededespesas.ui.theme.TextColor
@@ -89,6 +89,14 @@ fun MessageScreen(messageViewModel: MessageViewModel = viewModel()){
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
+
+            LoadingAnimation()
+
+/*            CircularProgressIndicator(
+                color = TextColorGreenHeavy,
+                trackColor = Color.Green,
+                strokeCap = StrokeCap.Butt,
+            )*/
 
             LoginScreen()
 
