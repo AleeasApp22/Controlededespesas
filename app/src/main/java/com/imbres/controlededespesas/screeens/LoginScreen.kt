@@ -169,6 +169,7 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()) {
                         trackColor = Color.Green,
                         strokeCap = StrokeCap.Butt,
                     )
+
                 }
             }
 

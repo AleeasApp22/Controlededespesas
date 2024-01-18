@@ -9,25 +9,33 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.imbres.controlededespesas.R
 import com.imbres.controlededespesas.components.BlackNormalTextComponent
 import com.imbres.controlededespesas.components.ButtonComponent
 import com.imbres.controlededespesas.components.NormalTextComponent
+import com.imbres.controlededespesas.components.ToastDisplay
+import com.imbres.controlededespesas.data.message.MessageUIEvent
+import com.imbres.controlededespesas.data.message.MessageViewModel
 import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.TextColorGreenHeavy
 
 @Composable
-fun MessageScreen(){
+//fun MessageScreen(){
+fun MessageScreen(messageViewModel: MessageViewModel = viewModel()){
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -51,7 +59,7 @@ fun MessageScreen(){
                 valuePadding = 0,
                 valueSize = 35,
                 valueTextColor = TextColor,
-                alignText = "Left"
+                alignText = "Center"
             )
 
             NormalTextComponent(
@@ -64,10 +72,25 @@ fun MessageScreen(){
 
             ButtonComponent(
                 value = stringResource(id = R.string.iniciar),
-                onButtonClicked = {  },
+                onButtonClicked = {
+                    messageViewModel.onEvent(MessageUIEvent.MessageButtonClicked)
+                },
                 isEnabled = true
             )
+        }
 
+        if (messageViewModel.messageInProgress.value) {
+            Column(
+                modifier = Modifier
+                    .height(70.dp)
+                    .width(70.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+
+                LoginScreen()
+
+            }
         }
     }
 }

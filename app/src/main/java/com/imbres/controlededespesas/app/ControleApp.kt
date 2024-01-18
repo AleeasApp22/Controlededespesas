@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.imbres.controlededespesas.screeens.LoginScreen
+import com.imbres.controlededespesas.screeens.MessageScreen
 
 @Composable
 fun ControleApp(){
@@ -13,7 +14,7 @@ fun ControleApp(){
         modifier = Modifier.fillMaxSize(),
         color = Color.White
     ){
-        LoginScreen()
+        MessageScreen()
     }
 }
 

@@ -4,13 +4,19 @@ import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import com.imbres.controlededespesas.components.ToastDisplay
+import com.imbres.controlededespesas.navigation.PostOfficeAppRouter
+import com.imbres.controlededespesas.navigation.Screen
 import com.imbres.controlededespesas.rules.Validator
+import com.imbres.controlededespesas.ui.theme.TextColorGreenHeavy
 import java.lang.reflect.Modifier
 
 class LoginViewModel : ViewModel() {
@@ -68,6 +74,8 @@ class LoginViewModel : ViewModel() {
         loginInProgress.value = true
         val email = loginUIState.value.email
         val password = loginUIState.value.password
+
+        PostOfficeAppRouter.navigateTo(Screen.HomeScreen)
 
     }
         /* FirebaseAuth

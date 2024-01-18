@@ -1,5 +1,6 @@
 package com.imbres.controlededespesas.navigation
 
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 
@@ -16,7 +17,9 @@ object PostOfficeAppRouter {
     var currentScreen: MutableState<Screen> = mutableStateOf(Screen.SignUpScreen)
 
     fun navigateTo(destination : Screen){
+
         currentScreen.value = destination
+
     }
 
 

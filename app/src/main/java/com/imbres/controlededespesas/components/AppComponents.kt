@@ -27,6 +27,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Snackbar
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -330,21 +331,5 @@ fun DividerTextComponent() {
 @Composable
 fun ToastDisplay(msg: String) {
     val ctx = LocalContext.current
-    Column(
-        Modifier
-            .fillMaxHeight()
-            .fillMaxWidth(), verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-/*        Text(text = "Hello $name", color = Color.Red,
-            modifier = Modifier
-                .background(Color.Green)
-                .clickable {
-                    Toast
-                        .makeText(ctx, "Welcome to the Compose World", Toast.LENGTH_SHORT)
-                        .show()
-                })*/
-        Toast.makeText(ctx, msg, Toast.LENGTH_SHORT).show()
-
-    }
+    Toast.makeText(ctx, msg, Toast.LENGTH_SHORT).show()
 }
