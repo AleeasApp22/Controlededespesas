@@ -1,5 +1,6 @@
 package com.imbres.controlededespesas.screeens
 
+import android.widget.Space
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -29,6 +30,7 @@ import com.imbres.controlededespesas.R
 import com.imbres.controlededespesas.components.BlackNormalTextComponent
 import com.imbres.controlededespesas.components.ButtonComponent
 import com.imbres.controlededespesas.components.DividerTextComponent
+import com.imbres.controlededespesas.components.LoadingAnimation
 import com.imbres.controlededespesas.components.MyTextFieldComponent
 import com.imbres.controlededespesas.components.NormalTitleTextComponent
 import com.imbres.controlededespesas.components.PasswordTextFieldComponent
@@ -50,6 +52,7 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()) {
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+
         Surface(
             modifier = Modifier
                 .fillMaxWidth()
@@ -162,13 +165,17 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()) {
                     verticalArrangement = Arrangement.Center
                 ) {
 
-                    ToastDisplay("Hello Login!")
+                    LoadingAnimation()
 
+                    //ToastDisplay("Hello Login!")
+
+/*
                     CircularProgressIndicator(
                         color = TextColorGreenHeavy,
                         trackColor = Color.Green,
                         strokeCap = StrokeCap.Butt,
                     )
+*/
 
                 }
             }

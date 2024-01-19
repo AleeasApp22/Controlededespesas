@@ -90,14 +90,6 @@ fun MessageScreen(messageViewModel: MessageViewModel = viewModel()){
             verticalArrangement = Arrangement.Center
         ) {
 
-            LoadingAnimation()
-
-/*            CircularProgressIndicator(
-                color = TextColorGreenHeavy,
-                trackColor = Color.Green,
-                strokeCap = StrokeCap.Butt,
-            )*/
-
             LoginScreen()
 
         }
