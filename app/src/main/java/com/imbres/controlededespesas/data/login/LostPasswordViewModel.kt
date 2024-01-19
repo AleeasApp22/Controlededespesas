@@ -6,36 +6,26 @@ import com.imbres.controlededespesas.navigation.PostOfficeAppRouter
 import com.imbres.controlededespesas.navigation.Screen
 import com.imbres.controlededespesas.rules.Validator
 
-class LoginViewModel : ViewModel() {
+class LostPasswordViewModel : ViewModel() {
 
-    private val TAG = LoginViewModel::class.simpleName
+    private val TAG = LostPasswordViewModel::class.simpleName
 
-    var loginUIState = mutableStateOf(LoginUIState())
+    var lostPaswordUIState = mutableStateOf(LostPasswordUIState())
 
     var allValidationsPassed = mutableStateOf(false)
 
     var loginInProgress = mutableStateOf(false)
 
-    fun onEvent(event: LoginUIEvent) {
+    fun onEvent(event: LostPasswordUIEvent) {
         when (event) {
-            is LoginUIEvent.EmailChanged -> {
-                loginUIState.value = loginUIState.value.copy(
+            is LostPasswordUIEvent.EmailChanged -> {
+                lostPaswordUIState.value = lostPaswordUIState.value.copy(
                     email = event.email
                 )
             }
 
-            is LoginUIEvent.PasswordChanged -> {
-                loginUIState.value = loginUIState.value.copy(
-                    password = event.password
-                )
-            }
-
-            is LoginUIEvent.LoginButtonClicked -> {
-                login()
-            }
-
-            is LoginUIEvent.LoginButtonClicked -> {
-                login()
+            is LostPasswordUIEvent.LostPasswordButtonClicked -> {
+                lostPassword()
             }
         }
         validateLoginUIDataWithRules()
@@ -43,28 +33,17 @@ class LoginViewModel : ViewModel() {
 
     private fun validateLoginUIDataWithRules() {
         val emailResult = Validator.validateEmail(
-            email = loginUIState.value.email
+            email = lostPaswordUIState.value.email
         )
 
-
-        val passwordResult = Validator.validatePassword(
-            password = loginUIState.value.password
-        )
-
-        loginUIState.value = loginUIState.value.copy(
-            emailError = emailResult.status,
-            passwordError = passwordResult.status
-        )
-
-        allValidationsPassed.value = emailResult.status && passwordResult.status
+        allValidationsPassed.value = emailResult.status
 
     }
 
-    private fun login() {
+    private fun lostPassword() {
 
         loginInProgress.value = true
-        val email = loginUIState.value.email
-        val password = loginUIState.value.password
+        val email = lostPaswordUIState.value.email
 
         PostOfficeAppRouter.navigateTo(Screen.HomeScreen)
 

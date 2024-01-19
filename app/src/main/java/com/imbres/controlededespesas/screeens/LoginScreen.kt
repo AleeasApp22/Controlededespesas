@@ -1,6 +1,5 @@
 package com.imbres.controlededespesas.screeens
 
-import android.widget.Space
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,7 +17,6 @@ import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -34,12 +31,10 @@ import com.imbres.controlededespesas.components.LoadingAnimation
 import com.imbres.controlededespesas.components.MyTextFieldComponent
 import com.imbres.controlededespesas.components.NormalTitleTextComponent
 import com.imbres.controlededespesas.components.PasswordTextFieldComponent
-import com.imbres.controlededespesas.components.ToastDisplay
 import com.imbres.controlededespesas.components.UnderLinedTextComponent
 import com.imbres.controlededespesas.data.login.LoginUIEvent
 import com.imbres.controlededespesas.data.login.LoginViewModel
 import com.imbres.controlededespesas.ui.theme.TextColor
-import com.imbres.controlededespesas.ui.theme.TextColorGreenHeavy
 import com.imbres.controlededespesas.ui.theme.greenFinLight
 
 private var errorButton = false
@@ -152,7 +147,9 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()) {
 
                     Spacer(modifier = Modifier.height(40.dp))
 
-                    UnderLinedTextComponent(valueText = stringResource(id = R.string.lost_password))
+                    UnderLinedTextComponent(
+                        valueText = stringResource(id = R.string.lost_password),
+                    )
                 }
             }
 
@@ -166,27 +163,13 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()) {
                 ) {
 
                     LoadingAnimation()
-
-                    //ToastDisplay("Hello Login!")
-
-/*
-                    CircularProgressIndicator(
-                        color = TextColorGreenHeavy,
-                        trackColor = Color.Green,
-                        strokeCap = StrokeCap.Butt,
-                    )
-*/
-
                 }
             }
-
         }
-        /*
 
-                SystemBackButtonHandler {
-                    PostOfficeAppRouter.navigateTo(Screen.SignUpScreen)
-                }
-        */
+        /*SystemBackButtonHandler {
+            PostOfficeAppRouter.navigateTo(Screen.SignUpScreen)
+        }*/
 
         Surface(
             modifier = Modifier
