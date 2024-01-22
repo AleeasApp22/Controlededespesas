@@ -19,5 +19,8 @@ fun SetupNavGraph(navController: NavHostController) {
         composable(route = ScreenSplash.Home.route) {
             ControleApp()
         }
+        composable(route = ScreenSplash.LostPasswordScreen.route) {
+            ControleApp()
+        }
     }
 }

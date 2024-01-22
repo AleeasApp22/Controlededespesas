@@ -30,7 +30,6 @@ import com.imbres.controlededespesas.components.DividerTextComponent
 import com.imbres.controlededespesas.components.LoadingAnimation
 import com.imbres.controlededespesas.components.MyTextFieldComponent
 import com.imbres.controlededespesas.components.NormalTitleTextComponent
-import com.imbres.controlededespesas.components.PasswordTextFieldComponent
 import com.imbres.controlededespesas.components.UnderLinedTextComponent
 import com.imbres.controlededespesas.data.login.LostPasswordUIEvent
 import com.imbres.controlededespesas.data.login.LostPasswordViewModel
@@ -115,9 +114,9 @@ fun LostPasswordScreen(lostPasswordViewModel: LostPasswordViewModel = viewModel(
                         onTextChanged = {
                             lostPasswordViewModel.onEvent(LostPasswordUIEvent.EmailChanged(it))
                         },
-                        errorStatus = lostPasswordViewModel.loginUIState.value.emailError
+                        errorStatus = lostPasswordViewModel.lostPaswordUIState.value.emailError
                     )
-                    errorButton = lostPasswordViewModel.loginUIState.value.emailError
+                    errorButton = lostPasswordViewModel.lostPaswordUIState.value.emailError
 
                     Spacer(modifier = Modifier.height(20.dp))
 
@@ -135,7 +134,9 @@ fun LostPasswordScreen(lostPasswordViewModel: LostPasswordViewModel = viewModel(
 
                     Spacer(modifier = Modifier.height(40.dp))
 
-                    UnderLinedTextComponent(valueText = stringResource(id = R.string.lost_password))
+                    UnderLinedTextComponent(
+                        valueText = stringResource(id = R.string.lost_password),
+                        )
                 }
             }
 

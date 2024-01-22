@@ -1,5 +1,6 @@
 package com.imbres.controlededespesas.data.login
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.imbres.controlededespesas.navigation.PostOfficeAppRouter
@@ -14,7 +15,7 @@ class LostPasswordViewModel : ViewModel() {
 
     var allValidationsPassed = mutableStateOf(false)
 
-    var loginInProgress = mutableStateOf(false)
+    var lostPasswordInProgress = mutableStateOf(false)
 
     fun onEvent(event: LostPasswordUIEvent) {
         when (event) {
@@ -42,11 +43,12 @@ class LostPasswordViewModel : ViewModel() {
 
     private fun lostPassword() {
 
-        loginInProgress.value = true
+        lostPasswordInProgress.value = true
         val email = lostPaswordUIState.value.email
 
-        PostOfficeAppRouter.navigateTo(Screen.HomeScreen)
+        Log.d("TAG","lostPassword")
 
+        PostOfficeAppRouter.navigateTo(Screen.LostPasswordScreen)
     }
         /* FirebaseAuth
              .getInstance()

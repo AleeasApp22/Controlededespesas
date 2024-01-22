@@ -34,9 +34,6 @@ class LoginViewModel : ViewModel() {
                 login()
             }
 
-            is LoginUIEvent.LoginButtonClicked -> {
-                login()
-            }
         }
         validateLoginUIDataWithRules()
     }
@@ -90,4 +87,3 @@ class LoginViewModel : ViewModel() {
              }*/
 
     }
-
