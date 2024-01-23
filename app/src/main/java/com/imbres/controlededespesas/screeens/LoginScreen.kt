@@ -1,6 +1,5 @@
 package com.imbres.controlededespesas.screeens
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,7 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.imbres.controlededespesas.MainSplash
+import androidx.navigation.compose.rememberNavController
 import com.imbres.controlededespesas.R
 import com.imbres.controlededespesas.components.BlackNormalTextComponent
 import com.imbres.controlededespesas.components.ButtonComponent
@@ -38,13 +37,10 @@ import com.imbres.controlededespesas.data.login.LoginUIEvent
 import com.imbres.controlededespesas.data.login.LoginViewModel
 import com.imbres.controlededespesas.data.login.LostPasswordUIEvent
 import com.imbres.controlededespesas.data.login.LostPasswordViewModel
-import com.imbres.controlededespesas.navigation.PostOfficeAppRouter
-import com.imbres.controlededespesas.navigation.Screen
 import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.greenFinLight
 
 private var errorButton = false
-
 
 @Composable
 fun LoginScreen(
@@ -158,9 +154,7 @@ fun LoginScreen(
 
                     ClickableLostPasswordTextComponent(
                         stringResource(id = R.string.lost_password),
-                        onButtonClicked = {
-                            loginViewModel.onEvent(LoginUIEvent.LoginButtonClicked)
-                        },
+                        onButtonClicked = { lostPasswordViewModel.onEvent(LostPasswordUIEvent.LostPasswordButtonClicked) },
                     )
 
                 }
@@ -176,6 +170,19 @@ fun LoginScreen(
                 ) {
 
                     LoadingAnimation()
+                }
+            }
+
+            if (lostPasswordViewModel.lostPasswordInProgress.value) {
+                Column(
+                    modifier = Modifier
+                        .height(70.dp)
+                        .width(70.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+
+                    LostPasswordScreen()
                 }
             }
         }

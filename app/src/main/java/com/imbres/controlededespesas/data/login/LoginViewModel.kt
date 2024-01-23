@@ -2,8 +2,9 @@ package com.imbres.controlededespesas.data.login
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.imbres.controlededespesas.navigation.PostOfficeAppRouter
+import com.imbres.controlededespesas.navigation.AppRouter
 import com.imbres.controlededespesas.navigation.Screen
+import com.imbres.controlededespesas.navigation.ScreenAppRouter
 import com.imbres.controlededespesas.rules.Validator
 
 class LoginViewModel : ViewModel() {
@@ -63,7 +64,7 @@ class LoginViewModel : ViewModel() {
         val email = loginUIState.value.email
         val password = loginUIState.value.password
 
-        PostOfficeAppRouter.navigateTo(Screen.HomeScreen)
+        AppRouter.navigateTo(ScreenAppRouter.HomeScreenAppRouter)
 
     }
         /* FirebaseAuth

@@ -140,7 +140,7 @@ fun LostPasswordScreen(lostPasswordViewModel: LostPasswordViewModel = viewModel(
                 }
             }
 
-            if (lostPasswordViewModel.loginInProgress.value) {
+            if (lostPasswordViewModel.lostPasswordInProgress.value) {
                 Column(
                     modifier = Modifier
                         .height(70.dp)

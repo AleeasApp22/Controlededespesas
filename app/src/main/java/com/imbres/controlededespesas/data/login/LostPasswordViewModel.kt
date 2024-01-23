@@ -3,8 +3,9 @@ package com.imbres.controlededespesas.data.login
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.imbres.controlededespesas.navigation.PostOfficeAppRouter
+import com.imbres.controlededespesas.navigation.AppRouter
 import com.imbres.controlededespesas.navigation.Screen
+import com.imbres.controlededespesas.navigation.ScreenAppRouter
 import com.imbres.controlededespesas.rules.Validator
 
 class LostPasswordViewModel : ViewModel() {
@@ -48,7 +49,7 @@ class LostPasswordViewModel : ViewModel() {
 
         Log.d("TAG","lostPassword")
 
-        PostOfficeAppRouter.navigateTo(Screen.LostPasswordScreen)
+        AppRouter.navigateTo(ScreenAppRouter.LostPasswordScreenAppRouter)
     }
         /* FirebaseAuth
              .getInstance()
