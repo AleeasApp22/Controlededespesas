@@ -156,7 +156,6 @@ fun LoginScreen(
 
                     Spacer(modifier = Modifier.height(40.dp))
 
-                    //ClickableLostPasswordTextComponent(
                     ClickableUnderLinedTextComponent(
                         stringResource(id = R.string.lost_password),
                         onButtonClicked = {
@@ -176,8 +175,8 @@ fun LoginScreen(
                     verticalArrangement = Arrangement.Center
                 ) {
                     LoadingAnimation()
-                    navController.popBackStack()
-                    navController.navigate(Screen.LostPassword.route)
+                    //navController.popBackStack()
+                    //navController.navigate(Screen.LostPassword.route)
                 }
             }
 
@@ -189,8 +188,6 @@ fun LoginScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    //LostPasswordScreen(navController = navController)
-                    navController.popBackStack()
                     navController.navigate(Screen.LostPassword.route)
 
                 }
