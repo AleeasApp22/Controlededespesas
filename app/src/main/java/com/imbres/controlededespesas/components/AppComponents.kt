@@ -239,7 +239,8 @@ fun PasswordTextFieldComponent(
     )
 }
 @Composable
-fun ClickableLostPasswordTextComponent(valueText: String, onButtonClicked: () -> Unit,) {
+fun ClickableUnderLinedTextComponent(valueText: String, onButtonClicked: () -> Unit,) {
+//fun ClickableLostPasswordTextComponent(valueText: String, onButtonClicked: () -> Unit,) {
 
     ClickableText(
         modifier = Modifier

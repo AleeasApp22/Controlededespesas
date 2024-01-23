@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.imbres.controlededespesas.navigation.AppRouter
-import com.imbres.controlededespesas.navigation.Screen
 import com.imbres.controlededespesas.navigation.ScreenAppRouter
 import com.imbres.controlededespesas.rules.Validator
 
@@ -47,9 +46,7 @@ class LostPasswordViewModel : ViewModel() {
         lostPasswordInProgress.value = true
         val email = lostPaswordUIState.value.email
 
-        Log.d("TAG","lostPassword")
-
-        AppRouter.navigateTo(ScreenAppRouter.LostPasswordScreenAppRouter)
+        AppRouter.navigateTo(ScreenAppRouter.HomeScreenAppRouter)
     }
         /* FirebaseAuth
              .getInstance()

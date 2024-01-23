@@ -1,5 +1,6 @@
 package com.imbres.controlededespesas.screeens
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,11 +24,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.imbres.controlededespesas.R
 import com.imbres.controlededespesas.components.BlackNormalTextComponent
 import com.imbres.controlededespesas.components.ButtonComponent
-import com.imbres.controlededespesas.components.ClickableLostPasswordTextComponent
+import com.imbres.controlededespesas.components.ClickableUnderLinedTextComponent
 import com.imbres.controlededespesas.components.DividerTextComponent
 import com.imbres.controlededespesas.components.LoadingAnimation
 import com.imbres.controlededespesas.components.MyTextFieldComponent
@@ -37,6 +39,7 @@ import com.imbres.controlededespesas.data.login.LoginUIEvent
 import com.imbres.controlededespesas.data.login.LoginViewModel
 import com.imbres.controlededespesas.data.login.LostPasswordUIEvent
 import com.imbres.controlededespesas.data.login.LostPasswordViewModel
+import com.imbres.controlededespesas.navigation.Screen
 import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.greenFinLight
 
@@ -44,8 +47,9 @@ private var errorButton = false
 
 @Composable
 fun LoginScreen(
+    navController: NavHostController,
     loginViewModel: LoginViewModel = viewModel(),
-    lostPasswordViewModel: LostPasswordViewModel = viewModel()
+    lostPasswordViewModel: LostPasswordViewModel = viewModel(),
 ) {
 
     Column(
@@ -152,9 +156,12 @@ fun LoginScreen(
 
                     Spacer(modifier = Modifier.height(40.dp))
 
-                    ClickableLostPasswordTextComponent(
+                    //ClickableLostPasswordTextComponent(
+                    ClickableUnderLinedTextComponent(
                         stringResource(id = R.string.lost_password),
-                        onButtonClicked = { lostPasswordViewModel.onEvent(LostPasswordUIEvent.LostPasswordButtonClicked) },
+                        onButtonClicked = {
+                            lostPasswordViewModel.onEvent(LostPasswordUIEvent.LostPasswordButtonClicked)
+                        },
                     )
 
                 }
@@ -168,8 +175,9 @@ fun LoginScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-
                     LoadingAnimation()
+                    navController.popBackStack()
+                    navController.navigate(Screen.LostPassword.route)
                 }
             }
 
@@ -181,10 +189,13 @@ fun LoginScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
+                    //LostPasswordScreen(navController = navController)
+                    navController.popBackStack()
+                    navController.navigate(Screen.LostPassword.route)
 
-                    LostPasswordScreen()
                 }
             }
+
         }
 
         /*SystemBackButtonHandler {
@@ -217,5 +228,8 @@ fun LoginScreen(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun LoginScreenPreview() {
-    LoginScreen()
+
+    val navController = rememberNavController()
+    LoginScreen(navController = navController)
+
 }

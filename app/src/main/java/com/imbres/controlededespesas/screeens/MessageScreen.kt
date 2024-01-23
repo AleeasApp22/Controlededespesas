@@ -21,6 +21,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.imbres.controlededespesas.R
 import com.imbres.controlededespesas.components.BlackNormalTextComponent
 import com.imbres.controlededespesas.components.ButtonComponent
@@ -32,7 +34,10 @@ import com.imbres.controlededespesas.ui.theme.TextColorGreenHeavy
 
 @Composable
 //fun MessageScreen(){
-fun MessageScreen(messageViewModel: MessageViewModel = viewModel()){
+fun MessageScreen(
+    navController: NavHostController,
+    messageViewModel: MessageViewModel = viewModel()
+){
 
     Surface(
         modifier = Modifier
@@ -87,7 +92,7 @@ fun MessageScreen(messageViewModel: MessageViewModel = viewModel()){
             verticalArrangement = Arrangement.Center
         ) {
 
-            LoginScreen()
+            LoginScreen(navController = navController)
 
         }
     }}
@@ -95,5 +100,8 @@ fun MessageScreen(messageViewModel: MessageViewModel = viewModel()){
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun MessageScreenPreview(){
-    MessageScreen()
+
+    val navController = rememberNavController()
+    MessageScreen(navController = navController)
+
 }

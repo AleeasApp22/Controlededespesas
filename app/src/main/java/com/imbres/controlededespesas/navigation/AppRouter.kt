@@ -16,7 +16,7 @@ object AppRouter {
 
     var currentScreenAppRouter: MutableState<ScreenAppRouter> = mutableStateOf(ScreenAppRouter.SignUpScreenAppRouter)
 
-    fun navigateTo(destination : ScreenAppRouter){
+    fun navigateTo(destination: ScreenAppRouter.HomeScreenAppRouter){
 
         currentScreenAppRouter.value = destination
 

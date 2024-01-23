@@ -13,6 +13,7 @@
     <string name="email">Email</string>
     <string name="password">Senha</string>
     <string name="lost_password">Esqueci minha senha</string>
+    <string name="back">Retornar</string>
     <string name="hide_password">Hide password</string>
     <string name="show_password">Show password</string>
     <string name="ou">ou</string>
