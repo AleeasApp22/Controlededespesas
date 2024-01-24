@@ -134,7 +134,7 @@ fun LostPasswordScreen(
                     ButtonComponent(
                         value = stringResource(id = R.string.validar),
                         onButtonClicked = {
-                            loginViewModel.onEvent(LoginUIEvent.LoginButtonClicked)
+                            lostPasswordViewModel.onEvent(LostPasswordUIEvent.LostPasswordButtonClicked)
                         },
                         isEnabled = if (errorButton) lostPasswordViewModel.allValidationsPassed.value else false
                     )

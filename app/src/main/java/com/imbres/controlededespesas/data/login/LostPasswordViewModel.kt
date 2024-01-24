@@ -29,13 +29,17 @@ class LostPasswordViewModel : ViewModel() {
                 lostPassword()
             }
         }
-        validateLoginUIDataWithRules()
+        validateLostUIDataWithRules()
     }
 
-    private fun validateLoginUIDataWithRules() {
+    //private fun validateLoginUIDataWithRules() {
+    private fun validateLostUIDataWithRules() {
         val emailResult = Validator.validateEmail(
             email = lostPaswordUIState.value.email
         )
+
+        lostPaswordUIState.value = lostPaswordUIState.value.copy(
+            emailError = emailResult.status)
 
         allValidationsPassed.value = emailResult.status
 
