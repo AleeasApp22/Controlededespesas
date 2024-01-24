@@ -1,6 +1,5 @@
 package com.imbres.controlededespesas.screeens
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -188,8 +187,8 @@ fun LoginScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
+                    navController.popBackStack()
                     navController.navigate(Screen.LostPassword.route)
-
                 }
             }
 

@@ -72,7 +72,7 @@ fun LostPasswordScreen(
                 ) {
 
                 BlackNormalTextComponent(
-                    valueText = stringResource(id = R.string.bem_vindo),
+                    valueText = stringResource(id = R.string.recovery_password),
                     valuePadding = 8,
                     valueSize = 25,
                     valueTextColor = TextColor,
@@ -166,7 +166,7 @@ fun LostPasswordScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    //navController.popBackStack()
+                    navController.popBackStack()
                     navController.navigate(Screen.Login.route)
                 }
             }
