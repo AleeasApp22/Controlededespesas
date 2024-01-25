@@ -71,7 +71,6 @@ class MainActivity : ComponentActivity() {
                 mVelocityTracker?.recycle()
                 mVelocityTracker = null
                 Log.d(DEBUG_TAG, "ACTION UP / ACTION CANCEL")
-
                 finish()
             }
         }
