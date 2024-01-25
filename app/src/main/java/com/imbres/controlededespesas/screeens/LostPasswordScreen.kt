@@ -181,7 +181,7 @@ fun LostPasswordScreen(
                 ) {
 
                     //navController.popBackStack()
-                    //LoadingAnimation()
+                    LoadingAnimation()
                 }
             }
 
