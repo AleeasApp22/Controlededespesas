@@ -212,17 +212,6 @@ fun LoginScreen(
                     .padding(start = 20.dp, top = 20.dp, end = 20.dp),
                 verticalArrangement = Arrangement.Center
             ) {
-                /*BlackNormalTextComponent(
-                    valueText = stringResource(id = R.string.sign_up_account),
-                    valuePadding = 0,
-                    valueSize = 18,
-                    valueTextColor = TextColor,
-                    alignText = "Center",
-                    onButtonClicked = {
-                        createMyAccountViewModel.onEvent(CreateMyAccountUIEvent.CreateMyAccountButtonClicked)
-                    },
-                )*/
-
                 ClickableUnderLinedTextComponent(
                     stringResource(id = R.string.sign_up_account),
                     onButtonClicked = {
@@ -230,6 +219,19 @@ fun LoginScreen(
                     },
                 )
 
+            }
+
+            if (createMyAccountViewModel.createMyAccountInProgress.value) {
+                Column(
+                    modifier = Modifier
+                        .height(70.dp)
+                        .width(70.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    navController.popBackStack()
+                    navController.navigate(Screen.CreateMyAccount.route)
+                }
             }
         }
     }

@@ -33,6 +33,7 @@ import com.imbres.controlededespesas.components.DividerTextComponent
 import com.imbres.controlededespesas.components.LoadingAnimation
 import com.imbres.controlededespesas.components.MyTextFieldComponent
 import com.imbres.controlededespesas.components.NormalTitleTextComponent
+import com.imbres.controlededespesas.data.createmyaccount.CreateMyAccountViewModel
 import com.imbres.controlededespesas.data.login.LoginUIEvent
 import com.imbres.controlededespesas.data.login.LoginViewModel
 import com.imbres.controlededespesas.data.lostpassword.LostPasswordUIEvent
@@ -48,7 +49,8 @@ private var errorButton = false
 fun CreateMyAccountScreen(
     navController: NavHostController,
     loginViewModel: LoginViewModel = viewModel(),
-    lostPasswordViewModel: LostPasswordViewModel = viewModel()
+    lostPasswordViewModel: LostPasswordViewModel = viewModel(),
+    createMyAccountViewModel: CreateMyAccountViewModel = viewModel(),
 ) {
 
     Column(
@@ -70,7 +72,7 @@ fun CreateMyAccountScreen(
                 ) {
 
                 BlackNormalTextComponent(
-                    valueText = stringResource(id = R.string.recovery_password),
+                    valueText = stringResource(id = R.string.create_an_account),
                     valuePadding = 8,
                     valueSize = 25,
                     valueTextColor = TextColor,
@@ -78,7 +80,7 @@ fun CreateMyAccountScreen(
                 )
 
                 NormalTitleTextComponent(
-                    valueText = stringResource(id = R.string.change_password),
+                    valueText = stringResource(id = R.string.create_account),
                     valueSize = 20,
                     valueTextColor = TextColor,
                     alignText = "Left"
@@ -169,6 +171,20 @@ fun CreateMyAccountScreen(
                 }
             }
 
+//            if (lostPasswordViewModel.lostPasswordInProgress.value) {
+//                Column(
+//                    modifier = Modifier
+//                        .height(70.dp)
+//                        .width(70.dp),
+//                    horizontalAlignment = Alignment.CenterHorizontally,
+//                    verticalArrangement = Arrangement.Center
+//                ) {
+//
+//                    //navController.popBackStack()
+//                    LoadingAnimation()
+//                }
+//            }
+
             if (lostPasswordViewModel.lostPasswordInProgress.value) {
                 Column(
                     modifier = Modifier
@@ -177,9 +193,8 @@ fun CreateMyAccountScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-
-                    //navController.popBackStack()
-                    LoadingAnimation()
+                    navController.popBackStack()
+                    navController.navigate(Screen.LostPassword.route)
                 }
             }
 
@@ -200,13 +215,25 @@ fun CreateMyAccountScreen(
                     .padding(start = 20.dp, top = 20.dp, end = 20.dp),
                 verticalArrangement = Arrangement.Center
             ) {
-                BlackNormalTextComponent(
-                    valueText = stringResource(id = R.string.sign_up_account),
-                    valuePadding = 0,
-                    valueSize = 18,
-                    valueTextColor = TextColor,
-                    alignText = "Center"
+                ClickableUnderLinedTextComponent(
+                    stringResource(id = R.string.lost_password),
+                    onButtonClicked = {
+                        lostPasswordViewModel.onEvent(LostPasswordUIEvent.LostPasswordButtonClicked)
+                    },
                 )
+            }
+
+            if (lostPasswordViewModel.lostPasswordInProgress.value) {
+                Column(
+                    modifier = Modifier
+                        .height(70.dp)
+                        .width(70.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    navController.popBackStack()
+                    navController.navigate(Screen.LostPassword.route)
+                }
             }
         }
     }
@@ -217,6 +244,6 @@ fun CreateMyAccountScreen(
 fun CreateMyAccountScreenPreview() {
 
     val navController = rememberNavController()
-    LostPasswordScreen(navController = navController)
+    CreateMyAccountScreen(navController = navController)
 
 }

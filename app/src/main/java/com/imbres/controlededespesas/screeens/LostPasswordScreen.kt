@@ -33,6 +33,8 @@ import com.imbres.controlededespesas.components.DividerTextComponent
 import com.imbres.controlededespesas.components.LoadingAnimation
 import com.imbres.controlededespesas.components.MyTextFieldComponent
 import com.imbres.controlededespesas.components.NormalTitleTextComponent
+import com.imbres.controlededespesas.data.createmyaccount.CreateMyAccountUIEvent
+import com.imbres.controlededespesas.data.createmyaccount.CreateMyAccountViewModel
 import com.imbres.controlededespesas.data.login.LoginUIEvent
 import com.imbres.controlededespesas.data.login.LoginViewModel
 import com.imbres.controlededespesas.data.lostpassword.LostPasswordUIEvent
@@ -48,7 +50,8 @@ private var errorButton = false
 fun LostPasswordScreen(
     navController: NavHostController,
     loginViewModel: LoginViewModel = viewModel(),
-    lostPasswordViewModel: LostPasswordViewModel = viewModel()
+    lostPasswordViewModel: LostPasswordViewModel = viewModel(),
+    createMyAccountViewModel: CreateMyAccountViewModel = viewModel()
 ) {
 
     Column(
@@ -200,13 +203,25 @@ fun LostPasswordScreen(
                     .padding(start = 20.dp, top = 20.dp, end = 20.dp),
                 verticalArrangement = Arrangement.Center
             ) {
-                BlackNormalTextComponent(
-                    valueText = stringResource(id = R.string.sign_up_account),
-                    valuePadding = 0,
-                    valueSize = 18,
-                    valueTextColor = TextColor,
-                    alignText = "Center"
+                ClickableUnderLinedTextComponent(
+                    stringResource(id = R.string.sign_up_account),
+                    onButtonClicked = {
+                        createMyAccountViewModel.onEvent(CreateMyAccountUIEvent.CreateMyAccountButtonClicked)
+                    },
                 )
+            }
+
+            if (createMyAccountViewModel.createMyAccountInProgress.value) {
+                Column(
+                    modifier = Modifier
+                        .height(70.dp)
+                        .width(70.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    navController.popBackStack()
+                    navController.navigate(Screen.CreateMyAccount.route)
+                }
             }
         }
     }
