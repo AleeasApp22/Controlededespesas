@@ -9,6 +9,7 @@ sealed class ScreenAppRouter {
     object LoginScreenAppRouter : ScreenAppRouter()
     object HomeScreenAppRouter : ScreenAppRouter()
     object LostPasswordScreenAppRouter : ScreenAppRouter()
+    object CreateMyAccountScreenAppRouter : ScreenAppRouter()
 }
 
 

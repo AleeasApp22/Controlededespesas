@@ -1,6 +1,5 @@
 package com.imbres.controlededespesas.screeens
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -36,10 +35,9 @@ import com.imbres.controlededespesas.components.MyTextFieldComponent
 import com.imbres.controlededespesas.components.NormalTitleTextComponent
 import com.imbres.controlededespesas.data.login.LoginUIEvent
 import com.imbres.controlededespesas.data.login.LoginViewModel
-import com.imbres.controlededespesas.data.login.LostPasswordUIEvent
-import com.imbres.controlededespesas.data.login.LostPasswordViewModel
+import com.imbres.controlededespesas.data.lostpassword.LostPasswordUIEvent
+import com.imbres.controlededespesas.data.lostpassword.LostPasswordViewModel
 import com.imbres.controlededespesas.navigation.Screen
-import com.imbres.controlededespesas.navigation.ScreenAppRouter
 import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.greenFinLight
 

@@ -1,5 +1,6 @@
 package com.imbres.controlededespesas
 
+import android.service.autofill.OnClickAction
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,6 +20,7 @@ import com.imbres.controlededespesas.ui.theme.ControleDeDespesasTheme
 
 @Composable
 fun SplashScreen(navController: NavHostController) {
+//fun SplashScreen(onBackClickAction: OnClickAction,navController: NavHostController) {
     /*
     Pesquisa:
     https://github.com/mukeshsolanki/animated-splash-screen

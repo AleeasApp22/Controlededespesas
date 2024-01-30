@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.imbres.controlededespesas.app.ControleApp
 import com.imbres.controlededespesas.SplashScreen
+import com.imbres.controlededespesas.screeens.CreateMyAccountScreen
 import com.imbres.controlededespesas.screeens.LoginScreen
 import com.imbres.controlededespesas.screeens.LostPasswordScreen
 
@@ -26,6 +27,9 @@ fun SetupNavGraph(navController: NavHostController) {
         }
         composable(route = Screen.LostPassword.route) {
             LostPasswordScreen(navController = navController)
+        }
+        composable(route = Screen.CreateMyAccount.route) {
+            CreateMyAccountScreen(navController = navController)
         }
     }
 }

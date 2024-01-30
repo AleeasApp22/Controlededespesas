@@ -1,6 +1,5 @@
 package com.imbres.controlededespesas.components
 
-import android.app.AlertDialog
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -14,10 +13,8 @@ import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
@@ -26,10 +23,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -37,7 +32,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
@@ -88,7 +82,7 @@ fun BlackNormalTextComponent(
     valuePadding: Int,
     valueSize: Int,
     valueTextColor: Color,
-    alignText: String
+    alignText: String,
 ) {
     Text(
         text = valueText,
@@ -103,8 +97,8 @@ fun BlackNormalTextComponent(
             fontStyle = FontStyle.Normal,
         ),
         color = valueTextColor,
-        textAlign = if (alignText == "Left") TextAlign.Left else TextAlign.Center
-    )
+        textAlign = if (alignText == "Left") TextAlign.Left else TextAlign.Center,
+        )
 }
 
 @Composable
@@ -365,19 +359,5 @@ fun DividerTextComponent() {
 fun ToastDisplay(msg: String) {
     val ctx = LocalContext.current
     Toast.makeText(ctx, msg, Toast.LENGTH_SHORT).show()
-
-}
-
-@Composable
-fun AlertDialog(
-    onDismissRequest: () -> Unit,
-    confirmButton: @Composable () -> Unit,
-    modifier: Modifier = Modifier,
-    dismissButton: (@Composable () -> Unit)? = null,
-    icon: (@Composable () -> Unit)? = null,
-    title: (@Composable () -> Unit)? = null,
-    text: (@Composable () -> Unit)? = null,
-    ) : Unit
-{
 
 }

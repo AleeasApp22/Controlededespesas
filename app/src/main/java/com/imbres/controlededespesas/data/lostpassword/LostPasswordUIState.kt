@@ -1,4 +1,4 @@
-package com.imbres.controlededespesas.data.login
+package com.imbres.controlededespesas.data.lostpassword
 
 data class LostPasswordUIState(
     var email  :String = "",

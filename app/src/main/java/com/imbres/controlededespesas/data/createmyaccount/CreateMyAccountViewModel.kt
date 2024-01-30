@@ -1,32 +1,31 @@
-package com.imbres.controlededespesas.data.login
+package com.imbres.controlededespesas.data.createmyaccount
 
-import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.imbres.controlededespesas.navigation.AppRouter
 import com.imbres.controlededespesas.navigation.ScreenAppRouter
 import com.imbres.controlededespesas.rules.Validator
 
-class LostPasswordViewModel : ViewModel() {
+class CreateMyAccountViewModel : ViewModel() {
 
-    private val TAG = LostPasswordViewModel::class.simpleName
+    private val TAG = CreateMyAccountViewModel::class.simpleName
 
-    var lostPaswordUIState = mutableStateOf(LostPasswordUIState())
+    var createMyAccountUIState = mutableStateOf(CreateMyAccountUIState())
 
     var allValidationsPassed = mutableStateOf(false)
 
-    var lostPasswordInProgress = mutableStateOf(false)
+    var createMyAccountInProgress = mutableStateOf(false)
 
-    fun onEvent(event: LostPasswordUIEvent) {
+    fun onEvent(event: CreateMyAccountUIEvent) {
         when (event) {
-            is LostPasswordUIEvent.EmailChanged -> {
-                lostPaswordUIState.value = lostPaswordUIState.value.copy(
+            is CreateMyAccountUIEvent.EmailChanged -> {
+                createMyAccountUIState.value = createMyAccountUIState.value.copy(
                     email = event.email
                 )
             }
 
-            is LostPasswordUIEvent.LostPasswordButtonClicked -> {
-                lostPassword()
+            is CreateMyAccountUIEvent.CreateMyAccountButtonClicked -> {
+                createMyAccount()
             }
         }
         validateLostUIDataWithRules()
@@ -35,20 +34,20 @@ class LostPasswordViewModel : ViewModel() {
     //private fun validateLoginUIDataWithRules() {
     private fun validateLostUIDataWithRules() {
         val emailResult = Validator.validateEmail(
-            email = lostPaswordUIState.value.email
+            email = createMyAccountUIState.value.email
         )
 
-        lostPaswordUIState.value = lostPaswordUIState.value.copy(
+        createMyAccountUIState.value = createMyAccountUIState.value.copy(
             emailError = emailResult.status)
 
         allValidationsPassed.value = emailResult.status
 
     }
 
-    private fun lostPassword() {
+    private fun createMyAccount() {
 
-        lostPasswordInProgress.value = true
-        val email = lostPaswordUIState.value.email
+        createMyAccountInProgress.value = true
+        val email = createMyAccountUIState.value.email
 
         AppRouter.navigateTo(ScreenAppRouter.HomeScreenAppRouter)
     }

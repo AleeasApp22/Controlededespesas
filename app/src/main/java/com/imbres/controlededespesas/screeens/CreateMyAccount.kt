@@ -33,9 +33,6 @@ import com.imbres.controlededespesas.components.DividerTextComponent
 import com.imbres.controlededespesas.components.LoadingAnimation
 import com.imbres.controlededespesas.components.MyTextFieldComponent
 import com.imbres.controlededespesas.components.NormalTitleTextComponent
-import com.imbres.controlededespesas.components.PasswordTextFieldComponent
-import com.imbres.controlededespesas.data.createmyaccount.CreateMyAccountUIEvent
-import com.imbres.controlededespesas.data.createmyaccount.CreateMyAccountViewModel
 import com.imbres.controlededespesas.data.login.LoginUIEvent
 import com.imbres.controlededespesas.data.login.LoginViewModel
 import com.imbres.controlededespesas.data.lostpassword.LostPasswordUIEvent
@@ -46,12 +43,12 @@ import com.imbres.controlededespesas.ui.theme.greenFinLight
 
 private var errorButton = false
 
+
 @Composable
-fun LoginScreen(
+fun CreateMyAccountScreen(
     navController: NavHostController,
     loginViewModel: LoginViewModel = viewModel(),
-    lostPasswordViewModel: LostPasswordViewModel = viewModel(),
-    createMyAccountViewModel: CreateMyAccountViewModel= viewModel(),
+    lostPasswordViewModel: LostPasswordViewModel = viewModel()
 ) {
 
     Column(
@@ -73,15 +70,15 @@ fun LoginScreen(
                 ) {
 
                 BlackNormalTextComponent(
-                    valueText = stringResource(id = R.string.bem_vindo),
+                    valueText = stringResource(id = R.string.recovery_password),
                     valuePadding = 8,
                     valueSize = 25,
                     valueTextColor = TextColor,
-                    alignText = "Left",
+                    alignText = "Left"
                 )
 
                 NormalTitleTextComponent(
-                    valueText = stringResource(id = R.string.login_account),
+                    valueText = stringResource(id = R.string.change_password),
                     valueSize = 20,
                     valueTextColor = TextColor,
                     alignText = "Left"
@@ -124,32 +121,20 @@ fun LoginScreen(
                         labelValue = stringResource(id = R.string.email),
                         painterResource(id = R.drawable.message),
                         onTextChanged = {
-                            loginViewModel.onEvent(LoginUIEvent.EmailChanged(it))
+                            lostPasswordViewModel.onEvent(LostPasswordUIEvent.EmailChanged(it))
                         },
-                        errorStatus = loginViewModel.loginUIState.value.emailError
+                        errorStatus = lostPasswordViewModel.lostPaswordUIState.value.emailError
                     )
-                    errorButton = loginViewModel.loginUIState.value.emailError
-
-                    Spacer(modifier = Modifier.height(20.dp))
-
-                    PasswordTextFieldComponent(
-                        labelValue = stringResource(id = R.string.password),
-                        painterResource(id = R.drawable.lock),
-                        onTextSelected = {
-                            loginViewModel.onEvent(LoginUIEvent.PasswordChanged(it))
-                        },
-                        errorStatus = loginViewModel.loginUIState.value.passwordError
-                    )
-                    errorButton = loginViewModel.loginUIState.value.passwordError
+                    errorButton = lostPasswordViewModel.lostPaswordUIState.value.emailError
 
                     Spacer(modifier = Modifier.height(20.dp))
 
                     ButtonComponent(
-                        value = stringResource(id = R.string.login),
+                        value = stringResource(id = R.string.validar),
                         onButtonClicked = {
-                            loginViewModel.onEvent(LoginUIEvent.LoginButtonClicked)
+                            lostPasswordViewModel.onEvent(LostPasswordUIEvent.LostPasswordButtonClicked)
                         },
-                        isEnabled = if (errorButton) loginViewModel.allValidationsPassed.value else false
+                        isEnabled = if (errorButton) lostPasswordViewModel.allValidationsPassed.value else false
                     )
 
                     Spacer(modifier = Modifier.height(40.dp))
@@ -158,13 +143,16 @@ fun LoginScreen(
 
                     Spacer(modifier = Modifier.height(40.dp))
 
+/*                    UnderLinedTextComponent(
+                        valueText = stringResource(id = R.string.back),
+                        )*/
+
                     ClickableUnderLinedTextComponent(
-                        stringResource(id = R.string.lost_password),
+                        stringResource(id = R.string.back),
                         onButtonClicked = {
-                            lostPasswordViewModel.onEvent(LostPasswordUIEvent.LostPasswordButtonClicked)
+                            loginViewModel.onEvent(LoginUIEvent.LoginButtonClicked)
                         },
                     )
-
                 }
             }
 
@@ -176,9 +164,8 @@ fun LoginScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    LoadingAnimation()
-                    //navController.popBackStack()
-                    //navController.navigate(Screen.LostPassword.route)
+                    navController.popBackStack()
+                    navController.navigate(Screen.Login.route)
                 }
             }
 
@@ -190,8 +177,9 @@ fun LoginScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    navController.popBackStack()
-                    navController.navigate(Screen.LostPassword.route)
+
+                    //navController.popBackStack()
+                    LoadingAnimation()
                 }
             }
 
@@ -212,24 +200,13 @@ fun LoginScreen(
                     .padding(start = 20.dp, top = 20.dp, end = 20.dp),
                 verticalArrangement = Arrangement.Center
             ) {
-                /*BlackNormalTextComponent(
+                BlackNormalTextComponent(
                     valueText = stringResource(id = R.string.sign_up_account),
                     valuePadding = 0,
                     valueSize = 18,
                     valueTextColor = TextColor,
-                    alignText = "Center",
-                    onButtonClicked = {
-                        createMyAccountViewModel.onEvent(CreateMyAccountUIEvent.CreateMyAccountButtonClicked)
-                    },
-                )*/
-
-                ClickableUnderLinedTextComponent(
-                    stringResource(id = R.string.sign_up_account),
-                    onButtonClicked = {
-                        createMyAccountViewModel.onEvent(CreateMyAccountUIEvent.CreateMyAccountButtonClicked)
-                    },
+                    alignText = "Center"
                 )
-
             }
         }
     }
@@ -237,9 +214,9 @@ fun LoginScreen(
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun LoginScreenPreview() {
+fun CreateMyAccountScreenPreview() {
 
     val navController = rememberNavController()
-    LoginScreen(navController = navController)
+    LostPasswordScreen(navController = navController)
 
 }

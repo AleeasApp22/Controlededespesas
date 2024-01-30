@@ -1,80 +1,52 @@
 package com.imbres.controlededespesas
 
+import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
-import android.view.MotionEvent
-import android.view.VelocityTracker
+import android.view.View
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.setContent
 import androidx.navigation.compose.rememberNavController
+import com.google.android.material.snackbar.Snackbar
 import com.imbres.controlededespesas.navigation.SetupNavGraph
 
-private const val DEBUG_TAG = "Velocity"
-
 class MainActivity : ComponentActivity() {
-    private var mVelocityTracker: VelocityTracker? = null
 
-
-    private val onBackPressedCallback = object : OnBackPressedCallback(true){
+/*    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
             onBackPressedMethod()
         }
-    }
+    }*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+
             val navController = rememberNavController()
             SetupNavGraph(navController = navController)
 
-            onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+            //onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
 
         }
     }
+
 
     private fun onBackPressedMethod() {
 
-        Toast.makeText(applicationContext,"Pressione voltar novamente para sair do aplicativo",Toast.LENGTH_SHORT).show()
-        finish()
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Mensagem")
+        builder.setMessage("Encerrar aplicação?")
+        builder.setPositiveButton("Sim", { dialog, which -> finish() })
+        builder.setNegativeButton("Não", { dialog, which -> })
+        val dialog = builder.show()
+
+        dialog.setOnDismissListener {}
+
+        //Toast.makeText(applicationContext, "Pressione voltar novamente para sair do aplicativo", Toast.LENGTH_SHORT).show()
+        //finish()
+
+/*        val snackbar = Snackbar.make(View(this@MainActivity), "Mensagem do Snackbar", Snackbar.LENGTH_SHORT)
+        snackbar.show()*/
     }
-
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-
-        when (event.actionMasked) {
-            MotionEvent.ACTION_DOWN -> {
-                // Reset the velocity tracker back to its initial state.
-                mVelocityTracker?.clear()
-                // If necessary retrieve a new VelocityTracker object to watch the
-                // velocity of a motion.
-                mVelocityTracker = mVelocityTracker ?: VelocityTracker.obtain()
-                // Add a user's movement to the tracker.
-                mVelocityTracker?.addMovement(event)
-            }
-            MotionEvent.ACTION_MOVE -> {
-                mVelocityTracker?.apply {
-                    val pointerId: Int = event.getPointerId(event.actionIndex)
-                    addMovement(event)
-                    // When you want to determine the velocity, call
-                    // computeCurrentVelocity(). Then call getXVelocity()
-                    // and getYVelocity() to retrieve the velocity for each pointer ID.
-                    computeCurrentVelocity(1000)
-                    // Log velocity of pixels per second
-                    // Best practice to use VelocityTrackerCompat where possible.
-                    Log.d(DEBUG_TAG, "X velocity: ${getXVelocity(pointerId)}")
-                    Log.d(DEBUG_TAG, "Y velocity: ${getYVelocity(pointerId)}")
-                }
-            }
-            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                // Return a VelocityTracker object back to be re-used by others.
-                mVelocityTracker?.recycle()
-                mVelocityTracker = null
-                Log.d(DEBUG_TAG, "ACTION UP / ACTION CANCEL")
-                finish()
-            }
-        }
-        return true
-    }
-
 }
