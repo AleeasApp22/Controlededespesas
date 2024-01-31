@@ -9,6 +9,13 @@ import com.imbres.controlededespesas.navigation.SetupNavGraph
 
 class MainActivity : ComponentActivity() {
 
+/*
+    Pesquisa:
+
+    - How to Change App Icon in Android Studio using Kotlin
+    https://www.youtube.com/watch?v=_ZgaeNTCmzw
+*/
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
