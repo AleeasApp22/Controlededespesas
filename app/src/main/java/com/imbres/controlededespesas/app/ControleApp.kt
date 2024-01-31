@@ -6,7 +6,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
-import com.imbres.controlededespesas.screeens.LoginScreen
 import com.imbres.controlededespesas.screeens.MessageScreen
 
 @Composable

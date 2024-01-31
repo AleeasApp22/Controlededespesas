@@ -1,9 +1,5 @@
 package com.imbres.controlededespesas.rules
-
-import android.util.Log
-
 object Validator {
-
 
     fun validateFirstName(fName: String): ValidationResult {
         return ValidationResult(
@@ -16,6 +12,13 @@ object Validator {
         return ValidationResult(
             (!lName.isNullOrEmpty() && lName.length >= 2)
         )
+    }
+
+    fun validateName(name: String): ValidationResult {
+        return ValidationResult(
+            (!name.isNullOrEmpty() && name.length >= 2)
+        )
+
     }
 
     fun validateEmail(email: String): ValidationResult {
@@ -41,7 +44,6 @@ object Validator {
             statusValue
         )
     }
-
 }
 
 fun isValidEmail(email: String): Boolean {

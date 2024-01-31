@@ -4,8 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.imbres.controlededespesas.app.ControleApp
 import com.imbres.controlededespesas.SplashScreen
+import com.imbres.controlededespesas.app.ControleApp
 import com.imbres.controlededespesas.screeens.CreateMyAccountScreen
 import com.imbres.controlededespesas.screeens.LoginScreen
 import com.imbres.controlededespesas.screeens.LostPasswordScreen

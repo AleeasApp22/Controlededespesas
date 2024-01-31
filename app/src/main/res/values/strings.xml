@@ -7,12 +7,13 @@
     <string name="iniciar">Iniciar</string>
     <string name="sign_up_account">Não possui conta?</string>
     <string name="create_an_account">Criar uma conta</string>
-    <string name="login_account">Autentique-se em sua conta</string>
-    <string name="change_password">Informe seu email</string>
+    <string name="login_account">Autentique-se em sua conta:</string>
+    <string name="change_password">Informe seu email:</string>
     <string name="create_account">Informe os dados abaixo:</string>
     <string name="login">Login</string>
     <string name="validar">Validar</string>
     <string name="email">Email</string>
+    <string name="name_user">Nome</string>
     <string name="password">Senha</string>
     <string name="lost_password">Esqueci minha senha</string>
     <string name="back">Retornar</string>

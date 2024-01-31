@@ -33,6 +33,7 @@ import com.imbres.controlededespesas.components.DividerTextComponent
 import com.imbres.controlededespesas.components.LoadingAnimation
 import com.imbres.controlededespesas.components.MyTextFieldComponent
 import com.imbres.controlededespesas.components.NormalTitleTextComponent
+import com.imbres.controlededespesas.data.createmyaccount.CreateMyAccountUIEvent
 import com.imbres.controlededespesas.data.createmyaccount.CreateMyAccountViewModel
 import com.imbres.controlededespesas.data.login.LoginUIEvent
 import com.imbres.controlededespesas.data.login.LoginViewModel
@@ -123,20 +124,32 @@ fun CreateMyAccountScreen(
                         labelValue = stringResource(id = R.string.email),
                         painterResource(id = R.drawable.message),
                         onTextChanged = {
-                            lostPasswordViewModel.onEvent(LostPasswordUIEvent.EmailChanged(it))
+                            createMyAccountViewModel.onEvent(CreateMyAccountUIEvent.EmailChanged(it))
                         },
-                        errorStatus = lostPasswordViewModel.lostPaswordUIState.value.emailError
+                        errorStatus = createMyAccountViewModel.createMyAccountUIState.value.emailError
                     )
-                    errorButton = lostPasswordViewModel.lostPaswordUIState.value.emailError
+                    errorButton = createMyAccountViewModel.createMyAccountUIState.value.emailError
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    MyTextFieldComponent(
+                        labelValue = stringResource(id = R.string.name_user),
+                        painterResource(id = R.drawable.message),
+                        onTextChanged = {
+                            createMyAccountViewModel.onEvent(CreateMyAccountUIEvent.NameUserChanged(it))
+                        },
+                        errorStatus = createMyAccountViewModel.createMyAccountUIState.value.nameError
+                    )
+                    errorButton = createMyAccountViewModel.createMyAccountUIState.value.nameError
 
                     Spacer(modifier = Modifier.height(20.dp))
 
                     ButtonComponent(
                         value = stringResource(id = R.string.validar),
                         onButtonClicked = {
-                            lostPasswordViewModel.onEvent(LostPasswordUIEvent.LostPasswordButtonClicked)
+                            createMyAccountViewModel.onEvent(CreateMyAccountUIEvent.CreateMyAccountButtonClicked)
                         },
-                        isEnabled = if (errorButton) lostPasswordViewModel.allValidationsPassed.value else false
+                        isEnabled = if (errorButton) createMyAccountViewModel.allValidationsPassed.value else false
                     )
 
                     Spacer(modifier = Modifier.height(40.dp))
@@ -158,6 +171,20 @@ fun CreateMyAccountScreen(
                 }
             }
 
+            if (createMyAccountViewModel.createMyAccountInProgress.value) {
+                Column(
+                    modifier = Modifier
+                        .height(70.dp)
+                        .width(70.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    LoadingAnimation()
+//                    navController.popBackStack()
+//                    navController.navigate(Screen.Login.route)
+                }
+            }
+
             if (loginViewModel.loginInProgress.value) {
                 Column(
                     modifier = Modifier
@@ -170,20 +197,6 @@ fun CreateMyAccountScreen(
                     navController.navigate(Screen.Login.route)
                 }
             }
-
-//            if (lostPasswordViewModel.lostPasswordInProgress.value) {
-//                Column(
-//                    modifier = Modifier
-//                        .height(70.dp)
-//                        .width(70.dp),
-//                    horizontalAlignment = Alignment.CenterHorizontally,
-//                    verticalArrangement = Arrangement.Center
-//                ) {
-//
-//                    //navController.popBackStack()
-//                    LoadingAnimation()
-//                }
-//            }
 
             if (lostPasswordViewModel.lostPasswordInProgress.value) {
                 Column(

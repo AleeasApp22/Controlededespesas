@@ -2,22 +2,12 @@ package com.imbres.controlededespesas
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
 import androidx.activity.ComponentActivity
-import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.setContent
 import androidx.navigation.compose.rememberNavController
-import com.google.android.material.snackbar.Snackbar
 import com.imbres.controlededespesas.navigation.SetupNavGraph
 
 class MainActivity : ComponentActivity() {
-
-/*    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
-        override fun handleOnBackPressed() {
-            onBackPressedMethod()
-        }
-    }*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +20,6 @@ class MainActivity : ComponentActivity() {
 
         }
     }
-
 
     private fun onBackPressedMethod() {
 

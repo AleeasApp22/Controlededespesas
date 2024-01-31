@@ -24,6 +24,12 @@ class CreateMyAccountViewModel : ViewModel() {
                 )
             }
 
+            is CreateMyAccountUIEvent.NameUserChanged -> {
+                createMyAccountUIState.value = createMyAccountUIState.value.copy(
+                    name = event.name
+                )
+            }
+
             is CreateMyAccountUIEvent.CreateMyAccountButtonClicked -> {
                 createMyAccount()
             }
@@ -31,14 +37,18 @@ class CreateMyAccountViewModel : ViewModel() {
         validateLostUIDataWithRules()
     }
 
-    //private fun validateLoginUIDataWithRules() {
     private fun validateLostUIDataWithRules() {
         val emailResult = Validator.validateEmail(
             email = createMyAccountUIState.value.email
         )
 
+        val nameResult = Validator.validateName(
+            name = createMyAccountUIState.value.name
+        )
+
         createMyAccountUIState.value = createMyAccountUIState.value.copy(
-            emailError = emailResult.status)
+            emailError = emailResult.status,
+            nameError = nameResult.status)
 
         allValidationsPassed.value = emailResult.status
 
@@ -48,6 +58,7 @@ class CreateMyAccountViewModel : ViewModel() {
 
         createMyAccountInProgress.value = true
         val email = createMyAccountUIState.value.email
+        val name = createMyAccountUIState.value.name
 
         AppRouter.navigateTo(ScreenAppRouter.HomeScreenAppRouter)
     }
