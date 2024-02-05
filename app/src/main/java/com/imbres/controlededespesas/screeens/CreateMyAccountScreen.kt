@@ -184,33 +184,6 @@ fun CreateMyAccountScreen(
 //                    navController.navigate(Screen.Login.route)
                 }
             }
-
-            if (loginViewModel.loginInProgress.value) {
-                Column(
-                    modifier = Modifier
-                        .height(70.dp)
-                        .width(70.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    navController.popBackStack()
-                    navController.navigate(Screen.Login.route)
-                }
-            }
-
-            if (lostPasswordViewModel.lostPasswordInProgress.value) {
-                Column(
-                    modifier = Modifier
-                        .height(70.dp)
-                        .width(70.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    navController.popBackStack()
-                    navController.navigate(Screen.LostPassword.route)
-                }
-            }
-
         }
 
         /*SystemBackButtonHandler {
@@ -229,14 +202,14 @@ fun CreateMyAccountScreen(
                 verticalArrangement = Arrangement.Center
             ) {
                 ClickableUnderLinedTextComponent(
-                    stringResource(id = R.string.lost_password),
+                    stringResource(id = R.string.have_an_account),
                     onButtonClicked = {
-                        lostPasswordViewModel.onEvent(LostPasswordUIEvent.LostPasswordButtonClicked)
+                        loginViewModel.onEvent(LoginUIEvent.LoginButtonClicked)
                     },
                 )
             }
 
-            if (lostPasswordViewModel.lostPasswordInProgress.value) {
+            if (loginViewModel.loginInProgress.value) {
                 Column(
                     modifier = Modifier
                         .height(70.dp)
@@ -245,7 +218,7 @@ fun CreateMyAccountScreen(
                     verticalArrangement = Arrangement.Center
                 ) {
                     navController.popBackStack()
-                    navController.navigate(Screen.LostPassword.route)
+                    navController.navigate(Screen.Login.route)
                 }
             }
         }

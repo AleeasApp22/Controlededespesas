@@ -14,6 +14,9 @@ class MainActivity : ComponentActivity() {
 
     - How to Change App Icon in Android Studio using Kotlin
     https://www.youtube.com/watch?v=_ZgaeNTCmzw
+
+    - Money Business And Finance SVG Vector 38
+    https://www.svgrepo.com/svg/255163/money-business-and-finance
 */
 
     override fun onCreate(savedInstanceState: Bundle?) {

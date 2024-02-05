@@ -7,6 +7,7 @@
     <string name="iniciar">Iniciar</string>
     <string name="sign_up_account">Não possui conta?</string>
     <string name="create_an_account">Criar uma conta</string>
+    <string name="have_an_account">Já tenho uma conta</string>
     <string name="login_account">Autentique-se em sua conta:</string>
     <string name="change_password">Informe seu email:</string>
     <string name="create_account">Informe os dados abaixo:</string>
