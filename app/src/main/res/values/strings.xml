@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Controle</string>
+    <string name="home">Home</string>
+    <string name="navigation_header">App Controle</string>
     <string name="bem_vindo_ao">Bem-vindo ao</string>
     <string name="bem_vindo">Bem-vindo</string>
     <string name="recovery_password">Recuperar senha</string>

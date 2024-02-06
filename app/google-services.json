@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "103620845268",
+    "project_id": "controle-ec4e7",
+    "storage_bucket": "controle-ec4e7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:103620845268:android:9d1988ca7ce0f255186541",
+        "android_client_info": {
+          "package_name": "com.imbres.controlededespesas"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCUF1tMPhEN2fHTmysRNPPtQJv3efB8Ok"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

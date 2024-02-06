@@ -33,12 +33,12 @@ import com.imbres.controlededespesas.components.DividerTextComponent
 import com.imbres.controlededespesas.components.LoadingAnimation
 import com.imbres.controlededespesas.components.MyTextFieldComponent
 import com.imbres.controlededespesas.components.NormalTitleTextComponent
-import com.imbres.controlededespesas.data.createmyaccount.CreateMyAccountUIEvent
-import com.imbres.controlededespesas.data.createmyaccount.CreateMyAccountViewModel
+import com.imbres.controlededespesas.data.signup.SignupViewModel
 import com.imbres.controlededespesas.data.login.LoginUIEvent
 import com.imbres.controlededespesas.data.login.LoginViewModel
 import com.imbres.controlededespesas.data.lostpassword.LostPasswordUIEvent
 import com.imbres.controlededespesas.data.lostpassword.LostPasswordViewModel
+import com.imbres.controlededespesas.data.signup.SignupUIEvent
 import com.imbres.controlededespesas.navigation.Screen
 import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.greenFinLight
@@ -51,7 +51,7 @@ fun LostPasswordScreen(
     navController: NavHostController,
     loginViewModel: LoginViewModel = viewModel(),
     lostPasswordViewModel: LostPasswordViewModel = viewModel(),
-    createMyAccountViewModel: CreateMyAccountViewModel = viewModel()
+    createMyAccountViewModel: SignupViewModel = viewModel()
 ) {
 
     Column(
@@ -206,12 +206,12 @@ fun LostPasswordScreen(
                 ClickableUnderLinedTextComponent(
                     stringResource(id = R.string.sign_up_account),
                     onButtonClicked = {
-                        createMyAccountViewModel.onEvent(CreateMyAccountUIEvent.CreateMyAccountButtonClicked)
+                        createMyAccountViewModel.onEvent(SignupUIEvent.SignupButtonClicked)
                     },
                 )
             }
 
-            if (createMyAccountViewModel.createMyAccountInProgress.value) {
+            if (createMyAccountViewModel.signUpInProgress.value) {
                 Column(
                     modifier = Modifier
                         .height(70.dp)
@@ -220,7 +220,7 @@ fun LostPasswordScreen(
                     verticalArrangement = Arrangement.Center
                 ) {
                     navController.popBackStack()
-                    navController.navigate(Screen.CreateMyAccount.route)
+                    navController.navigate(Screen.SignUp.route)
                 }
             }
         }

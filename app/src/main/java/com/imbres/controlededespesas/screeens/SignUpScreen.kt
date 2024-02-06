@@ -6,9 +6,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun SignUpScreen(){
+fun SignUpScreen(
+    navController: NavHostController,
+){
     Surface(
         color = Color.White,
         modifier = Modifier.fillMaxSize()
@@ -20,5 +24,7 @@ fun SignUpScreen(){
 @Preview
 @Composable
 fun DefaultPreviewOfSignUpScreen(){
-    SignUpScreen()
+
+    val navController = rememberNavController()
+    SignUpScreen(navController = navController)
 }

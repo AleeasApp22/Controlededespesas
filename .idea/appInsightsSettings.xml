@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.imbres.controlededespesas" />
+                  <option name="mobileSdkAppId" value="1:103620845268:android:9d1988ca7ce0f255186541" />
+                  <option name="projectId" value="controle-ec4e7" />
+                  <option name="projectNumber" value="103620845268" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

@@ -1,8 +1,11 @@
 package com.imbres.controlededespesas.data.login
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.google.firebase.auth.FirebaseAuth
 import com.imbres.controlededespesas.navigation.AppRouter
+import com.imbres.controlededespesas.navigation.Screen
 import com.imbres.controlededespesas.navigation.ScreenAppRouter
 import com.imbres.controlededespesas.rules.Validator
 
@@ -58,12 +61,28 @@ class LoginViewModel : ViewModel() {
     }
 
     private fun login() {
-
         loginInProgress.value = true
         val email = loginUIState.value.email
         val password = loginUIState.value.password
 
-        AppRouter.navigateTo(ScreenAppRouter.HomeScreenAppRouter)
+        FirebaseAuth
+            .getInstance()
+            .signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener {
+                Log.d(TAG,"Inside_login_success")
+                Log.d(TAG,"${it.isSuccessful}")
+
+                if(it.isSuccessful){
+                    loginInProgress.value = false
+                    AppRouter.navigateTo(Screen.Home)
+                }
+            }
+            .addOnFailureListener {
+                Log.d(TAG,"Inside_login_failure")
+                Log.d(TAG,"${it.localizedMessage}")
+                loginInProgress.value = false
+            }
+
 
     }
         /* FirebaseAuth

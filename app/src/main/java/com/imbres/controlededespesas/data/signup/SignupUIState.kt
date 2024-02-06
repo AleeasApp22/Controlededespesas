@@ -1,6 +1,6 @@
-package com.imbres.controlededespesas.data.createmyaccount
+package com.imbres.controlededespesas.data.signup
 
-data class CreateMyAccountUIState(
+data class SignupUIState(
     var email  :String = "",
 
     var name  :String = "",

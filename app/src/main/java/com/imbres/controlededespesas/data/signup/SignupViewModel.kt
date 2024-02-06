@@ -1,37 +1,38 @@
-package com.imbres.controlededespesas.data.createmyaccount
+package com.imbres.controlededespesas.data.signup
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.imbres.controlededespesas.navigation.AppRouter
+import com.imbres.controlededespesas.navigation.Screen
 import com.imbres.controlededespesas.navigation.ScreenAppRouter
 import com.imbres.controlededespesas.rules.Validator
 
-class CreateMyAccountViewModel : ViewModel() {
+class SignupViewModel : ViewModel() {
 
-    private val TAG = CreateMyAccountViewModel::class.simpleName
+    private val TAG = SignupViewModel::class.simpleName
 
-    var createMyAccountUIState = mutableStateOf(CreateMyAccountUIState())
+    var createMyAccountUIState = mutableStateOf(SignupUIState())
 
     var allValidationsPassed = mutableStateOf(false)
 
-    var createMyAccountInProgress = mutableStateOf(false)
+    var signUpInProgress = mutableStateOf(false)
 
-    fun onEvent(event: CreateMyAccountUIEvent) {
+    fun onEvent(event: SignupUIEvent) {
         when (event) {
-            is CreateMyAccountUIEvent.EmailChanged -> {
+            is SignupUIEvent.EmailChanged -> {
                 createMyAccountUIState.value = createMyAccountUIState.value.copy(
                     email = event.email
                 )
             }
 
-            is CreateMyAccountUIEvent.NameUserChanged -> {
+            is SignupUIEvent.NameUserChanged -> {
                 createMyAccountUIState.value = createMyAccountUIState.value.copy(
                     name = event.name
                 )
             }
 
-            is CreateMyAccountUIEvent.CreateMyAccountButtonClicked -> {
-                createMyAccount()
+            is SignupUIEvent.SignupButtonClicked -> {
+                signUp()
             }
         }
         validateLostUIDataWithRules()
@@ -54,13 +55,13 @@ class CreateMyAccountViewModel : ViewModel() {
 
     }
 
-    private fun createMyAccount() {
+    private fun signUp() {
 
-        createMyAccountInProgress.value = true
+        signUpInProgress.value = true
         val email = createMyAccountUIState.value.email
         val name = createMyAccountUIState.value.name
 
-        AppRouter.navigateTo(ScreenAppRouter.HomeScreenAppRouter)
+        AppRouter.navigateTo(Screen.Home)
     }
         /* FirebaseAuth
              .getInstance()

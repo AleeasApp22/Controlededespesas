@@ -3,6 +3,7 @@ package com.imbres.controlededespesas.data.message
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.imbres.controlededespesas.navigation.AppRouter
+import com.imbres.controlededespesas.navigation.Screen
 import com.imbres.controlededespesas.navigation.ScreenAppRouter
 
 class MessageViewModel : ViewModel() {
@@ -24,7 +25,7 @@ class MessageViewModel : ViewModel() {
 
         messageInProgress.value = true
 
-        AppRouter.navigateTo(ScreenAppRouter.HomeScreenAppRouter)
+        AppRouter.navigateTo(Screen.Home)
 
     }
 }
