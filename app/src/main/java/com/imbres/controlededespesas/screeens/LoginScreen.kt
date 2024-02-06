@@ -40,7 +40,9 @@ import com.imbres.controlededespesas.data.lostpassword.LostPasswordUIEvent
 import com.imbres.controlededespesas.data.lostpassword.LostPasswordViewModel
 import com.imbres.controlededespesas.data.signup.SignupUIEvent
 import com.imbres.controlededespesas.data.signup.SignupViewModel
+import com.imbres.controlededespesas.navigation.AppRouter
 import com.imbres.controlededespesas.navigation.Screen
+import com.imbres.controlededespesas.navigation.ScreenApp
 import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.greenFinLight
 
@@ -177,8 +179,8 @@ fun LoginScreen(
                     verticalArrangement = Arrangement.Center
                 ) {
                     LoadingAnimation()
-                    //navController.popBackStack()
-                    //navController.navigate(Screen.LostPassword.route)
+                    navController.popBackStack()
+                    navController.navigate(Screen.Splash.route)
                 }
             }
 
@@ -192,6 +194,7 @@ fun LoginScreen(
                 ) {
                     navController.popBackStack()
                     navController.navigate(Screen.LostPassword.route)
+                    //AppRouter.navigateTo(ScreenApp.LostPasswordScreen)
                 }
             }
 
@@ -231,6 +234,7 @@ fun LoginScreen(
                 ) {
                     navController.popBackStack()
                     navController.navigate(Screen.SignUp.route)
+                    //AppRouter.navigateTo(Screen.SignUpScreen)
                 }
             }
         }

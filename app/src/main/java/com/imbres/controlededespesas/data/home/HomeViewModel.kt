@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.imbres.controlededespesas.navigation.AppRouter
 import com.imbres.controlededespesas.navigation.Screen
+import com.imbres.controlededespesas.navigation.ScreenApp
 import com.nativemobilebits.loginflow.data.NavigationItem
 
 class HomeViewModel : ViewModel() {
@@ -48,7 +49,8 @@ class HomeViewModel : ViewModel() {
         val authStateListener = FirebaseAuth.AuthStateListener {
             if (it.currentUser == null) {
                 Log.d(TAG, "Inside sign outsuccess")
-                AppRouter.navigateTo(Screen.Login)
+                //AppRouter.navigateTo(Screen.Login)
+                AppRouter.navigateTo(ScreenApp.LoginScreen)
             } else {
                 Log.d(TAG, "Inside sign out is not complete")
             }

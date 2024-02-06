@@ -1,27 +1,25 @@
 package com.imbres.controlededespesas.navigation
 
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 
-sealed class ScreenAppRouter {
-    object SignUpScreenAppRouter : ScreenAppRouter()
-    object TermsAndConditionsScreenAppRouter : ScreenAppRouter()
-    object LoginScreenAppRouter : ScreenAppRouter()
-    object HomeScreenAppRouter : ScreenAppRouter()
-    object LostPasswordScreenAppRouter : ScreenAppRouter()
-    object CreateMyAccountScreenAppRouter : ScreenAppRouter()
+sealed class ScreenApp {
+    object SignUpScreen : ScreenApp()
+    object TermsAndConditionsScreen : ScreenApp()
+    object LoginScreen : ScreenApp()
+    object HomeScreen : ScreenApp()
+    object LostPasswordScreen : ScreenApp()
 }
 
 
 object AppRouter {
 
-    var currentScreen: MutableState<Screen> = mutableStateOf(Screen.SignUp)
+    var currentScreen: MutableState<ScreenApp> = mutableStateOf(ScreenApp.SignUpScreen)
 
-    fun navigateTo(destination: Screen){
-
+    fun navigateTo(destination: ScreenApp){
         currentScreen.value = destination
 
     }
-
 
 }

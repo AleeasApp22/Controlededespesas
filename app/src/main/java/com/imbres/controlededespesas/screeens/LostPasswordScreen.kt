@@ -39,6 +39,7 @@ import com.imbres.controlededespesas.data.login.LoginViewModel
 import com.imbres.controlededespesas.data.lostpassword.LostPasswordUIEvent
 import com.imbres.controlededespesas.data.lostpassword.LostPasswordViewModel
 import com.imbres.controlededespesas.data.signup.SignupUIEvent
+import com.imbres.controlededespesas.navigation.AppRouter
 import com.imbres.controlededespesas.navigation.Screen
 import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.greenFinLight
@@ -51,7 +52,7 @@ fun LostPasswordScreen(
     navController: NavHostController,
     loginViewModel: LoginViewModel = viewModel(),
     lostPasswordViewModel: LostPasswordViewModel = viewModel(),
-    createMyAccountViewModel: SignupViewModel = viewModel()
+    signupViewModel: SignupViewModel = viewModel()
 ) {
 
     Column(
@@ -169,6 +170,7 @@ fun LostPasswordScreen(
                 ) {
                     navController.popBackStack()
                     navController.navigate(Screen.Login.route)
+                    //AppRouter.navigateTo(Screen.LoginScreen)
                 }
             }
 
@@ -206,12 +208,12 @@ fun LostPasswordScreen(
                 ClickableUnderLinedTextComponent(
                     stringResource(id = R.string.sign_up_account),
                     onButtonClicked = {
-                        createMyAccountViewModel.onEvent(SignupUIEvent.SignupButtonClicked)
+                        signupViewModel.onEvent(SignupUIEvent.SignupButtonClicked)
                     },
                 )
             }
 
-            if (createMyAccountViewModel.signUpInProgress.value) {
+            if (signupViewModel.signUpInProgress.value) {
                 Column(
                     modifier = Modifier
                         .height(70.dp)
@@ -221,6 +223,7 @@ fun LostPasswordScreen(
                 ) {
                     navController.popBackStack()
                     navController.navigate(Screen.SignUp.route)
+                    //AppRouter.navigateTo(ScreenApp.SignUpScreen)
                 }
             }
         }

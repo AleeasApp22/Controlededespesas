@@ -3,10 +3,11 @@ package com.imbres.controlededespesas.data.login
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavHostController
 import com.google.firebase.auth.FirebaseAuth
 import com.imbres.controlededespesas.navigation.AppRouter
 import com.imbres.controlededespesas.navigation.Screen
-import com.imbres.controlededespesas.navigation.ScreenAppRouter
+import com.imbres.controlededespesas.navigation.ScreenApp
 import com.imbres.controlededespesas.rules.Validator
 
 class LoginViewModel : ViewModel() {
@@ -74,7 +75,8 @@ class LoginViewModel : ViewModel() {
 
                 if(it.isSuccessful){
                     loginInProgress.value = false
-                    AppRouter.navigateTo(Screen.Home)
+                    AppRouter.navigateTo(ScreenApp.SignUpScreen)
+                    //navController.navigate(ScreenSplash.Home.route)
                 }
             }
             .addOnFailureListener {
