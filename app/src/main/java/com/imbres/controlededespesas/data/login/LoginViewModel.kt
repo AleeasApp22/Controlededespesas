@@ -66,45 +66,27 @@ class LoginViewModel : ViewModel() {
         val email = loginUIState.value.email
         val password = loginUIState.value.password
 
-        FirebaseAuth
-            .getInstance()
-            .signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener {
-                Log.d(TAG,"Inside_login_success")
-                Log.d(TAG,"${it.isSuccessful}")
+        if (!email.isEmpty() || !password.isEmpty()) {
+            FirebaseAuth
+                .getInstance()
+                .signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener {
+                    Log.d(TAG,"Inside_login_success")
+                    Log.d(TAG,"${it.isSuccessful}")
 
-                if(it.isSuccessful){
-                    loginInProgress.value = false
-                    AppRouter.navigateTo(ScreenApp.SignUpScreen)
-                    //navController.navigate(ScreenSplash.Home.route)
+                    if(it.isSuccessful){
+                        loginInProgress.value = false
+                        AppRouter.navigateTo(ScreenApp.HomeScreen)
+                        //navController.navigate(ScreenSplash.Home.route)
+                    }
                 }
-            }
-            .addOnFailureListener {
-                Log.d(TAG,"Inside_login_failure")
-                Log.d(TAG,"${it.localizedMessage}")
-                loginInProgress.value = false
-            }
-
+                .addOnFailureListener {
+                    Log.d(TAG,"Inside_login_failure")
+                    Log.d(TAG,"${it.localizedMessage}")
+                    loginInProgress.value = false
+                }
+        }
 
     }
-        /* FirebaseAuth
-             .getInstance()
-             .signInWithEmailAndPassword(email, password)
-             .addOnCompleteListener {
-                 Log.d(TAG,"Inside_login_success")
-                 Log.d(TAG,"${it.isSuccessful}")
-
-                 if(it.isSuccessful){
-                     loginInProgress.value = false
-                     PostOfficeAppRouter.navigateTo(Screen.HomeScreen)
-                 }
-             }
-             .addOnFailureListener {
-                 Log.d(TAG,"Inside_login_failure")
-                 Log.d(TAG,"${it.localizedMessage}")
-
-                 loginInProgress.value = false
-
-             }*/
 
     }

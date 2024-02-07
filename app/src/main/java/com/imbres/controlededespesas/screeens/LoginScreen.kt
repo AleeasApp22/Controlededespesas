@@ -234,7 +234,6 @@ fun LoginScreen(
                 ) {
                     navController.popBackStack()
                     navController.navigate(Screen.SignUp.route)
-                    //AppRouter.navigateTo(Screen.SignUpScreen)
                 }
             }
         }

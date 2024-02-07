@@ -2,6 +2,7 @@ package com.imbres.controlededespesas.data.signup
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.imbres.controlededespesas.data.login.LoginUIEvent
 import com.imbres.controlededespesas.navigation.AppRouter
 import com.imbres.controlededespesas.navigation.Screen
 import com.imbres.controlededespesas.navigation.ScreenApp
