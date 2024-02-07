@@ -33,6 +33,7 @@ import com.imbres.controlededespesas.components.DividerTextComponent
 import com.imbres.controlededespesas.components.LoadingAnimation
 import com.imbres.controlededespesas.components.MyTextFieldComponent
 import com.imbres.controlededespesas.components.NormalTitleTextComponent
+import com.imbres.controlededespesas.components.PasswordTextFieldComponent
 import com.imbres.controlededespesas.data.signup.SignupUIEvent
 import com.imbres.controlededespesas.data.signup.SignupViewModel
 import com.imbres.controlededespesas.data.login.LoginUIEvent
@@ -131,15 +132,15 @@ fun SignUpScreen(
 
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    MyTextFieldComponent(
-                        labelValue = stringResource(id = R.string.name_user),
-                        painterResource(id = R.drawable.message),
-                        onTextChanged = {
-                            signUpViewModel.onEvent(SignupUIEvent.NameUserChanged(it))
+                    PasswordTextFieldComponent(
+                        labelValue = stringResource(id = R.string.password),
+                        painterResource(id = R.drawable.lock),
+                        onTextSelected = {
+                            signUpViewModel.onEvent(SignupUIEvent.PasswordChanged(it))
                         },
-                        errorStatus = signUpViewModel.signupUIState.value.nameError
+                        errorStatus = signUpViewModel.signupUIState.value.passwordError
                     )
-                    errorButton = signUpViewModel.signupUIState.value.nameError
+                    errorButton = signUpViewModel.signupUIState.value.passwordError
 
                     Spacer(modifier = Modifier.height(20.dp))
 
