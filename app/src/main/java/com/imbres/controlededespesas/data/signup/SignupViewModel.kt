@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
+import com.imbres.controlededespesas.navigation.AppRouter
+import com.imbres.controlededespesas.navigation.ScreenApp
 import com.imbres.controlededespesas.rules.Validator
 
 class SignupViewModel : ViewModel() {
@@ -82,6 +84,7 @@ class SignupViewModel : ViewModel() {
 
                     signUpInProgress.value = false
                     if (it.isSuccessful) {
+                        AppRouter.navigateTo(ScreenApp.HomeScreen)
                         //PostOfficeAppRouter.navigateTo(Screen.HomeScreen)
                     }
                 }
