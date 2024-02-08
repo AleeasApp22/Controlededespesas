@@ -17,6 +17,8 @@ class LoginViewModel : ViewModel() {
 
     var loginInProgress = mutableStateOf(false)
 
+    var loginSucess = mutableStateOf(false)
+
     var loginFail = mutableStateOf(false)
 
     fun onEvent(event: LoginUIEvent) {
@@ -62,6 +64,7 @@ class LoginViewModel : ViewModel() {
 
     private fun login() {
         loginInProgress.value = true
+        loginSucess.value = false
         loginFail.value = false
 
         val email = loginUIState.value.email
@@ -74,10 +77,12 @@ class LoginViewModel : ViewModel() {
                 .addOnCompleteListener {
                     loginInProgress.value = false
                     if(it.isSuccessful){
-                        AppRouter.navigateTo(ScreenApp.HomeScreen)
+                        loginSucess.value = true
+                        //AppRouter.navigateTo(ScreenApp.HomeScreen)
                     }
                 }
                 .addOnFailureListener {
+                    loginSucess.value = false
                     loginFail.value = true
                     loginInProgress.value = false
                 }

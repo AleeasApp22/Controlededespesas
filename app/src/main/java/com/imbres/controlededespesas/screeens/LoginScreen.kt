@@ -186,8 +186,14 @@ fun LoginScreen(
                 }
             }
 
+            if (loginViewModel.loginSucess.value) {
+                loginViewModel.loginSucess.value = false
+                navController.popBackStack()
+                navController.navigate(Screen.Home.route)
+            }
+
             if (loginViewModel.loginFail.value) {
-                AlertDisplay(context,"","Conta não localizada", "Sair", "")
+                AlertDisplay(context,"", stringResource(R.string.invalid_email_senha), "Sair", "")
                 loginViewModel.loginFail.value = false
             }
 

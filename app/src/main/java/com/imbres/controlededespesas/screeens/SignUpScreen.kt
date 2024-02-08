@@ -200,7 +200,7 @@ fun SignUpScreen(
             }
 
             if (signUpViewModel.signUpFail.value) {
-                AlertDisplay(context,"","Email informado já está em uso", "Sair", "")
+                AlertDisplay(context,"", stringResource(R.string.already_in_use_email), "Sair", "")
                 signUpViewModel.signUpFail.value = false
             }
         }

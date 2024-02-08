@@ -62,8 +62,6 @@ class SignupViewModel : ViewModel() {
     private fun signUp() {
 
         signUpInProgress.value = true
-//        val email = signupUIState.value.email
-//        val password = signupUIState.value.password
 
         createUserInFirebase(
             email = signupUIState.value.email,
@@ -83,21 +81,13 @@ class SignupViewModel : ViewModel() {
                 .getInstance()
                 .createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener {
-                    Log.d(TAG, "Inside_OnCompleteListener")
-                    Log.d(TAG, " isSuccessful = ${it.isSuccessful}")
-
                     signUpInProgress.value = false
                     if (it.isSuccessful) {
                         AppRouter.navigateTo(ScreenApp.SignUpScreen)
-                        //PostOfficeAppRouter.navigateTo(Screen.HomeScreen)
                     }
                 }
                 .addOnFailureListener {
                     signUpFail.value = true
-
-                    Log.d(TAG, "Inside_OnFailureListener")
-                    Log.d(TAG, "Exception= ${it.message}")
-                    Log.d(TAG, "Exception= ${it.localizedMessage}")
                 }
         }
     }
