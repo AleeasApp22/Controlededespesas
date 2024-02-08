@@ -1,11 +1,9 @@
 package com.imbres.controlededespesas.data.signup
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.imbres.controlededespesas.data.login.LoginUIEvent
-import com.imbres.controlededespesas.navigation.AppRouter
-import com.imbres.controlededespesas.navigation.Screen
-import com.imbres.controlededespesas.navigation.ScreenApp
+import com.google.firebase.auth.FirebaseAuth
 import com.imbres.controlededespesas.rules.Validator
 
 class SignupViewModel : ViewModel() {
@@ -26,9 +24,9 @@ class SignupViewModel : ViewModel() {
                 )
             }
 
-            is SignupUIEvent.NameUserChanged -> {
+            is SignupUIEvent.PasswordChanged -> {
                 signupUIState.value = signupUIState.value.copy(
-                    name = event.name
+                    password = event.password
                 )
             }
 
@@ -44,13 +42,13 @@ class SignupViewModel : ViewModel() {
             email = signupUIState.value.email
         )
 
-        val nameResult = Validator.validateName(
-            name = signupUIState.value.name
+        val passwordResult = Validator.validatePassword(
+            password = signupUIState.value.password
         )
 
         signupUIState.value = signupUIState.value.copy(
             emailError = emailResult.status,
-            nameError = nameResult.status)
+            passwordError = passwordResult.status)
 
         allValidationsPassed.value = emailResult.status
 
@@ -59,30 +57,41 @@ class SignupViewModel : ViewModel() {
     private fun signUp() {
 
         signUpInProgress.value = true
-        val email = signupUIState.value.email
-        val name = signupUIState.value.name
+//        val email = signupUIState.value.email
+//        val password = signupUIState.value.password
 
-        AppRouter.navigateTo(ScreenApp.SignUpScreen)
+        createUserInFirebase(
+            email = signupUIState.value.email,
+            password = signupUIState.value.password,
+        )
     }
-        /* FirebaseAuth
-             .getInstance()
-             .signInWithEmailAndPassword(email, password)
-             .addOnCompleteListener {
-                 Log.d(TAG,"Inside_login_success")
-                 Log.d(TAG,"${it.isSuccessful}")
 
-                 if(it.isSuccessful){
-                     loginInProgress.value = false
-                     PostOfficeAppRouter.navigateTo(Screen.HomeScreen)
-                 }
-             }
-             .addOnFailureListener {
-                 Log.d(TAG,"Inside_login_failure")
-                 Log.d(TAG,"${it.localizedMessage}")
+    private fun createUserInFirebase(email: String, password: String) {
 
-                 loginInProgress.value = false
+        signUpInProgress.value = true
 
-             }*/
+        Log.d(TAG, "email: $email / password: $password")
+
+        if (!email.isEmpty() || !password.isEmpty()) {
+            FirebaseAuth
+                .getInstance()
+                .createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener {
+                    Log.d(TAG, "Inside_OnCompleteListener")
+                    Log.d(TAG, " isSuccessful = ${it.isSuccessful}")
+
+                    signUpInProgress.value = false
+                    if (it.isSuccessful) {
+                        //PostOfficeAppRouter.navigateTo(Screen.HomeScreen)
+                    }
+                }
+                .addOnFailureListener {
+                    Log.d(TAG, "Inside_OnFailureListener")
+                    Log.d(TAG, "Exception= ${it.message}")
+                    Log.d(TAG, "Exception= ${it.localizedMessage}")
+                }
+        }
 
     }
+}
 
