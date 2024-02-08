@@ -18,6 +18,8 @@ class SignupViewModel : ViewModel() {
 
     var signUpInProgress = mutableStateOf(false)
 
+    var signUpFail = mutableStateOf(false)
+
     fun onEvent(event: SignupUIEvent) {
         when (event) {
             is SignupUIEvent.EmailChanged -> {
@@ -50,7 +52,8 @@ class SignupViewModel : ViewModel() {
 
         signupUIState.value = signupUIState.value.copy(
             emailError = emailResult.status,
-            passwordError = passwordResult.status)
+            passwordError = passwordResult.status
+        )
 
         allValidationsPassed.value = emailResult.status
 
@@ -71,6 +74,7 @@ class SignupViewModel : ViewModel() {
     private fun createUserInFirebase(email: String, password: String) {
 
         signUpInProgress.value = true
+        signUpFail.value = false
 
         Log.d(TAG, "email: $email / password: $password")
 
@@ -84,17 +88,17 @@ class SignupViewModel : ViewModel() {
 
                     signUpInProgress.value = false
                     if (it.isSuccessful) {
-                        AppRouter.navigateTo(ScreenApp.HomeScreen)
+                        AppRouter.navigateTo(ScreenApp.SignUpScreen)
                         //PostOfficeAppRouter.navigateTo(Screen.HomeScreen)
                     }
                 }
                 .addOnFailureListener {
+                    signUpFail.value = true
+
                     Log.d(TAG, "Inside_OnFailureListener")
                     Log.d(TAG, "Exception= ${it.message}")
                     Log.d(TAG, "Exception= ${it.localizedMessage}")
                 }
         }
-
     }
 }
-

@@ -1,5 +1,7 @@
 package com.imbres.controlededespesas.screeens
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,6 +19,7 @@ import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -34,11 +37,11 @@ import com.imbres.controlededespesas.components.LoadingAnimation
 import com.imbres.controlededespesas.components.MyTextFieldComponent
 import com.imbres.controlededespesas.components.NormalTitleTextComponent
 import com.imbres.controlededespesas.components.PasswordTextFieldComponent
-import com.imbres.controlededespesas.data.signup.SignupUIEvent
-import com.imbres.controlededespesas.data.signup.SignupViewModel
 import com.imbres.controlededespesas.data.login.LoginUIEvent
 import com.imbres.controlededespesas.data.login.LoginViewModel
 import com.imbres.controlededespesas.data.lostpassword.LostPasswordViewModel
+import com.imbres.controlededespesas.data.signup.SignupUIEvent
+import com.imbres.controlededespesas.data.signup.SignupViewModel
 import com.imbres.controlededespesas.navigation.Screen
 import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.greenFinLight
@@ -51,8 +54,10 @@ fun SignUpScreen(
     navController: NavHostController,
     loginViewModel: LoginViewModel = viewModel(),
     lostPasswordViewModel: LostPasswordViewModel = viewModel(),
-    signUpViewModel: SignupViewModel = viewModel(),
+    signUpViewModel: SignupViewModel = viewModel()
 ) {
+
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -193,10 +198,14 @@ fun SignUpScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-//                    LoadingAnimation()
+                    LoadingAnimation()
 //                    navController.popBackStack()
 //                    navController.navigate(Screen.Login.route)
                 }
+            }
+
+            if (signUpViewModel.signUpFail.value) {
+                Toast.makeText(context, "Falhou", Toast.LENGTH_SHORT).show()
             }
         }
 

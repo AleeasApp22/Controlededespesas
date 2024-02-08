@@ -179,8 +179,10 @@ fun LoginScreen(
                     verticalArrangement = Arrangement.Center
                 ) {
                     LoadingAnimation()
+/*
                     navController.popBackStack()
                     navController.navigate(Screen.Splash.route)
+*/
                 }
             }
 
