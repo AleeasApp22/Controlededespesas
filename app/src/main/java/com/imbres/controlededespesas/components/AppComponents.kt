@@ -1,5 +1,7 @@
 package com.imbres.controlededespesas.components
 
+import android.app.AlertDialog
+import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -494,3 +496,20 @@ fun ToastDisplay(msg: String) {
 
 }
 
+@Composable
+fun AlertDisplay(context: Context, msg:String){
+    val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+    builder
+        //.setTitle("Nova conta")
+        .setTitle("")
+        .setMessage(msg)
+        .setPositiveButton("Retornar") { dialog, which ->
+            // Do something.
+        }
+        .setNegativeButton("") { dialog, which ->
+            // Do something else.
+        }
+
+    val dialog: AlertDialog = builder.create()
+    dialog.show()
+}

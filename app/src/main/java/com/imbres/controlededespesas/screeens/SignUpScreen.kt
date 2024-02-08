@@ -1,5 +1,6 @@
 package com.imbres.controlededespesas.screeens
 
+import android.app.AlertDialog
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.background
@@ -29,6 +30,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.imbres.controlededespesas.R
+import com.imbres.controlededespesas.components.AlertDisplay
 import com.imbres.controlededespesas.components.BlackNormalTextComponent
 import com.imbres.controlededespesas.components.ButtonComponent
 import com.imbres.controlededespesas.components.ClickableUnderLinedTextComponent
@@ -205,7 +207,8 @@ fun SignUpScreen(
             }
 
             if (signUpViewModel.signUpFail.value) {
-                Toast.makeText(context, "Falhou", Toast.LENGTH_SHORT).show()
+                AlertDisplay(context,"Email informado já está em uso")
+                signUpViewModel.signUpFail.value = false
             }
         }
 
