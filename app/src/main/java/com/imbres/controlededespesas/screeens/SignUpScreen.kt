@@ -193,7 +193,7 @@ fun SignUpScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    LoadingAnimation()
+//                    LoadingAnimation()
 //                    navController.popBackStack()
 //                    navController.navigate(Screen.Login.route)
                 }

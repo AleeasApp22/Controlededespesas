@@ -4,10 +4,6 @@ import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
-import com.imbres.controlededespesas.data.login.LoginUIEvent
-import com.imbres.controlededespesas.navigation.AppRouter
-import com.imbres.controlededespesas.navigation.Screen
-import com.imbres.controlededespesas.navigation.ScreenApp
 import com.imbres.controlededespesas.rules.Validator
 
 class SignupViewModel : ViewModel() {
@@ -15,8 +11,6 @@ class SignupViewModel : ViewModel() {
     private val TAG = SignupViewModel::class.simpleName
 
     var signupUIState = mutableStateOf(SignupUIState())
-
-    var registrationUIState = mutableStateOf(RegistrationUIState())
 
     var allValidationsPassed = mutableStateOf(false)
 
@@ -67,14 +61,16 @@ class SignupViewModel : ViewModel() {
 //        val password = signupUIState.value.password
 
         createUserInFirebase(
-            email = registrationUIState.value.email,
-            password = registrationUIState.value.password,
+            email = signupUIState.value.email,
+            password = signupUIState.value.password,
         )
     }
 
     private fun createUserInFirebase(email: String, password: String) {
 
         signUpInProgress.value = true
+
+        Log.d(TAG, "email: $email / password: $password")
 
         if (!email.isEmpty() || !password.isEmpty()) {
             FirebaseAuth
