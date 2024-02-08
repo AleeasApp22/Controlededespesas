@@ -1,8 +1,5 @@
 package com.imbres.controlededespesas.screeens
 
-import android.app.AlertDialog
-import android.content.Context
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -187,8 +184,6 @@ fun SignUpScreen(
                     verticalArrangement = Arrangement.Center
                 ) {
                     navController.popBackStack()
-                    //navController.popBackStack()
-                    //navController.navigate(Screen.Splash.route)
                 }
             }
 
@@ -201,13 +196,11 @@ fun SignUpScreen(
                     verticalArrangement = Arrangement.Center
                 ) {
                     LoadingAnimation()
-//                    navController.popBackStack()
-//                    navController.navigate(Screen.Login.route)
                 }
             }
 
             if (signUpViewModel.signUpFail.value) {
-                AlertDisplay(context,"Email informado já está em uso")
+                AlertDisplay(context,"","Email informado já está em uso", "Sair", "")
                 signUpViewModel.signUpFail.value = false
             }
         }

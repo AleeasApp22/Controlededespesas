@@ -496,17 +496,27 @@ fun ToastDisplay(msg: String) {
 
 }
 
+/*
+Caixas de diálogo
+https://developer.android.com/develop/ui/views/components/dialogs?hl=pt-br
+*/
+
 @Composable
-fun AlertDisplay(context: Context, msg:String){
+fun AlertDisplay(context: Context,tit: String, msg:String, pos: String, neg: String){
     val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+
+
+    val title = if (tit.isEmpty()) "" else tit
+    val positive = if (pos.isEmpty()) "" else pos
+    val negative = if (neg.isEmpty()) "" else neg
+
     builder
-        //.setTitle("Nova conta")
-        .setTitle("")
+        .setTitle(title)
         .setMessage(msg)
-        .setPositiveButton("Retornar") { dialog, which ->
+        .setPositiveButton(positive) { dialog, which ->
             // Do something.
         }
-        .setNegativeButton("") { dialog, which ->
+        .setNegativeButton(negative) { dialog, which ->
             // Do something else.
         }
 

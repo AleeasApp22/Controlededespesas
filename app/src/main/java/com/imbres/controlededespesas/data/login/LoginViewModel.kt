@@ -1,12 +1,9 @@
 package com.imbres.controlededespesas.data.login
 
-import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import androidx.navigation.NavHostController
 import com.google.firebase.auth.FirebaseAuth
 import com.imbres.controlededespesas.navigation.AppRouter
-import com.imbres.controlededespesas.navigation.Screen
 import com.imbres.controlededespesas.navigation.ScreenApp
 import com.imbres.controlededespesas.rules.Validator
 
@@ -19,6 +16,8 @@ class LoginViewModel : ViewModel() {
     var allValidationsPassed = mutableStateOf(false)
 
     var loginInProgress = mutableStateOf(false)
+
+    var loginFail = mutableStateOf(false)
 
     fun onEvent(event: LoginUIEvent) {
         when (event) {
@@ -63,6 +62,8 @@ class LoginViewModel : ViewModel() {
 
     private fun login() {
         loginInProgress.value = true
+        loginFail.value = false
+
         val email = loginUIState.value.email
         val password = loginUIState.value.password
 
@@ -71,22 +72,15 @@ class LoginViewModel : ViewModel() {
                 .getInstance()
                 .signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener {
-                    Log.d(TAG,"Inside_login_success")
-                    Log.d(TAG,"${it.isSuccessful}")
-
+                    loginInProgress.value = false
                     if(it.isSuccessful){
-                        loginInProgress.value = false
                         AppRouter.navigateTo(ScreenApp.HomeScreen)
-                        //navController.navigate(ScreenSplash.Home.route)
                     }
                 }
                 .addOnFailureListener {
-                    Log.d(TAG,"Inside_login_failure")
-                    Log.d(TAG,"${it.localizedMessage}")
+                    loginFail.value = true
                     loginInProgress.value = false
                 }
         }
-
     }
-
-    }
+}

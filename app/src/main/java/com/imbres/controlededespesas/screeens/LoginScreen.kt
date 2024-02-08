@@ -17,6 +17,7 @@ import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -26,6 +27,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.imbres.controlededespesas.R
+import com.imbres.controlededespesas.components.AlertDisplay
 import com.imbres.controlededespesas.components.BlackNormalTextComponent
 import com.imbres.controlededespesas.components.ButtonComponent
 import com.imbres.controlededespesas.components.ClickableUnderLinedTextComponent
@@ -55,6 +57,8 @@ fun LoginScreen(
     lostPasswordViewModel: LostPasswordViewModel = viewModel(),
     signupViewModel: SignupViewModel= viewModel(),
 ) {
+
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -179,11 +183,12 @@ fun LoginScreen(
                     verticalArrangement = Arrangement.Center
                 ) {
                     LoadingAnimation()
-/*
-                    navController.popBackStack()
-                    navController.navigate(Screen.Splash.route)
-*/
                 }
+            }
+
+            if (loginViewModel.loginFail.value) {
+                AlertDisplay(context,"","Conta não localizada", "Sair", "")
+                loginViewModel.loginFail.value = false
             }
 
             if (lostPasswordViewModel.lostPasswordInProgress.value) {
@@ -196,10 +201,8 @@ fun LoginScreen(
                 ) {
                     navController.popBackStack()
                     navController.navigate(Screen.LostPassword.route)
-                    //AppRouter.navigateTo(ScreenApp.LostPasswordScreen)
                 }
             }
-
         }
 
         /*SystemBackButtonHandler {
@@ -245,8 +248,6 @@ fun LoginScreen(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun LoginScreenPreview() {
-
     val navController = rememberNavController()
     LoginScreen(navController = navController)
-
 }
