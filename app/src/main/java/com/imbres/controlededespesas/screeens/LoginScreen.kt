@@ -27,7 +27,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.imbres.controlededespesas.R
-import com.imbres.controlededespesas.components.AlertDisplay
 import com.imbres.controlededespesas.components.BlackNormalTextComponent
 import com.imbres.controlededespesas.components.ButtonComponent
 import com.imbres.controlededespesas.components.ClickableUnderLinedTextComponent
@@ -36,15 +35,14 @@ import com.imbres.controlededespesas.components.LoadingAnimation
 import com.imbres.controlededespesas.components.MyTextFieldComponent
 import com.imbres.controlededespesas.components.NormalTitleTextComponent
 import com.imbres.controlededespesas.components.PasswordTextFieldComponent
+import com.imbres.controlededespesas.components.ToastDisplay
 import com.imbres.controlededespesas.data.login.LoginUIEvent
 import com.imbres.controlededespesas.data.login.LoginViewModel
 import com.imbres.controlededespesas.data.lostpassword.LostPasswordUIEvent
 import com.imbres.controlededespesas.data.lostpassword.LostPasswordViewModel
 import com.imbres.controlededespesas.data.signup.SignupUIEvent
 import com.imbres.controlededespesas.data.signup.SignupViewModel
-import com.imbres.controlededespesas.navigation.AppRouter
 import com.imbres.controlededespesas.navigation.Screen
-import com.imbres.controlededespesas.navigation.ScreenApp
 import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.greenFinLight
 
@@ -193,7 +191,8 @@ fun LoginScreen(
             }
 
             if (loginViewModel.loginFail.value) {
-                AlertDisplay(context,"", stringResource(R.string.invalid_email_senha), "Sair", "")
+                //AlertDisplay(context,"", stringResource(R.string.invalid_email_senha), "Sair", "")
+                ToastDisplay(msg = stringResource(R.string.invalid_email_senha))
                 loginViewModel.loginFail.value = false
             }
 

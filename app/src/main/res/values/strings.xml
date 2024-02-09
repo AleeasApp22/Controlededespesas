@@ -23,7 +23,9 @@
     <string name="hide_password">Hide password</string>
     <string name="show_password">Show password</string>
     <string name="ou">ou</string>
+    <string name="send_reset_password_email_ok">Instruções encaminhadas para o email informado</string>
     <string name="invalid_email_senha">Email e/ou senha inválidos</string>
+    <string name="invalid_email">Email inválido ou inexistente</string>
     <string name="already_in_use_email">Email informado já está em uso</string>
     <string name="account_created_successfully">Conta criada com sucesso</string>
 </resources>

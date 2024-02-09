@@ -34,6 +34,7 @@ import com.imbres.controlededespesas.components.DividerTextComponent
 import com.imbres.controlededespesas.components.LoadingAnimation
 import com.imbres.controlededespesas.components.MyTextFieldComponent
 import com.imbres.controlededespesas.components.NormalTitleTextComponent
+import com.imbres.controlededespesas.components.ToastDisplay
 import com.imbres.controlededespesas.data.signup.SignupViewModel
 import com.imbres.controlededespesas.data.login.LoginUIEvent
 import com.imbres.controlededespesas.data.login.LoginViewModel
@@ -174,6 +175,19 @@ fun LostPasswordScreen(
                 }
             }
 
+            if (lostPasswordViewModel.lostPasswordSucess.value) {
+                ToastDisplay(msg = stringResource(R.string.send_reset_password_email_ok))
+                lostPasswordViewModel.lostPasswordSucess.value = false
+                navController.popBackStack()
+                navController.navigate(Screen.Home.route)
+            }
+
+            if (lostPasswordViewModel.lostPasswordFail.value) {
+                //AlertDisplay(context,"", stringResource(R.string.invalid_email_senha), "Sair", "")
+                ToastDisplay(msg = stringResource(R.string.invalid_email))
+                lostPasswordViewModel.lostPasswordFail.value = false
+            }
+
             if (lostPasswordViewModel.lostPasswordInProgress.value) {
                 Column(
                     modifier = Modifier
@@ -184,7 +198,9 @@ fun LostPasswordScreen(
                 ) {
 
                     //navController.popBackStack()
-                    LoadingAnimation()
+                    //LoadingAnimation()
+                    navController.popBackStack()
+                    navController.navigate(Screen.LostPassword.route)
                 }
             }
 

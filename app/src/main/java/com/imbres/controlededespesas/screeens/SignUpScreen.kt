@@ -36,6 +36,7 @@ import com.imbres.controlededespesas.components.LoadingAnimation
 import com.imbres.controlededespesas.components.MyTextFieldComponent
 import com.imbres.controlededespesas.components.NormalTitleTextComponent
 import com.imbres.controlededespesas.components.PasswordTextFieldComponent
+import com.imbres.controlededespesas.components.ToastDisplay
 import com.imbres.controlededespesas.data.login.LoginUIEvent
 import com.imbres.controlededespesas.data.login.LoginViewModel
 import com.imbres.controlededespesas.data.lostpassword.LostPasswordViewModel
@@ -200,13 +201,15 @@ fun SignUpScreen(
             }
 
             if (signUpViewModel.signUpPass.value) {
-                AlertDisplay(context,"", stringResource(R.string.account_created_successfully), "Sair", "")
+                //AlertDisplay(context,"", stringResource(R.string.account_created_successfully), "Sair", "")
+                ToastDisplay(msg = stringResource(R.string.account_created_successfully))
                 signUpViewModel.signUpPass.value = false
                 loginViewModel.onEvent(LoginUIEvent.LoginButtonClicked)
             }
 
             if (signUpViewModel.signUpFail.value) {
-                AlertDisplay(context,"", stringResource(R.string.already_in_use_email), "Sair", "")
+                //AlertDisplay(context,"", stringResource(R.string.already_in_use_email), "Sair", "")
+                ToastDisplay(msg = stringResource(R.string.already_in_use_email))
                 signUpViewModel.signUpFail.value = false
             }
         }
