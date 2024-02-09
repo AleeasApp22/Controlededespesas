@@ -199,6 +199,12 @@ fun SignUpScreen(
                 }
             }
 
+            if (signUpViewModel.signUpPass.value) {
+                AlertDisplay(context,"", stringResource(R.string.account_created_successfully), "Sair", "")
+                signUpViewModel.signUpPass.value = false
+                loginViewModel.onEvent(LoginUIEvent.LoginButtonClicked)
+            }
+
             if (signUpViewModel.signUpFail.value) {
                 AlertDisplay(context,"", stringResource(R.string.already_in_use_email), "Sair", "")
                 signUpViewModel.signUpFail.value = false

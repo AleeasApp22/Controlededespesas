@@ -18,6 +18,8 @@ class SignupViewModel : ViewModel() {
 
     var signUpInProgress = mutableStateOf(false)
 
+    var signUpPass = mutableStateOf(false)
+
     var signUpFail = mutableStateOf(false)
 
     fun onEvent(event: SignupUIEvent) {
@@ -72,9 +74,8 @@ class SignupViewModel : ViewModel() {
     private fun createUserInFirebase(email: String, password: String) {
 
         signUpInProgress.value = true
+        signUpPass.value = false
         signUpFail.value = false
-
-        Log.d(TAG, "email: $email / password: $password")
 
         if (!email.isEmpty() || !password.isEmpty()) {
             FirebaseAuth
@@ -83,6 +84,7 @@ class SignupViewModel : ViewModel() {
                 .addOnCompleteListener {
                     signUpInProgress.value = false
                     if (it.isSuccessful) {
+                        signUpPass.value = true
                         AppRouter.navigateTo(ScreenApp.SignUpScreen)
                     }
                 }
