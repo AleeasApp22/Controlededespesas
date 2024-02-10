@@ -19,7 +19,7 @@ class LostPasswordViewModel : ViewModel() {
 
     var lostPasswordInProgress = mutableStateOf(false)
 
-    var lostPasswordSucess = mutableStateOf(false)
+    var lostPasswordPass = mutableStateOf(false)
 
     var lostPasswordFail = mutableStateOf(false)
 
@@ -57,7 +57,7 @@ class LostPasswordViewModel : ViewModel() {
     private fun lostPassword() {
 
         lostPasswordInProgress.value = true
-        lostPasswordSucess.value = false
+        lostPasswordPass.value = false
         lostPasswordFail.value = false
 
         val email = lostPaswordUIState.value.email
@@ -72,14 +72,12 @@ class LostPasswordViewModel : ViewModel() {
                 .addOnCompleteListener {
                     lostPasswordInProgress.value = false
                     if(it.isSuccessful){
-                        lostPasswordSucess.value = true
-                        //AppRouter.navigateTo(ScreenApp.HomeScreen)
+                        lostPasswordPass.value = true
+                        AppRouter.navigateTo(ScreenApp.HomeScreen)
                     }
                 }
                 .addOnFailureListener {
-                    lostPasswordSucess.value = false
                     lostPasswordFail.value = true
-                    lostPasswordInProgress.value = false
                 }
 
         }

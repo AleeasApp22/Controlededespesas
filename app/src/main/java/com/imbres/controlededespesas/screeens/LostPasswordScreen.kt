@@ -175,19 +175,6 @@ fun LostPasswordScreen(
                 }
             }
 
-            if (lostPasswordViewModel.lostPasswordSucess.value) {
-                ToastDisplay(msg = stringResource(R.string.send_reset_password_email_ok))
-                lostPasswordViewModel.lostPasswordSucess.value = false
-                navController.popBackStack()
-                navController.navigate(Screen.Home.route)
-            }
-
-            if (lostPasswordViewModel.lostPasswordFail.value) {
-                //AlertDisplay(context,"", stringResource(R.string.invalid_email_senha), "Sair", "")
-                ToastDisplay(msg = stringResource(R.string.invalid_email))
-                lostPasswordViewModel.lostPasswordFail.value = false
-            }
-
             if (lostPasswordViewModel.lostPasswordInProgress.value) {
                 Column(
                     modifier = Modifier
@@ -196,12 +183,20 @@ fun LostPasswordScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-
-                    //navController.popBackStack()
-                    //LoadingAnimation()
-                    navController.popBackStack()
-                    navController.navigate(Screen.LostPassword.route)
+                    LoadingAnimation()
                 }
+            }
+
+            if (lostPasswordViewModel.lostPasswordPass.value) {
+                ToastDisplay(msg = stringResource(R.string.send_reset_password_email_ok))
+                lostPasswordViewModel.lostPasswordPass.value = false
+                loginViewModel.onEvent(LoginUIEvent.LoginButtonClicked)
+            }
+
+            if (lostPasswordViewModel.lostPasswordFail.value) {
+                //AlertDisplay(context,"", stringResource(R.string.invalid_email_senha), "Sair", "")
+                ToastDisplay(msg = stringResource(R.string.invalid_email))
+                lostPasswordViewModel.lostPasswordFail.value = false
             }
 
         }
