@@ -1,11 +1,9 @@
 package com.imbres.controlededespesas.data.lostpassword
 
-import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.imbres.controlededespesas.navigation.AppRouter
-import com.imbres.controlededespesas.navigation.Screen
 import com.imbres.controlededespesas.navigation.ScreenApp
 import com.imbres.controlededespesas.rules.Validator
 
@@ -55,12 +53,11 @@ class LostPasswordViewModel : ViewModel() {
     */
 
     private fun lostPassword() {
+        val email = lostPaswordUIState.value.email
 
         lostPasswordInProgress.value = true
         lostPasswordPass.value = false
         lostPasswordFail.value = false
-
-        val email = lostPaswordUIState.value.email
 
         //AppRouter.navigateTo(ScreenApp.HomeScreen)
         //AppRouter.navigateTo(ScreenAppRouter.SignUpScreenAppRouter)
@@ -81,27 +78,6 @@ class LostPasswordViewModel : ViewModel() {
                 }
 
         }
-
     }
-        /* FirebaseAuth
-             .getInstance()
-             .signInWithEmailAndPassword(email, password)
-             .addOnCompleteListener {
-                 Log.d(TAG,"Inside_login_success")
-                 Log.d(TAG,"${it.isSuccessful}")
-
-                 if(it.isSuccessful){
-                     loginInProgress.value = false
-                     PostOfficeAppRouter.navigateTo(Screen.HomeScreen)
-                 }
-             }
-             .addOnFailureListener {
-                 Log.d(TAG,"Inside_login_failure")
-                 Log.d(TAG,"${it.localizedMessage}")
-
-                 loginInProgress.value = false
-
-             }*/
-
-    }
+}
 
