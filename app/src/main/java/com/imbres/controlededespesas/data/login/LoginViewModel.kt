@@ -1,12 +1,14 @@
 package com.imbres.controlededespesas.data.login
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.imbres.controlededespesas.navigation.AppRouter
-import com.imbres.controlededespesas.navigation.ScreenApp
+import com.google.firebase.auth.auth
 import com.imbres.controlededespesas.rules.Validator
 
+@Suppress("DEPRECATION")
 class LoginViewModel : ViewModel() {
 
     private val TAG = LoginViewModel::class.simpleName
@@ -76,7 +78,7 @@ class LoginViewModel : ViewModel() {
                 .signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener {
                     loginInProgress.value = false
-                    if(it.isSuccessful){
+                    if (it.isSuccessful) {
                         loginSucess.value = true
                         //AppRouter.navigateTo(ScreenApp.HomeScreen)
                     }
@@ -89,3 +91,4 @@ class LoginViewModel : ViewModel() {
         }
     }
 }
+

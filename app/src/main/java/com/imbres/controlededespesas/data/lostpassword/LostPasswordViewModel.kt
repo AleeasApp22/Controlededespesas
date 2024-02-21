@@ -1,8 +1,15 @@
 package com.imbres.controlededespesas.data.lostpassword
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.google.firebase.FirebaseError.ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL
+import com.google.firebase.FirebaseError.ERROR_EMAIL_ALREADY_IN_USE
+import com.google.firebase.FirebaseError.ERROR_INVALID_CREDENTIAL
+import com.google.firebase.FirebaseError.ERROR_INVALID_EMAIL
+import com.google.firebase.FirebaseError.ERROR_WRONG_PASSWORD
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthException
 import com.imbres.controlededespesas.navigation.AppRouter
 import com.imbres.controlededespesas.navigation.ScreenApp
 import com.imbres.controlededespesas.rules.Validator
@@ -59,24 +66,55 @@ class LostPasswordViewModel : ViewModel() {
         lostPasswordPass.value = false
         lostPasswordFail.value = false
 
-        //AppRouter.navigateTo(ScreenApp.HomeScreen)
-        //AppRouter.navigateTo(ScreenAppRouter.SignUpScreenAppRouter)
-
         if (!email.isEmpty()) {
             FirebaseAuth
                 .getInstance()
-                .sendPasswordResetEmail(email)
-                .addOnCompleteListener {
-                    lostPasswordInProgress.value = false
-                    if(it.isSuccessful){
+                .signInWithEmailAndPassword(email, "password")
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
                         lostPasswordPass.value = true
-                        AppRouter.navigateTo(ScreenApp.HomeScreen)
+                    } else {
+                        if (task.exception is FirebaseAuthException) {
+                            val exception = task.exception as FirebaseAuthException
+                            when (exception.errorCode) {
+                                ERROR_INVALID_CREDENTIAL.toString() -> {
+                                    lostPasswordFail.value = true
+                                }
+                                ERROR_EMAIL_ALREADY_IN_USE.toString() -> {
+                                    lostPasswordFail.value = true
+                                }
+                                ERROR_INVALID_EMAIL.toString() -> {
+                                    lostPasswordFail.value = true
+                                }
+
+                                ERROR_WRONG_PASSWORD.toString() -> {
+                                    lostPasswordFail.value = true
+                                }
+                                else -> {
+                                    lostPasswordFail.value = true
+                                    lostPasswordInProgress.value = false
+                                }
+                            }
+                        }
                     }
                 }
                 .addOnFailureListener {
-                    lostPasswordFail.value = true
+                    if (!email.isEmpty() && !lostPasswordFail.value) {
+                        FirebaseAuth
+                            .getInstance()
+                            .sendPasswordResetEmail(email)
+                            .addOnCompleteListener {
+                                lostPasswordInProgress.value = false
+                                if(it.isSuccessful){
+                                    lostPasswordPass.value = true
+                                    AppRouter.navigateTo(ScreenApp.HomeScreen)
+                                }
+                            }
+                            .addOnFailureListener {
+                                lostPasswordFail.value = true
+                            }
+                    }
                 }
-
         }
     }
 }
