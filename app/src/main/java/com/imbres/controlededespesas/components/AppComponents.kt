@@ -67,6 +67,7 @@ import com.imbres.controlededespesas.ui.theme.Secondary
 import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.robotoFontFamily
 import com.imbres.controlededespesas.data.NavigationItem
+import java.util.Calendar
 
 @Composable
 fun NormalTitleTextComponent(
@@ -522,4 +523,17 @@ fun AlertDisplay(context: Context,tit: String, msg:String, pos: String, neg: Str
 
     val dialog: AlertDialog = builder.create()
     dialog.show()
+}
+
+fun Saudacao(): String {
+    val horaAtual = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+    var saudacao = "Saudação"
+
+    when (horaAtual) {
+        in 0..11 -> saudacao = "Bom dia,"
+        in 12..17 -> saudacao = "Boa tarde,"
+        in 18..23 -> saudacao = "Boa noite,"
+    }
+
+    return saudacao
 }
