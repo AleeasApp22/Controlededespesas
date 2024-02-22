@@ -186,7 +186,6 @@ fun LoginScreen(
 
             if (loginViewModel.loginSucess.value) {
                 loginViewModel.loginSucess.value = false
-                //navController.popBackStack()
                 navController.navigate(Screen.Home.route)
             }
 
@@ -203,7 +202,7 @@ fun LoginScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    navController.popBackStack()
+                    //navController.popBackStack()
                     navController.navigate(Screen.LostPassword.route)
                 }
             }
@@ -241,7 +240,7 @@ fun LoginScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    navController.popBackStack()
+                    //navController.popBackStack()
                     navController.navigate(Screen.SignUp.route)
                 }
             }

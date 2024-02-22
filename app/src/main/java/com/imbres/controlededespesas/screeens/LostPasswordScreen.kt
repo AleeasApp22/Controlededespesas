@@ -168,7 +168,7 @@ fun LostPasswordScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    navController.popBackStack()
+                    //navController.popBackStack()
                     navController.navigate(Screen.Login.route)
                 }
             }
@@ -229,7 +229,7 @@ fun LostPasswordScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    navController.popBackStack()
+                    //navController.popBackStack()
                     navController.navigate(Screen.SignUp.route)
                     //AppRouter.navigateTo(ScreenApp.SignUpScreen)
                 }

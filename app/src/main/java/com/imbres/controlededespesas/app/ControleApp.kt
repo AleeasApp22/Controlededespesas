@@ -1,22 +1,15 @@
 package com.imbres.controlededespesas.app
 
-import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.imbres.controlededespesas.navigation.AppRouter
-import com.imbres.controlededespesas.navigation.Screen
-import com.imbres.controlededespesas.navigation.ScreenApp
 import com.imbres.controlededespesas.screeens.MessageScreen
-import com.imbres.controlededespesas.screeens.SignUpScreen
-import com.nativemobilebits.loginflow.data.home.HomeViewModel
 
 @Composable
-fun ControleApp(navController: NavHostController){
+fun ControleScreen(navController: NavHostController){
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = Color.White

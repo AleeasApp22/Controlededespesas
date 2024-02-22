@@ -27,7 +27,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.imbres.controlededespesas.R
-import com.imbres.controlededespesas.components.AlertDisplay
 import com.imbres.controlededespesas.components.BlackNormalTextComponent
 import com.imbres.controlededespesas.components.ButtonComponent
 import com.imbres.controlededespesas.components.ClickableUnderLinedTextComponent
@@ -184,7 +183,7 @@ fun SignUpScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    navController.popBackStack()
+                    //navController.popBackStack()
                 }
             }
 
@@ -245,7 +244,7 @@ fun SignUpScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    navController.popBackStack()
+                    //navController.popBackStack()
                     navController.navigate(Screen.Login.route)
                 }
             }

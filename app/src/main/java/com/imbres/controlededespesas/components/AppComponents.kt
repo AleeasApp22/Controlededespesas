@@ -66,7 +66,7 @@ import com.imbres.controlededespesas.ui.theme.Primary
 import com.imbres.controlededespesas.ui.theme.Secondary
 import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.robotoFontFamily
-import com.nativemobilebits.loginflow.data.NavigationItem
+import com.imbres.controlededespesas.data.NavigationItem
 
 @Composable
 fun NormalTitleTextComponent(

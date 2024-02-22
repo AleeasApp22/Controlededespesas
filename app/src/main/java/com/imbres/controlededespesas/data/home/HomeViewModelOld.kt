@@ -1,4 +1,4 @@
-package com.imbres.controlededespesas.data.home
+package com.nativemobilebits.loginflow.data.home
 
 import android.util.Log
 import androidx.compose.material.icons.Icons
@@ -8,14 +8,13 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
-import com.imbres.controlededespesas.data.NavigationItem
 import com.imbres.controlededespesas.navigation.AppRouter
-import com.imbres.controlededespesas.navigation.Screen
 import com.imbres.controlededespesas.navigation.ScreenApp
+import com.imbres.controlededespesas.data.NavigationItem
 
-class HomeViewModel : ViewModel() {
+class HomeViewModelOld : ViewModel() {
 
-    private val TAG = HomeViewModel::class.simpleName
+    private val TAG = HomeViewModelOld::class.simpleName
 
     val navigationItemsList = listOf<NavigationItem>(
         NavigationItem(
@@ -49,7 +48,7 @@ class HomeViewModel : ViewModel() {
         val authStateListener = FirebaseAuth.AuthStateListener {
             if (it.currentUser == null) {
                 Log.d(TAG, "Inside sign outsuccess")
-                //AppRouter.navigateTo(Screen.LoginScreen)
+                //AppRouter.navigateTo(Screen.Login)
                 AppRouter.navigateTo(ScreenApp.LoginScreen)
             } else {
                 Log.d(TAG, "Inside sign out is not complete")
