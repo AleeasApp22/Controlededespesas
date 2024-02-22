@@ -1,9 +1,7 @@
 package com.imbres.controlededespesas.data.lostpassword
 
-import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.google.firebase.FirebaseError.ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL
 import com.google.firebase.FirebaseError.ERROR_EMAIL_ALREADY_IN_USE
 import com.google.firebase.FirebaseError.ERROR_INVALID_CREDENTIAL
 import com.google.firebase.FirebaseError.ERROR_INVALID_EMAIL
@@ -107,7 +105,7 @@ class LostPasswordViewModel : ViewModel() {
                                 lostPasswordInProgress.value = false
                                 if(it.isSuccessful){
                                     lostPasswordPass.value = true
-                                    AppRouter.navigateTo(ScreenApp.HomeScreen)
+                                    AppRouter.navigateTo(ScreenApp.LoginScreen)
                                 }
                             }
                             .addOnFailureListener {

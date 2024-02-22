@@ -14,7 +14,6 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.imbres.controlededespesas.navigation.AppRouter
 import com.imbres.controlededespesas.navigation.Screen
 import com.imbres.controlededespesas.ui.theme.ControleDeDespesasTheme
 
@@ -42,7 +41,6 @@ fun SplashScreen(navController: NavHostController) {
             )
             if (logoAnimationState.isAtEnd && logoAnimationState.isPlaying) {
                 navController.navigate(Screen.Home.route)
-                //AppRouter.navigateTo(Screen.HomeScreen)
             }
         }
     }
