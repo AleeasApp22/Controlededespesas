@@ -140,11 +140,23 @@ fun SignUpScreen(
                         labelValue = stringResource(id = R.string.password),
                         painterResource(id = R.drawable.lock),
                         onTextSelected = {
-                            signUpViewModel.onEvent(SignupUIEvent.PasswordChanged(it))
+                            signUpViewModel.onEvent(SignupUIEvent.PasswordChanged1(it))
                         },
-                        errorStatus = signUpViewModel.signupUIState.value.passwordError
+                        errorStatus = signUpViewModel.signupUIState.value.passwordError1
                     )
-                    errorButton = signUpViewModel.signupUIState.value.passwordError
+                    errorButton = signUpViewModel.signupUIState.value.passwordError1
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    PasswordTextFieldComponent(
+                        labelValue = stringResource(id = R.string.passwordRepeat),
+                        painterResource(id = R.drawable.lock),
+                        onTextSelected = {
+                            signUpViewModel.onEvent(SignupUIEvent.PasswordChanged2(it))
+                        },
+                        errorStatus = signUpViewModel.signupUIState.value.passwordError2
+                    )
+                    errorButton = signUpViewModel.signupUIState.value.passwordError2
 
                     Spacer(modifier = Modifier.height(20.dp))
 

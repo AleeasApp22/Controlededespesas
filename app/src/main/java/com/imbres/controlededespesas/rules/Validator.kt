@@ -35,7 +35,13 @@ object Validator {
 
     fun validatePassword(password: String): ValidationResult {
         return ValidationResult(
-            (!password.isNullOrEmpty() && password.length >= 6)
+            (password.isNotEmpty() && password.length >= 6)
+        )
+    }
+
+    fun validatePasswordPass(password1: String, password2: String): ValidationResult {
+        return ValidationResult(
+            (password1.isNotEmpty() && password1.length >= 6 && password2.isNotEmpty() && password2.length >= 6 && password1 == password2)
         )
     }
 

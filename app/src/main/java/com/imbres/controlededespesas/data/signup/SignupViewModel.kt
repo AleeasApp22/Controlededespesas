@@ -1,5 +1,6 @@
 package com.imbres.controlededespesas.data.signup
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -29,9 +30,15 @@ class SignupViewModel : ViewModel() {
                 )
             }
 
-            is SignupUIEvent.PasswordChanged -> {
+            is SignupUIEvent.PasswordChanged1 -> {
                 signupUIState.value = signupUIState.value.copy(
-                    password = event.password
+                    password1 = event.password1
+                )
+            }
+
+            is SignupUIEvent.PasswordChanged2 -> {
+                signupUIState.value = signupUIState.value.copy(
+                    password2 = event.password2
                 )
             }
 
@@ -47,14 +54,31 @@ class SignupViewModel : ViewModel() {
             email = signupUIState.value.email
         )
 
-        val passwordResult = Validator.validatePassword(
-            password = signupUIState.value.password
+        val passwordResult1 = Validator.validatePasswordPass(
+            password1 = signupUIState.value.password1,
+            password2 = signupUIState.value.password2
         )
+
+        val passwordResult2 = Validator.validatePasswordPass(
+            password1 = signupUIState.value.password1,
+            password2 = signupUIState.value.password2
+        )
+
+/*
+        val passwordResultPass = Validator.validatePasswordsPass(
+            password1 = signupUIState.value.password1, password2 = signupUIState.value.password2
+        )
+*/
+
 
         signupUIState.value = signupUIState.value.copy(
             emailError = emailResult.status,
-            passwordError = passwordResult.status
+            passwordError1 = passwordResult1.status,
+            passwordError2 = passwordResult2.status,
+            //passwordErrorPass = passwordResultPass.status
         )
+
+        //Log.d(TAG, "passwordResultPass.status: $passwordResultPass")
 
         allValidationsPassed.value = emailResult.status
 
@@ -66,7 +90,7 @@ class SignupViewModel : ViewModel() {
 
         createUserInFirebase(
             email = signupUIState.value.email,
-            password = signupUIState.value.password,
+            password = signupUIState.value.password1,
         )
     }
 

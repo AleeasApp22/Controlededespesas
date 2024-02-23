@@ -18,6 +18,7 @@
     <string name="email">Email</string>
     <string name="name_user">Nome</string>
     <string name="password">Senha</string>
+    <string name="passwordRepeat">Repita a senha</string>
     <string name="lost_password">Esqueci minha senha</string>
     <string name="back">Retornar</string>
     <string name="hide_password">Hide password</string>
