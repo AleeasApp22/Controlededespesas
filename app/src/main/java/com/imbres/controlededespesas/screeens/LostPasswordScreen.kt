@@ -77,6 +77,7 @@ fun LostPasswordScreen(
                     valueText = stringResource(id = R.string.recovery_password),
                     valuePadding = 8,
                     valueSize = 25,
+                    valueHeightIn = 40,
                     valueTextColor = TextColor,
                     alignText = "Left"
                 )

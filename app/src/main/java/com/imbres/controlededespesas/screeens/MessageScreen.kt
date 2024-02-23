@@ -61,6 +61,7 @@ fun MessageScreen(
                 valueText = stringResource(id = R.string.bem_vindo_ao),
                 valuePadding = 0,
                 valueSize = 35,
+                valueHeightIn = 40,
                 valueTextColor = TextColor,
                 alignText = "Center"
             )

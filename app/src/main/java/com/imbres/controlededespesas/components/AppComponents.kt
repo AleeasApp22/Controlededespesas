@@ -97,6 +97,7 @@ fun BlackNormalTextComponent(
     valueText: String,
     valuePadding: Int,
     valueSize: Int,
+    valueHeightIn: Int,
     valueTextColor: Color,
     alignText: String,
 ) {
@@ -105,7 +106,8 @@ fun BlackNormalTextComponent(
         modifier = Modifier
             .fillMaxWidth()
             .padding(valuePadding.dp)
-            .heightIn(min = 40.dp),
+            .heightIn(min = valueHeightIn.dp),
+            //.heightIn(min = 40.dp),
         style = TextStyle(
             fontFamily = robotoFontFamily,
             fontSize = valueSize.sp,

@@ -16,7 +16,7 @@ object Validator {
 
     fun validateName(name: String): ValidationResult {
         return ValidationResult(
-            (!name.isNullOrEmpty() && name.length >= 2)
+            (!name.isNullOrEmpty() && name.length >= 6)
         )
 
     }

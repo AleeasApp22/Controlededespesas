@@ -80,6 +80,7 @@ fun LoginScreen(
                     valueText = stringResource(id = R.string.bem_vindo),
                     valuePadding = 8,
                     valueSize = 25,
+                    valueHeightIn = 40,
                     valueTextColor = TextColor,
                     alignText = "Left",
                 )

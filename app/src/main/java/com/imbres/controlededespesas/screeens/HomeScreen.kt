@@ -1,5 +1,7 @@
 package com.imbres.controlededespesas.screeens
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -28,10 +30,10 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
 
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
-    val nomeUsuario : String
+    val nameUser : String
 
     homeViewModel.getUserData()
-    nomeUsuario = homeViewModel.emailId.value.toString()
+    nameUser = homeViewModel.userId.value.toString()
 
     Column (
         modifier = Modifier
@@ -53,14 +55,16 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                     valueText = Saudacao(),
                     valuePadding = 8,
                     valueSize = 15,
+                    valueHeightIn = 0,
                     valueTextColor = TextColor,
                     alignText = "Left",
                 )
 
                 BlackNormalTextComponent(
-                    valueText = nomeUsuario,
+                    valueText = nameUser,
                     valuePadding = 8,
                     valueSize = 20,
+                    valueHeightIn = 0,
                     valueTextColor = TextColor,
                     alignText = "Left",
                 )

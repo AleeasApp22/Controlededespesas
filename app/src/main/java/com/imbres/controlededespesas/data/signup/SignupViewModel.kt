@@ -2,8 +2,11 @@ package com.imbres.controlededespesas.data.signup
 
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.imbres.controlededespesas.navigation.AppRouter
 import com.imbres.controlededespesas.navigation.ScreenApp
 import com.imbres.controlededespesas.rules.Validator
@@ -24,6 +27,12 @@ class SignupViewModel : ViewModel() {
 
     fun onEvent(event: SignupUIEvent) {
         when (event) {
+            is SignupUIEvent.NameChanged -> {
+                signupUIState.value = signupUIState.value.copy(
+                    name = event.name
+                )
+            }
+
             is SignupUIEvent.EmailChanged -> {
                 signupUIState.value = signupUIState.value.copy(
                     email = event.email
@@ -50,6 +59,10 @@ class SignupViewModel : ViewModel() {
     }
 
     private fun validateLostUIDataWithRules() {
+        val nameResult = Validator.validateName(
+            name = signupUIState.value.name
+        )
+
         val emailResult = Validator.validateEmail(
             email = signupUIState.value.email
         )
@@ -64,21 +77,12 @@ class SignupViewModel : ViewModel() {
             password2 = signupUIState.value.password2
         )
 
-/*
-        val passwordResultPass = Validator.validatePasswordsPass(
-            password1 = signupUIState.value.password1, password2 = signupUIState.value.password2
-        )
-*/
-
-
         signupUIState.value = signupUIState.value.copy(
+            nameError = nameResult.status,
             emailError = emailResult.status,
             passwordError1 = passwordResult1.status,
             passwordError2 = passwordResult2.status,
-            //passwordErrorPass = passwordResultPass.status
         )
-
-        //Log.d(TAG, "passwordResultPass.status: $passwordResultPass")
 
         allValidationsPassed.value = emailResult.status
 
@@ -89,25 +93,41 @@ class SignupViewModel : ViewModel() {
         signUpInProgress.value = true
 
         createUserInFirebase(
+            name = signupUIState.value.name,
             email = signupUIState.value.email,
             password = signupUIState.value.password1,
         )
     }
 
-    private fun createUserInFirebase(email: String, password: String) {
+    private fun createUserInFirebase(name: String, email: String, password: String) {
 
         signUpInProgress.value = true
         signUpPass.value = false
         signUpFail.value = false
+
+        val userId: MutableLiveData<String> = MutableLiveData()
+        val db = FirebaseFirestore.getInstance()
 
         if (!email.isEmpty() || !password.isEmpty()) {
             FirebaseAuth
                 .getInstance()
                 .createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener {
+                    userId.value = FirebaseAuth.getInstance().uid
                     signUpInProgress.value = false
                     if (it.isSuccessful) {
                         signUpPass.value = true
+
+                        val data = hashMapOf(
+                            "name" to name,
+                            "email" to email,
+                        )
+
+                        db.collection("users").document(userId.value.toString())
+                            .set(data)
+                            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
+                            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
+
                         AppRouter.navigateTo(ScreenApp.SignUpScreen)
                     }
                 }

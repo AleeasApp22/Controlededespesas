@@ -80,6 +80,7 @@ fun SignUpScreen(
                     valueText = stringResource(id = R.string.create_an_account),
                     valuePadding = 8,
                     valueSize = 25,
+                    valueHeightIn = 40,
                     valueTextColor = TextColor,
                     alignText = "Left"
                 )
@@ -123,6 +124,18 @@ fun SignUpScreen(
                     modifier = Modifier
                         .padding(start = 20.dp, top = 40.dp, end = 20.dp)
                 ) {
+
+                    MyTextFieldComponent(
+                        labelValue = stringResource(id = R.string.name_user),
+                        painterResource(id = R.drawable.message),
+                        onTextChanged = {
+                            signUpViewModel.onEvent(SignupUIEvent.NameChanged(it))
+                        },
+                        errorStatus = signUpViewModel.signupUIState.value.nameError
+                    )
+                    errorButton = signUpViewModel.signupUIState.value.nameError
+
+                    Spacer(modifier = Modifier.height(20.dp))
 
                     MyTextFieldComponent(
                         labelValue = stringResource(id = R.string.email),

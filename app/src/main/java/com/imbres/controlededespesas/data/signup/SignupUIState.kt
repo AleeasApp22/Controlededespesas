@@ -1,17 +1,17 @@
 package com.imbres.controlededespesas.data.signup
 
 data class SignupUIState(
+    var name  :String = "",
     var email  :String = "",
     var password1  :String = "",
     var password2  :String = "",
     var passwordPass  :String = "",
-    var name  :String = "",
 
+    var nameError :Boolean = false,
     var emailError :Boolean = false,
     var passwordError1 : Boolean = false,
     var passwordError2 : Boolean = false,
     var passwordErrorPass : Boolean = false,
-    var nameError :Boolean = false,
 
 )
 
