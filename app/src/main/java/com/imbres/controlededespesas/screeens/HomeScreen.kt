@@ -33,7 +33,11 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
     val nameUser : String
 
     homeViewModel.getUserData()
-    nameUser = homeViewModel.userId.value.toString()
+    //nameUser = homeViewModel.nameUser.toString()
+
+    homeViewModel.readUserData()
+    nameUser = homeViewModel.name.value.toString()
+    Log.d(TAG, "nameUser: $nameUser")
 
     Column (
         modifier = Modifier

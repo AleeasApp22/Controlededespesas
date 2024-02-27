@@ -2,6 +2,7 @@ package com.imbres.controlededespesas.screeens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,16 +10,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Surface
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawWithCache
-import androidx.compose.ui.geometry.CornerRadius
-import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -40,7 +38,6 @@ import com.imbres.controlededespesas.data.login.LoginUIEvent
 import com.imbres.controlededespesas.data.login.LoginViewModel
 import com.imbres.controlededespesas.data.lostpassword.LostPasswordUIEvent
 import com.imbres.controlededespesas.data.lostpassword.LostPasswordViewModel
-import com.imbres.controlededespesas.data.signup.SignupUIEvent
 import com.imbres.controlededespesas.data.signup.SignupViewModel
 import com.imbres.controlededespesas.navigation.Screen
 import com.imbres.controlededespesas.ui.theme.TextColor
@@ -53,29 +50,28 @@ fun LoginScreen(
     navController: NavHostController,
     loginViewModel: LoginViewModel = viewModel(),
     lostPasswordViewModel: LostPasswordViewModel = viewModel(),
-    signupViewModel: SignupViewModel= viewModel(),
-) {
+    signupViewModel: SignupViewModel = viewModel(),
+){
 
     val context = LocalContext.current
 
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
+    Column (
+        modifier = Modifier
+            .background(greenFinLight),
     ) {
-
-        Surface(
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(1f),
-            color = greenFinLight
+                .weight(0.2f)
+                .background(greenFinLight)
         ) {
+
             Column(
-                modifier = Modifier.padding(start = 10.dp, end = 10.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
-
-                ) {
-
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(start = 10.dp, end = 10.dp),
+                verticalArrangement = Arrangement.SpaceEvenly
+            ) {
                 BlackNormalTextComponent(
                     valueText = stringResource(id = R.string.bem_vindo),
                     valuePadding = 8,
@@ -94,92 +90,69 @@ fun LoginScreen(
             }
         }
 
-        Surface(
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(5f),
-            color = Color.Green
+                .weight(0.8f)
+                .clip(RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp))
+                .background(Color.White)
         ) {
             Column(
                 modifier = Modifier
-                    .fillMaxSize()
-
-                    .background(color = colorResource(id = R.color.greenFinLight))
-                    .drawWithCache {
-                        val brush = Brush.linearGradient(
-                            listOf(
-                                Color.White,
-                                Color.White
-                            )
-                        )
-                        onDrawBehind {
-                            drawRoundRect(
-                                brush,
-                                cornerRadius = CornerRadius(30.dp.toPx())
-                            )
-                        }
-                    }
+                    .padding(start = 20.dp, top = 40.dp, end = 20.dp),
             ) {
-                Column(
-                    modifier = Modifier
-                        .padding(start = 20.dp, top = 40.dp, end = 20.dp)
-                ) {
+                MyTextFieldComponent(
+                    labelValue = stringResource(id = R.string.email),
+                    painterResource(id = R.drawable.message),
+                    onTextChanged = {
+                        loginViewModel.onEvent(LoginUIEvent.EmailChanged(it))
+                    },
+                    errorStatus = loginViewModel.loginUIState.value.emailError
+                )
+                errorButton = loginViewModel.loginUIState.value.emailError
 
-                    MyTextFieldComponent(
-                        labelValue = stringResource(id = R.string.email),
-                        painterResource(id = R.drawable.message),
-                        onTextChanged = {
-                            loginViewModel.onEvent(LoginUIEvent.EmailChanged(it))
-                        },
-                        errorStatus = loginViewModel.loginUIState.value.emailError
-                    )
-                    errorButton = loginViewModel.loginUIState.value.emailError
+                Spacer(modifier = Modifier.height(20.dp))
 
-                    Spacer(modifier = Modifier.height(20.dp))
+                PasswordTextFieldComponent(
+                    labelValue = stringResource(id = R.string.password),
+                    painterResource(id = R.drawable.lock),
+                    onTextSelected = {
+                        loginViewModel.onEvent(LoginUIEvent.PasswordChanged(it))
+                    },
+                    errorStatus = loginViewModel.loginUIState.value.passwordError
+                )
+                errorButton = loginViewModel.loginUIState.value.passwordError
 
-                    PasswordTextFieldComponent(
-                        labelValue = stringResource(id = R.string.password),
-                        painterResource(id = R.drawable.lock),
-                        onTextSelected = {
-                            loginViewModel.onEvent(LoginUIEvent.PasswordChanged(it))
-                        },
-                        errorStatus = loginViewModel.loginUIState.value.passwordError
-                    )
-                    errorButton = loginViewModel.loginUIState.value.passwordError
+                Spacer(modifier = Modifier.height(20.dp))
 
-                    Spacer(modifier = Modifier.height(20.dp))
+                ButtonComponent(
+                    value = stringResource(id = R.string.login),
+                    onButtonClicked = {
+                        loginViewModel.onEvent(LoginUIEvent.LoginButtonClicked)
+                    },
+                    isEnabled = if (errorButton) loginViewModel.allValidationsPassed.value else false
+                )
 
-                    ButtonComponent(
-                        value = stringResource(id = R.string.login),
-                        onButtonClicked = {
-                            loginViewModel.onEvent(LoginUIEvent.LoginButtonClicked)
-                        },
-                        isEnabled = if (errorButton) loginViewModel.allValidationsPassed.value else false
-                    )
+                Spacer(modifier = Modifier.height(40.dp))
 
-                    Spacer(modifier = Modifier.height(40.dp))
+                DividerTextComponent()
 
-                    DividerTextComponent()
+                Spacer(modifier = Modifier.height(40.dp))
 
-                    Spacer(modifier = Modifier.height(40.dp))
-
-                    ClickableUnderLinedTextComponent(
-                        stringResource(id = R.string.lost_password),
-                        onButtonClicked = {
-                            lostPasswordViewModel.onEvent(LostPasswordUIEvent.LostPasswordButtonClicked)
-                        },
-                    )
-
-                }
+                ClickableUnderLinedTextComponent(
+                    stringResource(id = R.string.lost_password),
+                    onButtonClicked = {
+                        lostPasswordViewModel.onEvent(LostPasswordUIEvent.LostPasswordButtonClicked)
+                    },
+                )
             }
 
             if (loginViewModel.loginInProgress.value) {
                 Column(
                     modifier = Modifier
-                        .height(70.dp)
-                        .width(70.dp),
+                        .fillMaxSize(),
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
+                    verticalArrangement = Arrangement.SpaceAround
                 ) {
                     LoadingAnimation()
                 }
@@ -208,45 +181,8 @@ fun LoginScreen(
                 }
             }
         }
-
-        /*SystemBackButtonHandler {
-            PostOfficeAppRouter.navigateTo(Screen.SignUpScreen)
-        }*/
-
-        Surface(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f),
-            color = greenFinLight
-        ) {
-            Column(
-                modifier = Modifier
-                    .padding(start = 20.dp, top = 20.dp, end = 20.dp),
-                verticalArrangement = Arrangement.Center
-            ) {
-                ClickableUnderLinedTextComponent(
-                    stringResource(id = R.string.sign_up_account),
-                    onButtonClicked = {
-                        signupViewModel.onEvent(SignupUIEvent.SignupButtonClicked)
-                    },
-                )
-
-            }
-
-            if (signupViewModel.signUpInProgress.value) {
-                Column(
-                    modifier = Modifier
-                        .height(70.dp)
-                        .width(70.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    //navController.popBackStack()
-                    navController.navigate(Screen.SignUp.route)
-                }
-            }
-        }
     }
+
 }
 
 @Preview(showBackground = true, showSystemUi = true)
