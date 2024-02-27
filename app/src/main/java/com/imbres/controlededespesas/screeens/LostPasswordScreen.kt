@@ -137,20 +137,14 @@ fun LostPasswordScreen(
                     },
                 )
 
-                Column (
-                    modifier = Modifier
-                        .padding(bottom = 30.dp)
-                        .fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Bottom
-                ){
-                    ClickableUnderLinedTextComponent(
-                        stringResource(id = R.string.sign_up_account),
-                        onButtonClicked = {
-                            signupViewModel.onEvent(SignupUIEvent.SignupButtonClicked)
-                        },
-                    )
-                }
+                Spacer(modifier = Modifier.height(40.dp))
+
+                ClickableUnderLinedTextComponent(
+                    stringResource(id = R.string.sign_up_account),
+                    onButtonClicked = {
+                        signupViewModel.onEvent(SignupUIEvent.SignupButtonClicked)
+                    },
+                )
             }
 
             if (loginViewModel.loginInProgress.value) {

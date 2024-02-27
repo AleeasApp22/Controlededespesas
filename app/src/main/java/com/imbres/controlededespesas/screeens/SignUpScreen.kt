@@ -179,10 +179,6 @@ fun SignUpScreen(
 
                 Spacer(modifier = Modifier.height(40.dp))
 
-                /*                    UnderLinedTextComponent(
-                                        valueText = stringResource(id = R.string.back),
-                                        )*/
-
                 ClickableUnderLinedTextComponent(
                     stringResource(id = R.string.have_an_account),
                     onButtonClicked = {
