@@ -2,6 +2,7 @@ package com.imbres.controlededespesas.screeens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,10 +10,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Brush
@@ -33,6 +36,7 @@ import com.imbres.controlededespesas.components.DividerTextComponent
 import com.imbres.controlededespesas.components.LoadingAnimation
 import com.imbres.controlededespesas.components.MyTextFieldComponent
 import com.imbres.controlededespesas.components.NormalTitleTextComponent
+import com.imbres.controlededespesas.components.PasswordTextFieldComponent
 import com.imbres.controlededespesas.components.ToastDisplay
 import com.imbres.controlededespesas.data.login.LoginUIEvent
 import com.imbres.controlededespesas.data.login.LoginViewModel
@@ -54,25 +58,23 @@ fun LostPasswordScreen(
     lostPasswordViewModel: LostPasswordViewModel = viewModel(),
     signupViewModel: SignupViewModel = viewModel()
 ) {
-
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
+    Column (
+        modifier = Modifier
+            .background(greenFinLight),
     ) {
-
-        Surface(
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(1f),
-            color = greenFinLight
+                .weight(0.2f)
+                .background(greenFinLight)
         ) {
+
             Column(
-                modifier = Modifier.padding(start = 10.dp, end = 10.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
-
-                ) {
-
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(start = 10.dp, end = 10.dp),
+                verticalArrangement = Arrangement.SpaceEvenly
+            ) {
                 BlackNormalTextComponent(
                     valueText = stringResource(id = R.string.recovery_password),
                     valuePadding = 8,
@@ -91,71 +93,61 @@ fun LostPasswordScreen(
             }
         }
 
-        Surface(
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(5f),
-            color = Color.Green
+                .weight(0.8f)
+                .clip(RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp))
+                .background(Color.White)
         ) {
             Column(
                 modifier = Modifier
-                    .fillMaxSize()
-
-                    .background(color = colorResource(id = R.color.greenFinLight))
-                    .drawWithCache {
-                        val brush = Brush.linearGradient(
-                            listOf(
-                                Color.White,
-                                Color.White
-                            )
-                        )
-                        onDrawBehind {
-                            drawRoundRect(
-                                brush,
-                                cornerRadius = CornerRadius(30.dp.toPx())
-                            )
-                        }
-                    }
+                    .padding(start = 20.dp, top = 40.dp, end = 20.dp),
             ) {
-                Column(
+                MyTextFieldComponent(
+                    labelValue = stringResource(id = R.string.email),
+                    painterResource(id = R.drawable.message),
+                    onTextChanged = {
+                        lostPasswordViewModel.onEvent(LostPasswordUIEvent.EmailChanged(it))
+                    },
+                    errorStatus = lostPasswordViewModel.lostPaswordUIState.value.emailError
+                )
+                errorButton = lostPasswordViewModel.lostPaswordUIState.value.emailError
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                ButtonComponent(
+                    value = stringResource(id = R.string.validar),
+                    onButtonClicked = {
+                        lostPasswordViewModel.onEvent(LostPasswordUIEvent.LostPasswordButtonClicked)
+                    },
+                    isEnabled = if (errorButton) lostPasswordViewModel.allValidationsPassed.value else false
+                )
+
+                Spacer(modifier = Modifier.height(40.dp))
+
+                DividerTextComponent()
+
+                Spacer(modifier = Modifier.height(40.dp))
+
+                ClickableUnderLinedTextComponent(
+                    stringResource(id = R.string.back),
+                    onButtonClicked = {
+                        loginViewModel.onEvent(LoginUIEvent.LoginButtonClicked)
+                    },
+                )
+
+                Column (
                     modifier = Modifier
-                        .padding(start = 20.dp, top = 40.dp, end = 20.dp)
-                ) {
-
-                    MyTextFieldComponent(
-                        labelValue = stringResource(id = R.string.email),
-                        painterResource(id = R.drawable.message),
-                        onTextChanged = {
-                            lostPasswordViewModel.onEvent(LostPasswordUIEvent.EmailChanged(it))
-                        },
-                        errorStatus = lostPasswordViewModel.lostPaswordUIState.value.emailError
-                    )
-                    errorButton = lostPasswordViewModel.lostPaswordUIState.value.emailError
-
-                    Spacer(modifier = Modifier.height(20.dp))
-
-                    ButtonComponent(
-                        value = stringResource(id = R.string.validar),
-                        onButtonClicked = {
-                            lostPasswordViewModel.onEvent(LostPasswordUIEvent.LostPasswordButtonClicked)
-                        },
-                        isEnabled = if (errorButton) lostPasswordViewModel.allValidationsPassed.value else false
-                    )
-
-                    Spacer(modifier = Modifier.height(40.dp))
-
-                    DividerTextComponent()
-
-                    Spacer(modifier = Modifier.height(40.dp))
-
-                    /*                    UnderLinedTextComponent(
-                                            valueText = stringResource(id = R.string.back),
-                                            )*/
-
+                        .padding(bottom = 30.dp)
+                        .fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Bottom
+                ){
                     ClickableUnderLinedTextComponent(
-                        stringResource(id = R.string.back),
+                        stringResource(id = R.string.sign_up_account),
                         onButtonClicked = {
-                            loginViewModel.onEvent(LoginUIEvent.LoginButtonClicked)
+                            signupViewModel.onEvent(SignupUIEvent.SignupButtonClicked)
                         },
                     )
                 }
@@ -164,12 +156,11 @@ fun LostPasswordScreen(
             if (loginViewModel.loginInProgress.value) {
                 Column(
                     modifier = Modifier
-                        .height(70.dp)
-                        .width(70.dp),
+                        .fillMaxSize(),
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
+                    verticalArrangement = Arrangement.SpaceAround
                 ) {
-                    //navController.popBackStack()
+                    LoadingAnimation()
                     navController.navigate(Screen.Login.route)
                 }
             }
@@ -177,10 +168,9 @@ fun LostPasswordScreen(
             if (lostPasswordViewModel.lostPasswordInProgress.value) {
                 Column(
                     modifier = Modifier
-                        .height(70.dp)
-                        .width(70.dp),
+                        .fillMaxSize(),
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
+                    verticalArrangement = Arrangement.SpaceAround
                 ) {
                     LoadingAnimation()
                 }
@@ -197,53 +187,24 @@ fun LostPasswordScreen(
                 lostPasswordViewModel.lostPasswordFail.value = false
             }
 
-        }
-
-        /*SystemBackButtonHandler {
-            PostOfficeAppRouter.navigateTo(Screen.SignUpScreen)
-        }*/
-
-        Surface(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f),
-            color = greenFinLight
-        ) {
-            Column(
-                modifier = Modifier
-                    .padding(start = 20.dp, top = 20.dp, end = 20.dp),
-                verticalArrangement = Arrangement.Center
-            ) {
-                ClickableUnderLinedTextComponent(
-                    stringResource(id = R.string.sign_up_account),
-                    onButtonClicked = {
-                        signupViewModel.onEvent(SignupUIEvent.SignupButtonClicked)
-                    },
-                )
-            }
-
             if (signupViewModel.signUpInProgress.value) {
                 Column(
                     modifier = Modifier
-                        .height(70.dp)
-                        .width(70.dp),
+                        .fillMaxSize(),
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
+                    verticalArrangement = Arrangement.SpaceAround
                 ) {
-                    //navController.popBackStack()
+                    LoadingAnimation()
+                }
                     navController.navigate(Screen.SignUp.route)
-                    //AppRouter.navigateTo(ScreenApp.SignUpScreen)
                 }
             }
         }
     }
-}
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun LostPasswordScreenPreview() {
-
     val navController = rememberNavController()
     LostPasswordScreen(navController = navController)
-
 }

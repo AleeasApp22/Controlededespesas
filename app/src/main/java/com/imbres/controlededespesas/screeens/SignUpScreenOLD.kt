@@ -38,7 +38,6 @@ import com.imbres.controlededespesas.components.PasswordTextFieldComponent
 import com.imbres.controlededespesas.components.ToastDisplay
 import com.imbres.controlededespesas.data.login.LoginUIEvent
 import com.imbres.controlededespesas.data.login.LoginViewModel
-import com.imbres.controlededespesas.data.lostpassword.LostPasswordUIEvent
 import com.imbres.controlededespesas.data.lostpassword.LostPasswordViewModel
 import com.imbres.controlededespesas.data.signup.SignupUIEvent
 import com.imbres.controlededespesas.data.signup.SignupViewModel
@@ -48,19 +47,19 @@ import com.imbres.controlededespesas.ui.theme.greenFinLight
 
 private var errorButton = false
 
+
 @Composable
-fun LoginScreenOld(
+fun SignUpScreenOLD(
     navController: NavHostController,
     loginViewModel: LoginViewModel = viewModel(),
     lostPasswordViewModel: LostPasswordViewModel = viewModel(),
-    signupViewModel: SignupViewModel= viewModel(),
+    signUpViewModel: SignupViewModel = viewModel()
 ) {
 
     val context = LocalContext.current
 
     Column(
-        modifier = Modifier
-            .fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
 
@@ -78,16 +77,16 @@ fun LoginScreenOld(
                 ) {
 
                 BlackNormalTextComponent(
-                    valueText = stringResource(id = R.string.bem_vindo),
+                    valueText = stringResource(id = R.string.create_an_account),
                     valuePadding = 8,
                     valueSize = 25,
                     valueHeightIn = 40,
                     valueTextColor = TextColor,
-                    alignText = "Left",
+                    alignText = "Left"
                 )
 
                 NormalTitleTextComponent(
-                    valueText = stringResource(id = R.string.login_account),
+                    valueText = stringResource(id = R.string.create_account),
                     valueSize = 20,
                     valueTextColor = TextColor,
                     alignText = "Left"
@@ -127,14 +126,26 @@ fun LoginScreenOld(
                 ) {
 
                     MyTextFieldComponent(
+                        labelValue = stringResource(id = R.string.name_user),
+                        painterResource(id = R.drawable.message),
+                        onTextChanged = {
+                            signUpViewModel.onEvent(SignupUIEvent.NameChanged(it))
+                        },
+                        errorStatus = signUpViewModel.signupUIState.value.nameError
+                    )
+                    errorButton = signUpViewModel.signupUIState.value.nameError
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    MyTextFieldComponent(
                         labelValue = stringResource(id = R.string.email),
                         painterResource(id = R.drawable.message),
                         onTextChanged = {
-                            loginViewModel.onEvent(LoginUIEvent.EmailChanged(it))
+                            signUpViewModel.onEvent(SignupUIEvent.EmailChanged(it))
                         },
-                        errorStatus = loginViewModel.loginUIState.value.emailError
+                        errorStatus = signUpViewModel.signupUIState.value.emailError
                     )
-                    errorButton = loginViewModel.loginUIState.value.emailError
+                    errorButton = signUpViewModel.signupUIState.value.emailError
 
                     Spacer(modifier = Modifier.height(20.dp))
 
@@ -142,20 +153,32 @@ fun LoginScreenOld(
                         labelValue = stringResource(id = R.string.password),
                         painterResource(id = R.drawable.lock),
                         onTextSelected = {
-                            loginViewModel.onEvent(LoginUIEvent.PasswordChanged(it))
+                            signUpViewModel.onEvent(SignupUIEvent.PasswordChanged1(it))
                         },
-                        errorStatus = loginViewModel.loginUIState.value.passwordError
+                        errorStatus = signUpViewModel.signupUIState.value.passwordError1
                     )
-                    errorButton = loginViewModel.loginUIState.value.passwordError
+                    errorButton = signUpViewModel.signupUIState.value.passwordError1
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    PasswordTextFieldComponent(
+                        labelValue = stringResource(id = R.string.passwordRepeat),
+                        painterResource(id = R.drawable.lock),
+                        onTextSelected = {
+                            signUpViewModel.onEvent(SignupUIEvent.PasswordChanged2(it))
+                        },
+                        errorStatus = signUpViewModel.signupUIState.value.passwordError2
+                    )
+                    errorButton = signUpViewModel.signupUIState.value.passwordError2
 
                     Spacer(modifier = Modifier.height(20.dp))
 
                     ButtonComponent(
-                        value = stringResource(id = R.string.login),
+                        value = stringResource(id = R.string.validar),
                         onButtonClicked = {
-                            loginViewModel.onEvent(LoginUIEvent.LoginButtonClicked)
+                            signUpViewModel.onEvent(SignupUIEvent.SignupButtonClicked)
                         },
-                        isEnabled = if (errorButton) loginViewModel.allValidationsPassed.value else false
+                        isEnabled = if (errorButton) signUpViewModel.allValidationsPassed.value else false
                     )
 
                     Spacer(modifier = Modifier.height(40.dp))
@@ -164,13 +187,16 @@ fun LoginScreenOld(
 
                     Spacer(modifier = Modifier.height(40.dp))
 
+                    /*                    UnderLinedTextComponent(
+                                            valueText = stringResource(id = R.string.back),
+                                            )*/
+
                     ClickableUnderLinedTextComponent(
-                        stringResource(id = R.string.lost_password),
+                        stringResource(id = R.string.back),
                         onButtonClicked = {
-                            lostPasswordViewModel.onEvent(LostPasswordUIEvent.LostPasswordButtonClicked)
+                            loginViewModel.onEvent(LoginUIEvent.LoginButtonClicked)
                         },
                     )
-
                 }
             }
 
@@ -182,21 +208,11 @@ fun LoginScreenOld(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    LoadingAnimation()
+                    //navController.popBackStack()
                 }
             }
 
-            if (loginViewModel.loginSucess.value) {
-                loginViewModel.loginSucess.value = false
-                navController.navigate(Screen.Home.route)
-            }
-
-            if (loginViewModel.loginFail.value) {
-                ToastDisplay(msg = stringResource(R.string.invalid_email_senha))
-                loginViewModel.loginFail.value = false
-            }
-
-            if (lostPasswordViewModel.lostPasswordInProgress.value) {
+            if (signUpViewModel.signUpInProgress.value) {
                 Column(
                     modifier = Modifier
                         .height(70.dp)
@@ -204,9 +220,21 @@ fun LoginScreenOld(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    //navController.popBackStack()
-                    navController.navigate(Screen.LostPassword.route)
+                    LoadingAnimation()
                 }
+            }
+
+            if (signUpViewModel.signUpPass.value) {
+                //AlertDisplay(context,"", stringResource(R.string.account_created_successfully), "Sair", "")
+                ToastDisplay(msg = stringResource(R.string.account_created_successfully))
+                signUpViewModel.signUpPass.value = false
+                loginViewModel.onEvent(LoginUIEvent.LoginButtonClicked)
+            }
+
+            if (signUpViewModel.signUpFail.value) {
+                //AlertDisplay(context,"", stringResource(R.string.already_in_use_email), "Sair", "")
+                ToastDisplay(msg = stringResource(R.string.already_in_use_email))
+                signUpViewModel.signUpFail.value = false
             }
         }
 
@@ -226,15 +254,14 @@ fun LoginScreenOld(
                 verticalArrangement = Arrangement.Center
             ) {
                 ClickableUnderLinedTextComponent(
-                    stringResource(id = R.string.sign_up_account),
+                    stringResource(id = R.string.have_an_account),
                     onButtonClicked = {
-                        signupViewModel.onEvent(SignupUIEvent.SignupButtonClicked)
+                        loginViewModel.onEvent(LoginUIEvent.LoginButtonClicked)
                     },
                 )
-
             }
 
-            if (signupViewModel.signUpInProgress.value) {
+            if (loginViewModel.loginInProgress.value) {
                 Column(
                     modifier = Modifier
                         .height(70.dp)
@@ -243,7 +270,7 @@ fun LoginScreenOld(
                     verticalArrangement = Arrangement.Center
                 ) {
                     //navController.popBackStack()
-                    navController.navigate(Screen.SignUp.route)
+                    navController.navigate(Screen.Login.route)
                 }
             }
         }
@@ -252,7 +279,9 @@ fun LoginScreenOld(
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun LoginScreenPreviewOld() {
+fun SignUpScreenPreviewOLD() {
+
     val navController = rememberNavController()
-    LoginScreenOld(navController = navController)
+    SignUpScreen(navController = navController)
+
 }

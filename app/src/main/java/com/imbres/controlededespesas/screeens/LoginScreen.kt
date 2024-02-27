@@ -1,5 +1,6 @@
 package com.imbres.controlededespesas.screeens
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -38,6 +39,7 @@ import com.imbres.controlededespesas.data.login.LoginUIEvent
 import com.imbres.controlededespesas.data.login.LoginViewModel
 import com.imbres.controlededespesas.data.lostpassword.LostPasswordUIEvent
 import com.imbres.controlededespesas.data.lostpassword.LostPasswordViewModel
+import com.imbres.controlededespesas.data.signup.SignupUIEvent
 import com.imbres.controlededespesas.data.signup.SignupViewModel
 import com.imbres.controlededespesas.navigation.Screen
 import com.imbres.controlededespesas.ui.theme.TextColor
@@ -145,6 +147,21 @@ fun LoginScreen(
                         lostPasswordViewModel.onEvent(LostPasswordUIEvent.LostPasswordButtonClicked)
                     },
                 )
+
+                Column (
+                    modifier = Modifier
+                        .padding(bottom = 30.dp)
+                        .fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Bottom
+                ){
+                    ClickableUnderLinedTextComponent(
+                        stringResource(id = R.string.sign_up_account),
+                        onButtonClicked = {
+                            signupViewModel.onEvent(SignupUIEvent.SignupButtonClicked)
+                        },
+                    )
+                }
             }
 
             if (loginViewModel.loginInProgress.value) {
@@ -155,6 +172,7 @@ fun LoginScreen(
                     verticalArrangement = Arrangement.SpaceAround
                 ) {
                     LoadingAnimation()
+                    loginViewModel.allValidationsPassed.value = false
                 }
             }
 
@@ -171,18 +189,28 @@ fun LoginScreen(
             if (lostPasswordViewModel.lostPasswordInProgress.value) {
                 Column(
                     modifier = Modifier
-                        .height(70.dp)
-                        .width(70.dp),
+                        .fillMaxSize(),
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
+                    verticalArrangement = Arrangement.SpaceAround
                 ) {
-                    //navController.popBackStack()
+                    LoadingAnimation()
                     navController.navigate(Screen.LostPassword.route)
                 }
             }
+
+            if (signupViewModel.signUpInProgress.value) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.SpaceAround
+                ) {
+                    LoadingAnimation()
+                }
+                navController.navigate(Screen.SignUp.route)
+            }
         }
     }
-
 }
 
 @Preview(showBackground = true, showSystemUi = true)
