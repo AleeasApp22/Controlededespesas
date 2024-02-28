@@ -1,7 +1,8 @@
 package com.imbres.controlededespesas.data.home
 
-import android.content.ContentValues.TAG
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,10 +10,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.imbres.controlededespesas.navigation.AppRouter
 import com.imbres.controlededespesas.navigation.ScreenApp
-import com.imbres.controlededespesas.rules.ValidationResult
 
 class HomeViewModel : ViewModel() {
     var homeUIState = mutableStateOf(HomeUIState())
+
+    private val TAG = HomeViewModel::class.simpleName
 
     fun onEvent(event: HomeUIEvent) {
         home()
@@ -24,6 +26,7 @@ class HomeViewModel : ViewModel() {
 
     val isUserLoggedIn: MutableLiveData<Boolean> = MutableLiveData()
 
+    @RequiresApi(Build.VERSION_CODES.R)
     fun logout() {
 
         val firebaseAuth = FirebaseAuth.getInstance()
@@ -54,35 +57,45 @@ class HomeViewModel : ViewModel() {
     }
 
 
-    val nameUser: MutableLiveData<String> = MutableLiveData()
     val emailId: MutableLiveData<String> = MutableLiveData()
     val userId: MutableLiveData<String> = MutableLiveData()
+    var email: String = ""
 
-    fun getUserData() {
+    fun getUserData() :String {
         FirebaseAuth.getInstance().currentUser?.also {
             it.email?.also { email ->
-                emailId.value = email
+                //emailId.value = email
+                this.email = email
                 userId.value = FirebaseAuth.getInstance().uid
+                return email
             }
         }
+
+        return email
     }
 
-    val documentData: MutableLiveData<String> = MutableLiveData()
-    val name: MutableLiveData<String> = MutableLiveData()
-    fun readUserData() {
+
+    fun readUserData(email: String): String {
+
         val db = FirebaseFirestore.getInstance()
-        val docRef = db.collection("users").document("XBDhUkJVV3egNRMBdKqo6lFVnD63")
-        docRef.get()
-            .addOnSuccessListener { document ->
-                if (document != null) {
-                    val data = document.data!!
-                    val nameUser = data["name"] as String?
-                    name.value = nameUser.toString()
-                } else {
+        var name: String = ""
+
+        db.collection("users")
+            .whereEqualTo("email", email)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    name = document.data["name"].toString()
                 }
+                Log.d(TAG, "readUserData 1: $name")
             }
             .addOnFailureListener { exception ->
+                name = "Error"
+                Log.d(TAG, "readUserData 2: $name")
             }
+
+        Log.d(TAG, "readUserData 3: $name")
+        return name
     }
 
 }

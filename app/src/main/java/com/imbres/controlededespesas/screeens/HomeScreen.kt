@@ -1,6 +1,5 @@
 package com.imbres.controlededespesas.screeens
 
-import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -25,19 +24,17 @@ import com.imbres.controlededespesas.data.home.HomeViewModel
 import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.greenFinLight
 
+private val TAG = HomeViewModel::class.simpleName
+
 @Composable
 fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
 
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
-    val nameUser : String
 
     homeViewModel.getUserData()
-    //nameUser = homeViewModel.nameUser.toString()
-
-    homeViewModel.readUserData()
-    nameUser = homeViewModel.name.value.toString()
-    Log.d(TAG, "nameUser: $nameUser")
+    val name = homeViewModel.readUserData(homeViewModel.email)
+    Log.d(TAG, "name: $name")
 
     Column (
         modifier = Modifier
@@ -65,7 +62,7 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                 )
 
                 BlackNormalTextComponent(
-                    valueText = nameUser,
+                    valueText = name,
                     valuePadding = 8,
                     valueSize = 20,
                     valueHeightIn = 0,
