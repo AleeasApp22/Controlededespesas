@@ -3,18 +3,33 @@ package com.imbres.controlededespesas.data.home
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.firestore.FirebaseFirestore
+import com.imbres.controlededespesas.data.model.Users
+import com.imbres.controlededespesas.data.model.UsersParam
 import com.imbres.controlededespesas.navigation.AppRouter
 import com.imbres.controlededespesas.navigation.ScreenApp
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+
 
 class HomeViewModel : ViewModel() {
-    var homeUIState = mutableStateOf(HomeUIState())
+    val state = mutableStateOf(Users())
+    val stateUsersParam = mutableStateOf(UsersParam())
+    val userId: MutableLiveData<String> = MutableLiveData()
+    var email: String = ""
 
     private val TAG = HomeViewModel::class.simpleName
+
+    init{
+        getData(stateUsersParam)
+    }
 
     fun onEvent(event: HomeUIEvent) {
         home()
@@ -57,45 +72,48 @@ class HomeViewModel : ViewModel() {
     }
 
 
-    val emailId: MutableLiveData<String> = MutableLiveData()
-    val userId: MutableLiveData<String> = MutableLiveData()
-    var email: String = ""
-
-    fun getUserData() :String {
+    //fun getUserData() : Any {
+    fun getUserData() :  Pair<String, String> {
         FirebaseAuth.getInstance().currentUser?.also {
             it.email?.also { email ->
-                //emailId.value = email
-                this.email = email
+                //this.email = email
                 userId.value = FirebaseAuth.getInstance().uid
-                return email
+                this.stateUsersParam.value.email = email
+                this.stateUsersParam.value.userId = FirebaseAuth.getInstance().uid.toString()
+                return Pair(stateUsersParam.value.userId, stateUsersParam.value.email)
             }
         }
-
-        return email
+        return Pair("", "")
     }
 
-
-    fun readUserData(email: String): String {
-
+    private fun getData(stateUsersParam: MutableState<UsersParam>) {
+        viewModelScope.launch {
+            state.value = getDataUsers(stateUsersParam)
+        }
+    }
+    suspend fun getDataUsers(stateUsersParam: MutableState<UsersParam>): Users{
+        //email = this.stateUsersParam.value.email
+        email = stateUsersParam.value.email
+        Log.d(TAG, "stateUsersParam email: $email")
         val db = FirebaseFirestore.getInstance()
-        var name: String = ""
-
-        db.collection("users")
-            .whereEqualTo("email", email)
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    name = document.data["name"].toString()
+        var users = Users()
+        try {
+            db.collection("users")
+                .whereEqualTo("email", email)
+                .get()
+                .await()
+                .map {
+                    val result = it.toObject(Users::class.java)
+                    users = result
                 }
-                Log.d(TAG, "readUserData 1: $name")
-            }
-            .addOnFailureListener { exception ->
-                name = "Error"
-                Log.d(TAG, "readUserData 2: $name")
-            }
+        } catch (e: FirebaseAuthException) {
+            Log.d(TAG, "getDataUsers error: $e")
+        }
 
-        Log.d(TAG, "readUserData 3: $name")
-        return name
+        Log.d(TAG, "getDataUsers users.email: ${users.email}")
+        Log.d(TAG, "getDataUsers users.name: ${users.name}")
+
+        return users
     }
 
 }

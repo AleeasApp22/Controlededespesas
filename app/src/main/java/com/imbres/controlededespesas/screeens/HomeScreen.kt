@@ -1,5 +1,6 @@
 package com.imbres.controlededespesas.screeens
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -26,15 +27,15 @@ import com.imbres.controlededespesas.ui.theme.greenFinLight
 
 private val TAG = HomeViewModel::class.simpleName
 
+@SuppressLint("UnrememberedMutableState")
 @Composable
 fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
 
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
-
-    homeViewModel.getUserData()
-    val name = homeViewModel.readUserData(homeViewModel.email)
-    Log.d(TAG, "name: $name")
+    val (userId, email) = homeViewModel.getUserData()
+    val getData = homeViewModel.state.value
+    val name = getData.name
 
     Column (
         modifier = Modifier
