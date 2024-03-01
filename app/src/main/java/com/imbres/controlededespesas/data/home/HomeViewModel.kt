@@ -72,48 +72,56 @@ class HomeViewModel : ViewModel() {
     }
 
 
-    //fun getUserData() : Any {
-    fun getUserData() :  Pair<String, String> {
+    //fun getUserData() :  Pair<String, String> {
+    fun getUserData() : MutableState<UsersParam> {
+        var usersParam = stateUsersParam
+
         FirebaseAuth.getInstance().currentUser?.also {
             it.email?.also { email ->
                 //this.email = email
                 userId.value = FirebaseAuth.getInstance().uid
                 this.stateUsersParam.value.email = email
                 this.stateUsersParam.value.userId = FirebaseAuth.getInstance().uid.toString()
-                return Pair(stateUsersParam.value.userId, stateUsersParam.value.email)
+                usersParam = stateUsersParam
+                getData(usersParam)
+                //return Pair(stateUsersParam.value.userId, stateUsersParam.value.email)
+                return usersParam
             }
         }
-        return Pair("", "")
+        //return Pair("","")
+        return usersParam
     }
 
     private fun getData(stateUsersParam: MutableState<UsersParam>) {
         viewModelScope.launch {
-            state.value = getDataUsers(stateUsersParam)
+//            state.value = getDataUsers(stateUsersParam)
+            stateUsersParam.value = getDataUsers(stateUsersParam)
         }
     }
-    suspend fun getDataUsers(stateUsersParam: MutableState<UsersParam>): Users{
-        //email = this.stateUsersParam.value.email
+    suspend fun getDataUsers(stateUsersParam: MutableState<UsersParam>): UsersParam{
         email = stateUsersParam.value.email
-        Log.d(TAG, "stateUsersParam email: $email")
+
         val db = FirebaseFirestore.getInstance()
-        var users = Users()
+        var usersParam = UsersParam()
+
         try {
             db.collection("users")
                 .whereEqualTo("email", email)
                 .get()
                 .await()
                 .map {
-                    val result = it.toObject(Users::class.java)
-                    users = result
+                    val result = it.toObject(UsersParam::class.java)
+                    usersParam = result
+                    Log.d(TAG, "getDataUsers userId: ${usersParam.userId}")
+                    Log.d(TAG, "getDataUsers email: ${usersParam.email}")
+                    Log.d(TAG, "getDataUsers name: ${usersParam.name}")
+
                 }
         } catch (e: FirebaseAuthException) {
             Log.d(TAG, "getDataUsers error: $e")
         }
 
-        Log.d(TAG, "getDataUsers users.email: ${users.email}")
-        Log.d(TAG, "getDataUsers users.name: ${users.name}")
-
-        return users
+        return usersParam
     }
 
 }

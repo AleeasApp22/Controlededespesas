@@ -1,7 +1,6 @@
 package com.imbres.controlededespesas.screeens
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -33,9 +32,20 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
 
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
-    val (userId, email) = homeViewModel.getUserData()
-    val getData = homeViewModel.state.value
-    val name = getData.name
+//    val (userId, email) = homeViewModel.getUserData()
+//    val getData = homeViewModel.state.value
+//    var name = getData.name
+//    val stateUsersParam = homeViewModel.getUserData()
+//    val (userId, email) = homeViewModel.getUserData()
+
+    val userId : String
+    val email : String
+    var name : String
+    val usersParam = homeViewModel.getUserData()
+
+    userId = usersParam.value.userId
+    email = usersParam.value.email
+    name = usersParam.value.name
 
     Column (
         modifier = Modifier
