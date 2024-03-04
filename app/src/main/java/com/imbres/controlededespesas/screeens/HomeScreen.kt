@@ -34,6 +34,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navOptions
 import com.imbres.controlededespesas.components.BlackNormalTextComponent
 import com.imbres.controlededespesas.components.Saudacao
 import com.imbres.controlededespesas.data.home.HomeViewModel
@@ -110,8 +111,8 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
             val navController = rememberNavController()
             val items = remember {
                 listOf(
-                    Pair("HOME", Icons.Filled.Home),
-                    Pair("CATEGORIAS", Icons.Filled.Category)
+                    Pair("Home", Icons.Filled.Home),
+                    Pair("Categorias", Icons.Filled.Category)
                 )
             }
             var selectedItem by remember {
@@ -121,7 +122,7 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
             Column(Modifier.fillMaxSize()) {
                 NavHost(
                     navController = navController,
-                    startDestination = "HOME",
+                    startDestination = "Home",
                     Modifier.weight(1f)
                 ) {
                     composable("Home") {
@@ -137,11 +138,11 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                             )
                         }
                     }
-                    composable("CATEGORIAS") {
+                    composable("Categorias") {
                         Box(
                             modifier = Modifier
                                 .fillMaxSize()
-                                .background(greenFinLight)
+                                .background(Color.White)
                         ) {
                             Text(
                                 text = "Categorias",
@@ -159,12 +160,17 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                             selected = selectedItem == item,
                             onClick = {
                                 selectedItem = item
-                                val route = when(text){
-                                    "HOME" -> "Home"
-                                    "CATEGORIAS" -> "Categorias"
-                                    else -> {""}
+                                val route = when (text) {
+                                    "Home" -> "Home"
+                                    "Categorias" -> "Categorias"
+                                    else -> {
+                                        ""
+                                    }
                                 }
-                                navController.navigate(route)
+                                navController.navigate(route, navOptions = navOptions {
+                                    launchSingleTop = true
+                                    popUpTo(navController.graph.startDestinationId)
+                                })
                             },
                             icon = {
                                 Icon(icon, contentDescription = null)
