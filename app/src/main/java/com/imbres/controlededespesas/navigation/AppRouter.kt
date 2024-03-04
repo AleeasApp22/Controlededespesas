@@ -15,7 +15,7 @@ sealed class ScreenApp {
 object AppRouter {
     var currentScreen: MutableState<ScreenApp> = mutableStateOf(ScreenApp.SignUpScreen)
 
-    fun navigateTo(destination: ScreenApp){
+    fun navigateTo(destination: ScreenApp) {
         currentScreen.value = destination
     }
 }

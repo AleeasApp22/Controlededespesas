@@ -1,5 +1,6 @@
 package com.imbres.controlededespesas.screeens
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -31,6 +32,7 @@ import com.imbres.controlededespesas.components.LoadingAnimation
 import com.imbres.controlededespesas.components.MyTextFieldComponent
 import com.imbres.controlededespesas.components.NormalTitleTextComponent
 import com.imbres.controlededespesas.components.ToastDisplay
+import com.imbres.controlededespesas.data.home.HomeViewModel
 import com.imbres.controlededespesas.data.login.LoginUIEvent
 import com.imbres.controlededespesas.data.login.LoginViewModel
 import com.imbres.controlededespesas.data.lostpassword.LostPasswordUIEvent
@@ -42,6 +44,7 @@ import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.greenFinLight
 
 private var errorButton = false
+private val TAG = LostPasswordViewModel::class.simpleName
 
 @Composable
 fun LostPasswordScreen(
@@ -50,7 +53,7 @@ fun LostPasswordScreen(
     lostPasswordViewModel: LostPasswordViewModel = viewModel(),
     signupViewModel: SignupViewModel = viewModel()
 ) {
-    Column (
+    Column(
         modifier = Modifier
             .background(greenFinLight),
     ) {
@@ -182,11 +185,11 @@ fun LostPasswordScreen(
                 ) {
                     LoadingAnimation()
                 }
-                    navController.navigate(Screen.SignUp.route)
-                }
+                navController.navigate(Screen.SignUp.route)
             }
         }
     }
+}
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable

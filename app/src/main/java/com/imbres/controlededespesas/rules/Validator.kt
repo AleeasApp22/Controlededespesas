@@ -1,4 +1,5 @@
 package com.imbres.controlededespesas.rules
+
 object Validator {
 
     fun validateFirstName(fName: String): ValidationResult {
@@ -21,7 +22,7 @@ object Validator {
     }
 
     fun validateEmail(email: String): ValidationResult {
-        var returnValidate : Boolean
+        var returnValidate: Boolean
         returnValidate = true
 
         if (!isValidEmail(email)) {
@@ -44,7 +45,7 @@ object Validator {
         )
     }
 
-    fun validatePrivacyPolicyAcceptance(statusValue:Boolean):ValidationResult{
+    fun validatePrivacyPolicyAcceptance(statusValue: Boolean): ValidationResult {
         return ValidationResult(
             statusValue
         )

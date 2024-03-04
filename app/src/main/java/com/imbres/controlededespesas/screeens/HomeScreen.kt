@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -19,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.imbres.controlededespesas.components.BlackNormalTextComponent
+import com.imbres.controlededespesas.components.LoadingAnimation
 import com.imbres.controlededespesas.components.Saudacao
 import com.imbres.controlededespesas.data.home.HomeViewModel
 import com.imbres.controlededespesas.ui.theme.TextColor
@@ -32,26 +34,26 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
 
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
-    val userId : String
-    val email : String
-    var name : String
+    val userId: String
+    val email: String
+    var name: String
     val usersParam = homeViewModel.getUserData()
 
     userId = usersParam.value.userId
     email = usersParam.value.email
     name = usersParam.value.name
 
-    Column (
+    Column(
         modifier = Modifier
             .background(greenFinLight)
-    ){
+    ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(0.3f)
                 .background(greenFinLight)
-        ){
-            Column (
+        ) {
+            Column(
                 modifier = Modifier.padding(start = 10.dp, end = 10.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
@@ -84,7 +86,22 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                 .weight(0.7f)
                 .clip(RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp))
                 .background(Color.White)
-        )
+        ) {
+            Column(
+                modifier = Modifier.padding(start = 10.dp, end = 10.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+            ) {
+                BlackNormalTextComponent(
+                    valueText = "Categorias",
+                    valuePadding = 8,
+                    valueSize = 15,
+                    valueHeightIn = 0,
+                    valueTextColor = TextColor,
+                    alignText = "Left",
+                )
+            }
+        }
     }
 }
 

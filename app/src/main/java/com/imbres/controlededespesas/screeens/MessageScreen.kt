@@ -36,7 +36,7 @@ import com.imbres.controlededespesas.ui.theme.TextColorGreenHeavy
 fun MessageScreen(
     navController: NavHostController,
     messageViewModel: MessageViewModel = viewModel()
-){
+) {
 
     Surface(
         modifier = Modifier
@@ -44,11 +44,11 @@ fun MessageScreen(
             .background(Color.White)
             .padding(12.dp)
     ) {
-        Column (
+        Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
-        ){
+        ) {
             Image(
                 painter = painterResource(id = R.drawable.logo_main),
                 contentDescription = "Controle de despesas",
@@ -95,11 +95,12 @@ fun MessageScreen(
             LoginScreen(navController = navController)
 
         }
-    }}
+    }
+}
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun MessageScreenPreview(){
+fun MessageScreenPreview() {
     val navController = rememberNavController()
 
     MessageScreen(navController = navController)

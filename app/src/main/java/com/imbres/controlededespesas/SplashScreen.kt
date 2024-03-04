@@ -26,7 +26,7 @@ fun SplashScreen(navController: NavHostController) {
     https://lottiefiles.com/animations/organizze-logo-kSQtNlo55l
      */
 
-    ControleDeDespesasTheme{
+    ControleDeDespesasTheme {
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -48,6 +48,6 @@ fun SplashScreen(navController: NavHostController) {
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun MainSplash(){
+fun MainSplash() {
     SplashScreen(rememberNavController())
 }

@@ -107,7 +107,7 @@ fun BlackNormalTextComponent(
             .fillMaxWidth()
             .padding(valuePadding.dp)
             .heightIn(min = valueHeightIn.dp),
-            //.heightIn(min = 40.dp),
+        //.heightIn(min = 40.dp),
         style = TextStyle(
             fontFamily = robotoFontFamily,
             fontSize = valueSize.sp,
@@ -116,7 +116,7 @@ fun BlackNormalTextComponent(
         ),
         color = valueTextColor,
         textAlign = if (alignText == "Left") TextAlign.Left else TextAlign.Center,
-        )
+    )
 }
 
 @Composable
@@ -256,8 +256,9 @@ fun PasswordTextFieldComponent(
         isError = !errorStatus
     )
 }
+
 @Composable
-fun ClickableUnderLinedTextComponent(valueText: String, onButtonClicked: () -> Unit,) {
+fun ClickableUnderLinedTextComponent(valueText: String, onButtonClicked: () -> Unit) {
     ClickableText(
         modifier = Modifier
             .fillMaxWidth()
@@ -379,37 +380,37 @@ fun AppToolbar(
     TopAppBar(title = { /*TODO*/ })
 
 
-/*    TopAppBar(
-        //backgroundColor = Primary,
-        colors = colo,
-        title = {
-            Text(
-                text = toolbarTitle, color = WhiteColor
-            )
-        },
-        navigationIcon = {
-            IconButton(onClick = {
-                navigationIconClicked.invoke()
-            }) {
-                Icon(
-                    imageVector = Icons.Filled.Menu,
-                    contentDescription = stringResource(R.string.menu),
-                    tint = WhiteColor
+    /*    TopAppBar(
+            //backgroundColor = Primary,
+            colors = colo,
+            title = {
+                Text(
+                    text = toolbarTitle, color = WhiteColor
                 )
-            }
+            },
+            navigationIcon = {
+                IconButton(onClick = {
+                    navigationIconClicked.invoke()
+                }) {
+                    Icon(
+                        imageVector = Icons.Filled.Menu,
+                        contentDescription = stringResource(R.string.menu),
+                        tint = WhiteColor
+                    )
+                }
 
-        },
-        actions = {
-            IconButton(onClick = {
-                logoutButtonClicked.invoke()
-            }) {
-                Icon(
-                    imageVector = Icons.Filled.Logout,
-                    contentDescription = stringResource(id = R.string.logout),
-                )
+            },
+            actions = {
+                IconButton(onClick = {
+                    logoutButtonClicked.invoke()
+                }) {
+                    Icon(
+                        imageVector = Icons.Filled.Logout,
+                        contentDescription = stringResource(id = R.string.logout),
+                    )
+                }
             }
-        }
-    )*/
+        )*/
 }
 
 @Composable
@@ -427,32 +428,38 @@ fun NavigationDrawerHeader(value: String?) {
     ) {
 
         NavigationDrawerText(
-            title = value?:stringResource(R.string.navigation_header), 28.sp , AccentColor
+            title = value ?: stringResource(R.string.navigation_header), 28.sp, AccentColor
         )
 
     }
 }
 
 @Composable
-fun NavigationDrawerBody(navigationDrawerItems: List<NavigationItem>,
-                         onNavigationItemClicked:(NavigationItem) -> Unit) {
+fun NavigationDrawerBody(
+    navigationDrawerItems: List<NavigationItem>,
+    onNavigationItemClicked: (NavigationItem) -> Unit
+) {
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
 
         items(navigationDrawerItems) {
-            NavigationItemRow(item = it,onNavigationItemClicked)
+            NavigationItemRow(item = it, onNavigationItemClicked)
         }
 
     }
 }
+
 @Composable
-fun NavigationItemRow(item: NavigationItem,
-                      onNavigationItemClicked:(NavigationItem) -> Unit) {
+fun NavigationItemRow(
+    item: NavigationItem,
+    onNavigationItemClicked: (NavigationItem) -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .clickable {
                 onNavigationItemClicked.invoke(item)
-            }.padding(all = 16.dp)
+            }
+            .padding(all = 16.dp)
     ) {
 
         Icon(
@@ -497,7 +504,7 @@ https://developer.android.com/develop/ui/views/components/dialogs?hl=pt-br
 */
 
 @Composable
-fun AlertDisplay(context: Context,tit: String, msg:String, pos: String, neg: String){
+fun AlertDisplay(context: Context, tit: String, msg: String, pos: String, neg: String) {
     val builder: AlertDialog.Builder = AlertDialog.Builder(context)
 
 

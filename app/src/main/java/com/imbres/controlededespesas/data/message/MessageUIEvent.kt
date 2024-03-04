@@ -1,5 +1,5 @@
 package com.imbres.controlededespesas.data.message
 
-sealed class MessageUIEvent{
+sealed class MessageUIEvent {
     object MessageButtonClicked : MessageUIEvent()
 }

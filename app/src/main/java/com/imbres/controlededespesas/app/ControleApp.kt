@@ -9,11 +9,11 @@ import androidx.navigation.NavHostController
 import com.imbres.controlededespesas.screeens.MessageScreen
 
 @Composable
-fun ControleScreen(navController: NavHostController){
+fun ControleScreen(navController: NavHostController) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = Color.White
-    ){
+    ) {
         MessageScreen(navController = navController)
     }
 }

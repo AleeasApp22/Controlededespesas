@@ -56,7 +56,7 @@ fun SignUpScreen(
 
     val context = LocalContext.current
 
-    Column (
+    Column(
         modifier = Modifier
             .background(greenFinLight),
     ) {

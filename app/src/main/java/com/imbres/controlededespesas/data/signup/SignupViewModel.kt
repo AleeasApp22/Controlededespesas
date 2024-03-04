@@ -125,7 +125,12 @@ class SignupViewModel : ViewModel() {
 
                         db.collection("users").document(userId.value.toString())
                             .set(data)
-                            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
+                            .addOnSuccessListener {
+                                Log.d(
+                                    TAG,
+                                    "DocumentSnapshot successfully written!"
+                                )
+                            }
                             .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
 
                         AppRouter.navigateTo(ScreenApp.SignUpScreen)

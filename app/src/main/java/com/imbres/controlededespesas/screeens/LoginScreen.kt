@@ -51,11 +51,11 @@ fun LoginScreen(
     loginViewModel: LoginViewModel = viewModel(),
     lostPasswordViewModel: LostPasswordViewModel = viewModel(),
     signupViewModel: SignupViewModel = viewModel(),
-){
+) {
 
     val context = LocalContext.current
 
-    Column (
+    Column(
         modifier = Modifier
             .background(greenFinLight),
     ) {
@@ -169,8 +169,16 @@ fun LoginScreen(
             }
 
             if (loginViewModel.loginSucess.value) {
-                loginViewModel.loginSucess.value = false
-                navController.navigate(Screen.Home.route)
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.SpaceAround
+                ) {
+                    LoadingAnimation()
+                    loginViewModel.loginSucess.value = false
+                    navController.navigate(Screen.Home.route)
+                }
             }
 
             if (loginViewModel.loginFail.value) {

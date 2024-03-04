@@ -9,15 +9,15 @@ import com.imbres.controlededespesas.navigation.SetupNavGraph
 
 class MainActivity : ComponentActivity() {
 
-/*
-    Pesquisa:
+    /*
+        Pesquisa:
 
-    - How to Change App Icon in Android Studio using Kotlin
-    https://www.youtube.com/watch?v=_ZgaeNTCmzw
+        - How to Change App Icon in Android Studio using Kotlin
+        https://www.youtube.com/watch?v=_ZgaeNTCmzw
 
-    - Money Business And Finance SVG Vector 38
-    https://www.svgrepo.com/svg/255163/money-business-and-finance
-*/
+        - Money Business And Finance SVG Vector 38
+        https://www.svgrepo.com/svg/255163/money-business-and-finance
+    */
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity() {
         //Toast.makeText(applicationContext, "Pressione voltar novamente para sair do aplicativo", Toast.LENGTH_SHORT).show()
         //finish()
 
-/*        val snackbar = Snackbar.make(View(this@MainActivity), "Mensagem do Snackbar", Snackbar.LENGTH_SHORT)
-        snackbar.show()*/
+        /*        val snackbar = Snackbar.make(View(this@MainActivity), "Mensagem do Snackbar", Snackbar.LENGTH_SHORT)
+                snackbar.show()*/
     }
 }

@@ -1,6 +1,5 @@
 package com.imbres.controlededespesas.data.lostpassword
 
-import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.google.firebase.FirebaseError.ERROR_EMAIL_ALREADY_IN_USE
@@ -13,8 +12,8 @@ import com.imbres.controlededespesas.navigation.AppRouter
 import com.imbres.controlededespesas.navigation.ScreenApp
 import com.imbres.controlededespesas.rules.Validator
 
-class LostPasswordViewModel : ViewModel() {
-    private val TAG = LostPasswordViewModel::class.simpleName
+class LostPasswordViewModelOLD : ViewModel() {
+    private val TAG = LostPasswordViewModelOLD::class.simpleName
     var lostPaswordUIState = mutableStateOf(LostPasswordUIState())
     var allValidationsPassed = mutableStateOf(false)
     var lostPasswordInProgress = mutableStateOf(false)
@@ -28,19 +27,22 @@ class LostPasswordViewModel : ViewModel() {
                     email = event.email
                 )
             }
+
             is LostPasswordUIEvent.LostPasswordButtonClicked -> {
                 lostPassword()
             }
         }
         validateLostUIDataWithRules()
     }
+
     private fun validateLostUIDataWithRules() {
         val emailResult = Validator.validateEmail(
             email = lostPaswordUIState.value.email
         )
 
         lostPaswordUIState.value = lostPaswordUIState.value.copy(
-            emailError = emailResult.status)
+            emailError = emailResult.status
+        )
         allValidationsPassed.value = emailResult.status
     }
 
@@ -61,29 +63,28 @@ class LostPasswordViewModel : ViewModel() {
                 .getInstance()
                 .signInWithEmailAndPassword(email, "password")
                 .addOnCompleteListener { task ->
-                    Log.d(TAG, "lostPassword: 1")
-                    Log.d(TAG, "task isSuccessful: ${task.isSuccessful}")
-                    Log.d(TAG, "task exception: ${task.exception}")
                     if (task.isSuccessful) {
                         lostPasswordPass.value = true
                     } else {
-                        Log.d(TAG, "lostPassword: 2")
                         if (task.exception is FirebaseAuthException) {
                             val exception = task.exception as FirebaseAuthException
                             when (exception.errorCode) {
                                 ERROR_INVALID_CREDENTIAL.toString() -> {
                                     lostPasswordFail.value = true
                                 }
-                                /*                                ERROR_EMAIL_ALREADY_IN_USE.toString() -> {
-                                                                    lostPasswordFail.value = true
-                                                                }*/
+
+                                ERROR_EMAIL_ALREADY_IN_USE.toString() -> {
+                                    lostPasswordFail.value = true
+                                }
+
                                 ERROR_INVALID_EMAIL.toString() -> {
                                     lostPasswordFail.value = true
                                 }
 
-/*                                ERROR_WRONG_PASSWORD.toString() -> {
+                                ERROR_WRONG_PASSWORD.toString() -> {
                                     lostPasswordFail.value = true
-                                }*/
+                                }
+
                                 else -> {
                                     lostPasswordFail.value = true
                                     lostPasswordInProgress.value = false
@@ -99,7 +100,7 @@ class LostPasswordViewModel : ViewModel() {
                             .sendPasswordResetEmail(email)
                             .addOnCompleteListener {
                                 lostPasswordInProgress.value = false
-                                if(it.isSuccessful){
+                                if (it.isSuccessful) {
                                     lostPasswordPass.value = true
                                     AppRouter.navigateTo(ScreenApp.LoginScreen)
                                 }

@@ -24,7 +24,7 @@ class HomeViewModel : ViewModel() {
 
     private val TAG = HomeViewModel::class.simpleName
 
-    init{
+    init {
         getData(stateUsersParam)
     }
 
@@ -70,7 +70,7 @@ class HomeViewModel : ViewModel() {
 
 
     //fun getUserData() :  Pair<String, String> {
-    fun getUserData() : MutableState<UsersParam> {
+    fun getUserData(): MutableState<UsersParam> {
         var usersParam = stateUsersParam
 
         FirebaseAuth.getInstance().currentUser?.also {
@@ -85,6 +85,7 @@ class HomeViewModel : ViewModel() {
                 return usersParam
             }
         }
+        //return Pair(saudacao , usersParam)
         //return Pair("","")
         return usersParam
     }
@@ -94,7 +95,8 @@ class HomeViewModel : ViewModel() {
             stateUsersParam.value = getDataUsers(stateUsersParam)
         }
     }
-    suspend fun getDataUsers(stateUsersParam: MutableState<UsersParam>): UsersParam{
+
+    suspend fun getDataUsers(stateUsersParam: MutableState<UsersParam>): UsersParam {
         email = stateUsersParam.value.email
         val db = FirebaseFirestore.getInstance()
         var usersParam = UsersParam()
@@ -107,11 +109,11 @@ class HomeViewModel : ViewModel() {
                 .map {
                     val result = it.toObject(UsersParam::class.java)
                     usersParam = result
-/*
-                    Log.d(TAG, "getDataUsers userId: ${usersParam.userId}")
-                    Log.d(TAG, "getDataUsers email: ${usersParam.email}")
-                    Log.d(TAG, "getDataUsers name: ${usersParam.name}")
-*/
+                    /*
+                                        Log.d(TAG, "getDataUsers userId: ${usersParam.userId}")
+                                        Log.d(TAG, "getDataUsers email: ${usersParam.email}")
+                                        Log.d(TAG, "getDataUsers name: ${usersParam.name}")
+                    */
 
                 }
         } catch (e: FirebaseAuthException) {
@@ -120,5 +122,4 @@ class HomeViewModel : ViewModel() {
 
         return usersParam
     }
-
 }
