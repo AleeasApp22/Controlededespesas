@@ -13,17 +13,11 @@ import com.imbres.controlededespesas.navigation.ScreenApp
 import com.imbres.controlededespesas.rules.Validator
 
 class LostPasswordViewModel : ViewModel() {
-
     private val TAG = LostPasswordViewModel::class.simpleName
-
     var lostPaswordUIState = mutableStateOf(LostPasswordUIState())
-
     var allValidationsPassed = mutableStateOf(false)
-
     var lostPasswordInProgress = mutableStateOf(false)
-
     var lostPasswordPass = mutableStateOf(false)
-
     var lostPasswordFail = mutableStateOf(false)
 
     fun onEvent(event: LostPasswordUIEvent) {
@@ -33,7 +27,6 @@ class LostPasswordViewModel : ViewModel() {
                     email = event.email
                 )
             }
-
             is LostPasswordUIEvent.LostPasswordButtonClicked -> {
                 lostPassword()
             }
@@ -47,9 +40,7 @@ class LostPasswordViewModel : ViewModel() {
 
         lostPaswordUIState.value = lostPaswordUIState.value.copy(
             emailError = emailResult.status)
-
         allValidationsPassed.value = emailResult.status
-
     }
 
     /*

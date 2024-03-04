@@ -18,9 +18,7 @@ import com.imbres.controlededespesas.navigation.ScreenApp
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
-
 class HomeViewModel : ViewModel() {
-    val state = mutableStateOf(Users())
     val stateUsersParam = mutableStateOf(UsersParam())
     val userId: MutableLiveData<String> = MutableLiveData()
     var email: String = ""
@@ -94,13 +92,11 @@ class HomeViewModel : ViewModel() {
 
     private fun getData(stateUsersParam: MutableState<UsersParam>) {
         viewModelScope.launch {
-//            state.value = getDataUsers(stateUsersParam)
             stateUsersParam.value = getDataUsers(stateUsersParam)
         }
     }
     suspend fun getDataUsers(stateUsersParam: MutableState<UsersParam>): UsersParam{
         email = stateUsersParam.value.email
-
         val db = FirebaseFirestore.getInstance()
         var usersParam = UsersParam()
 
@@ -112,9 +108,11 @@ class HomeViewModel : ViewModel() {
                 .map {
                     val result = it.toObject(UsersParam::class.java)
                     usersParam = result
+/*
                     Log.d(TAG, "getDataUsers userId: ${usersParam.userId}")
                     Log.d(TAG, "getDataUsers email: ${usersParam.email}")
                     Log.d(TAG, "getDataUsers name: ${usersParam.name}")
+*/
 
                 }
         } catch (e: FirebaseAuthException) {

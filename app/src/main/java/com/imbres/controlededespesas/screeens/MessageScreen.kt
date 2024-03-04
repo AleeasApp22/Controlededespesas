@@ -33,7 +33,6 @@ import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.TextColorGreenHeavy
 
 @Composable
-//fun MessageScreen(){
 fun MessageScreen(
     navController: NavHostController,
     messageViewModel: MessageViewModel = viewModel()
@@ -101,8 +100,7 @@ fun MessageScreen(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun MessageScreenPreview(){
-
     val navController = rememberNavController()
-    MessageScreen(navController = navController)
 
+    MessageScreen(navController = navController)
 }

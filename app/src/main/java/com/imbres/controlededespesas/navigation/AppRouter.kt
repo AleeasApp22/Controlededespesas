@@ -1,6 +1,5 @@
 package com.imbres.controlededespesas.navigation
 
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 
@@ -13,14 +12,10 @@ sealed class ScreenApp {
     object LostPasswordScreen : ScreenApp()
 }
 
-
 object AppRouter {
-
     var currentScreen: MutableState<ScreenApp> = mutableStateOf(ScreenApp.SignUpScreen)
 
     fun navigateTo(destination: ScreenApp){
         currentScreen.value = destination
-
     }
-
 }

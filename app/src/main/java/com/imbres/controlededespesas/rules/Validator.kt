@@ -18,7 +18,6 @@ object Validator {
         return ValidationResult(
             (!name.isNullOrEmpty() && name.length >= 6)
         )
-
     }
 
     fun validateEmail(email: String): ValidationResult {
@@ -60,11 +59,3 @@ fun isValidEmail(email: String): Boolean {
 data class ValidationResult(
     val status: Boolean = false
 )
-
-
-
-
-
-
-
-

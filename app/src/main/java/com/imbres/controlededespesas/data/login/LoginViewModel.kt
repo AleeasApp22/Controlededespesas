@@ -1,28 +1,17 @@
 package com.imbres.controlededespesas.data.login
 
-import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
-import com.imbres.controlededespesas.navigation.AppRouter
-import com.imbres.controlededespesas.navigation.ScreenApp
 import com.imbres.controlededespesas.rules.Validator
 
 @Suppress("DEPRECATION")
 class LoginViewModel : ViewModel() {
-
     private val TAG = LoginViewModel::class.simpleName
-
     var loginUIState = mutableStateOf(LoginUIState())
-
     var allValidationsPassed = mutableStateOf(false)
-
     var loginInProgress = mutableStateOf(false)
-
     var loginSucess = mutableStateOf(false)
-
     var loginFail = mutableStateOf(false)
 
     fun onEvent(event: LoginUIEvent) {

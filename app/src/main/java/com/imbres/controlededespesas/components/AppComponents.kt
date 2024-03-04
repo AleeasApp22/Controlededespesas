@@ -60,13 +60,13 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.imbres.controlededespesas.R
+import com.imbres.controlededespesas.data.NavigationItem
 import com.imbres.controlededespesas.ui.theme.AccentColor
 import com.imbres.controlededespesas.ui.theme.GrayColor
 import com.imbres.controlededespesas.ui.theme.Primary
 import com.imbres.controlededespesas.ui.theme.Secondary
 import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.robotoFontFamily
-import com.imbres.controlededespesas.data.NavigationItem
 import java.util.Calendar
 
 @Composable
@@ -258,8 +258,6 @@ fun PasswordTextFieldComponent(
 }
 @Composable
 fun ClickableUnderLinedTextComponent(valueText: String, onButtonClicked: () -> Unit,) {
-//fun ClickableLostPasswordTextComponent(valueText: String, onButtonClicked: () -> Unit,) {
-
     ClickableText(
         modifier = Modifier
             .fillMaxWidth()
@@ -362,7 +360,6 @@ fun DividerTextComponent() {
     }
 }
 
-
 /*
     CircularProgressIndicator(
         color = TextColorGreenHeavy,
@@ -450,8 +447,6 @@ fun NavigationDrawerBody(navigationDrawerItems: List<NavigationItem>,
 @Composable
 fun NavigationItemRow(item: NavigationItem,
                       onNavigationItemClicked:(NavigationItem) -> Unit) {
-
-
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -468,8 +463,6 @@ fun NavigationItemRow(item: NavigationItem,
         Spacer(modifier = Modifier.width(18.dp))
 
         NavigationDrawerText(title = item.title, 18.sp, Primary)
-
-
     }
 }
 
@@ -491,7 +484,6 @@ fun NavigationDrawerText(title: String, textUnit: TextUnit, color: Color) {
     )
 }
 
-// ToastDisplay("Hello Login!")
 @Composable
 fun ToastDisplay(msg: String) {
     val ctx = LocalContext.current

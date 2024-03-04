@@ -32,12 +32,6 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
 
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
-//    val (userId, email) = homeViewModel.getUserData()
-//    val getData = homeViewModel.state.value
-//    var name = getData.name
-//    val stateUsersParam = homeViewModel.getUserData()
-//    val (userId, email) = homeViewModel.getUserData()
-
     val userId : String
     val email : String
     var name : String
@@ -92,7 +86,6 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                 .background(Color.White)
         )
     }
-
 }
 
 @Preview
