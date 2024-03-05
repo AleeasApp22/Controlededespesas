@@ -12,7 +12,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -20,6 +22,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Category
 import androidx.compose.material.icons.filled.Circle
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.NewLabel
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.BottomAppBar
@@ -65,18 +68,18 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
     val email: String
     var name: String
 
-    val usersParam = homeViewModel.getUserData()
-
-    userId = usersParam.value.userId
-    email = usersParam.value.email
-    name = usersParam.value.name
-
-
     /*
-        userId = ""
-        email = "marcosgodoy0902@gmail.com"
-        name = "Marcos"
+        val usersParam = homeViewModel.getUserData()
+
+        userId = usersParam.value.userId
+        email = usersParam.value.email
+        name = usersParam.value.name
     */
+
+
+    userId = ""
+    email = "marcosgodoy0902@gmail.com"
+    name = "Marcos"
 
 
     /*
@@ -149,12 +152,11 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                                 .clip(RoundedCornerShape(topStart = 30.dp, bottomStart = 30.dp))
                                 .background(greenFingreenFinHeavy),
                         ) {
-
-                            Row (
+                            Row(
                                 modifier = Modifier
                                     .padding(start = 10.dp, top = 10.dp, end = 10.dp),
                                 verticalAlignment = Alignment.CenterVertically
-                            ){
+                            ) {
                                 Icon(
                                     imageVector = Icons.Filled.Circle,
                                     contentDescription = "Notifications",
@@ -167,12 +169,46 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                                     valueTextColor = greenFinLight,
                                     alignText = "Left"
                                 )
+
+                            }
+
+                            Column(
+                                modifier = Modifier
+                                    .padding(start = 10.dp, top = 40.dp)
+                            ) {
+                                NormalTitleTextComponent(
+                                    valueText = "Jan: ${stringResource(id = R.string.balance)}",
+                                    valueSize = 15,
+                                    valueTextColor = Color.White,
+                                    alignText = "Left"
+                                )
+
+
+                                NormalTitleTextComponent(
+                                    valueText = "Fev: ${stringResource(id = R.string.balance)}",
+                                    valueSize = 20,
+                                    valueTextColor = Color.White,
+                                    alignText = "Left"
+                                )
+
+
+                                BlackNormalTextComponent(
+                                    valueText = "Mar: ${stringResource(id = R.string.balance)}",
+                                    valuePadding = 8,
+                                    valueSize = 25,
+                                    valueHeightIn = 0,
+                                    valueTextColor = Color.White,
+                                    alignText = "Left",
+                                    true
+                                )
                             }
 
                         }
                         Box(
                             modifier = Modifier
-                                .fillMaxHeight()
+                                //.fillMaxHeight()
+                                .width(50.dp)
+                                .height(50.dp)
                                 .weight(0.4f)
                                 .clip(RoundedCornerShape(topEnd = 30.dp, bottomEnd = 30.dp))
                                 .background(Color.White)
@@ -216,29 +252,117 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                     Modifier.weight(1f)
                 ) {
                     composable("Home") {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .background(Color.White)
-                        ) {
-                            Text(
-                                text = "Home",
-                                Modifier.align(Alignment.Center),
-                                fontSize = 64.sp
-                            )
-                        }
+
                     }
                     composable("Categorias") {
-                        Box(
+                        NormalTitleTextComponent(
+                            valueText = stringResource(id = R.string.operations),
+                            valueSize = 20,
+                            valueTextColor = TextColor,
+                            alignText = "Center"
+                        )
+
+                        Row (
                             modifier = Modifier
-                                .fillMaxSize()
-                                .background(Color.White)
-                        ) {
-                            Text(
-                                text = "Categorias",
-                                Modifier.align(Alignment.Center),
-                                fontSize = 64.sp
-                            )
+                                .padding(top = 30.dp)
+                                .fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceAround
+                        ){
+                            Box(
+                                modifier = Modifier
+                                    //.fillMaxSize()
+                                    .padding(all = 10.dp)
+                                    .background(Color.White)
+                            ) {
+
+
+                                Box(
+                                    modifier = Modifier
+                                        .width(130.dp)
+                                        .height(130.dp)
+                                        .clip(
+                                            RoundedCornerShape(
+                                                topStart = 30.dp,
+                                                bottomStart = 30.dp,
+                                                bottomEnd = 30.dp,
+                                                topEnd = 30.dp
+                                            )
+                                        )
+                                        .background(Color.LightGray),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Column(
+                                        modifier = Modifier
+                                            .padding(start = 10.dp, top = 10.dp, end = 10.dp),
+                                        verticalArrangement = Arrangement.Center,
+                                        horizontalAlignment = Alignment.CenterHorizontally
+                                    ) {
+                                        Icon(
+                                            modifier = Modifier
+                                                .width(50.dp)
+                                                .height(50.dp),
+                                            imageVector = Icons.Filled.NewLabel,
+                                            contentDescription = "New category",
+                                            tint = Color.DarkGray,
+                                        )
+
+                                        NormalTitleTextComponent(
+                                            valueText = stringResource(id = R.string.new_category),
+                                            valueSize = 15,
+                                            valueTextColor = TextColor,
+                                            alignText = "Center"
+                                        )
+                                    }
+                                }
+                            }
+
+                            Box(
+                                modifier = Modifier
+                                    //.fillMaxSize()
+                                    .padding(all = 10.dp)
+                                    .background(Color.White)
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        //.fillMaxHeight()
+                                        .width(130.dp)
+                                        .height(130.dp)
+                                        //.clip(RoundedCornerShape(topStart = 30.dp, bottomStart = 30.dp))
+                                        .clip(
+                                            RoundedCornerShape(
+                                                topStart = 30.dp,
+                                                bottomStart = 30.dp,
+                                                bottomEnd = 30.dp,
+                                                topEnd = 30.dp
+                                            )
+                                        )
+                                        .background(Color.LightGray),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Column(
+                                        modifier = Modifier
+                                            .padding(start = 10.dp, top = 10.dp, end = 10.dp),
+                                        verticalArrangement = Arrangement.Center,
+                                        horizontalAlignment = Alignment.CenterHorizontally
+                                    ) {
+                                        Icon(
+                                            modifier = Modifier
+                                                .width(50.dp)
+                                                .height(50.dp),
+                                            imageVector = Icons.Filled.NewLabel,
+                                            contentDescription = "New category",
+                                            tint = Color.DarkGray,
+                                        )
+
+                                        NormalTitleTextComponent(
+                                            valueText = stringResource(id = R.string.new_category),
+                                            valueSize = 15,
+                                            valueTextColor = TextColor,
+                                            alignText = "Center"
+                                        )
+                                    }
+                                }
+                            }
                         }
                     }
                 }
