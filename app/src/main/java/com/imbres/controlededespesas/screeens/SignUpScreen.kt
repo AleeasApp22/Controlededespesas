@@ -79,7 +79,8 @@ fun SignUpScreen(
                     valueSize = 25,
                     valueHeightIn = 40,
                     valueTextColor = TextColor,
-                    alignText = "Left"
+                    alignText = "Left",
+                    true
                 )
 
                 NormalTitleTextComponent(

@@ -3,6 +3,7 @@ package com.imbres.controlededespesas.components
 import android.app.AlertDialog
 import android.content.Context
 import android.widget.Toast
+import androidx.annotation.FloatRange
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -100,14 +101,15 @@ fun BlackNormalTextComponent(
     valueHeightIn: Int,
     valueTextColor: Color,
     alignText: String,
+    fill: Boolean
 ) {
     Text(
         text = valueText,
         modifier = Modifier
-            .fillMaxWidth()
+            //.fillMaxWidth()
+            .then(if (fill) Modifier.fillMaxWidth() else Modifier)
             .padding(valuePadding.dp)
             .heightIn(min = valueHeightIn.dp),
-        //.heightIn(min = 40.dp),
         style = TextStyle(
             fontFamily = robotoFontFamily,
             fontSize = valueSize.sp,

@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.structuralEqualityPolicy
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -76,7 +77,8 @@ fun LostPasswordScreen(
                     valueSize = 25,
                     valueHeightIn = 40,
                     valueTextColor = TextColor,
-                    alignText = "Left"
+                    alignText = "Left",
+                    true
                 )
 
                 NormalTitleTextComponent(

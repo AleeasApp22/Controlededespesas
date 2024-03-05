@@ -79,6 +79,7 @@ fun LoginScreen(
                     valueHeightIn = 40,
                     valueTextColor = TextColor,
                     alignText = "Left",
+                    true
                 )
 
                 NormalTitleTextComponent(

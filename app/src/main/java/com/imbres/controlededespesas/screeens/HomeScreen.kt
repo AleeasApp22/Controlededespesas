@@ -1,10 +1,14 @@
 package com.imbres.controlededespesas.screeens
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -14,6 +18,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Category
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.NavigationBarItem
@@ -36,8 +41,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import com.imbres.controlededespesas.components.BlackNormalTextComponent
-import com.imbres.controlededespesas.components.Saudacao
 import com.imbres.controlededespesas.data.home.HomeViewModel
+import com.imbres.controlededespesas.ui.theme.Primary
 import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.greenFinLight
 
@@ -52,11 +57,15 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
     val userId: String
     val email: String
     var name: String
-    val usersParam = homeViewModel.getUserData()
+    //val usersParam = homeViewModel.getUserData()
 
-    userId = usersParam.value.userId
-    email = usersParam.value.email
-    name = usersParam.value.name
+    userId = ""
+    email = "marcosgodoy0902@gmail.com"
+    name = "Marcos"
+
+    /*    userId = usersParam.value.userId
+        email = usersParam.value.email
+        name = usersParam.value.name*/
 
     /*
     Configurando a navegação com a BottomAppBar no App Android | Jetpack Compose
@@ -71,34 +80,88 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(0.3f)
-                .background(greenFinLight)
+                .background(greenFinLight),
         ) {
             Column(
-                modifier = Modifier.padding(start = 10.dp, end = 10.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
             ) {
 
-                BlackNormalTextComponent(
-                    valueText = Saudacao(),
-                    valuePadding = 8,
-                    valueSize = 15,
-                    valueHeightIn = 0,
-                    valueTextColor = TextColor,
-                    alignText = "Left",
-                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    BlackNormalTextComponent(
+                        //valueText = Saudacao(),
+                        valueText = "Bom dia",
+                        valuePadding = 8,
+                        valueSize = 15,
+                        valueHeightIn = 0,
+                        valueTextColor = TextColor,
+                        alignText = "Left",
+                        false
+                    )
 
-                BlackNormalTextComponent(
-                    valueText = name,
-                    valuePadding = 8,
-                    valueSize = 20,
-                    valueHeightIn = 0,
-                    valueTextColor = TextColor,
-                    alignText = "Left",
-                )
+                    Spacer(modifier = Modifier.padding(10.dp))
 
+                    Image(
+                        imageVector = Icons.Filled.Notifications,
+                        contentDescription = "Notifications"
+                    )
+
+                }
+
+                Column(
+
+                ) {
+                    BlackNormalTextComponent(
+                        valueText = name,
+                        valuePadding = 8,
+                        valueSize = 20,
+                        valueHeightIn = 0,
+                        valueTextColor = TextColor,
+                        alignText = "Left",
+                        true
+                    )
+
+                    Row(
+                        modifier = Modifier
+                            .padding(start = 10.dp, end = 10.dp)
+                        //.height(100.dp),
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxHeight()
+                                .weight(0.7f)
+                                .clip(RoundedCornerShape(topStart = 30.dp, bottomStart = 30.dp))
+                                .background(Primary)
+                        ) {
+                            Text(
+                                modifier = Modifier
+                                    .padding(start = 20.dp, top = 10.dp),
+                                text = "Teste"
+                            )
+                        }
+                        Box(
+                            modifier = Modifier
+                                .fillMaxHeight()
+                                .weight(0.7f)
+                                .clip(RoundedCornerShape(topEnd = 30.dp, bottomEnd = 30.dp))
+                                .background(Color.White)
+                        ) {
+                            Text(
+                                modifier = Modifier
+                                    .padding(start = 20.dp, top = 10.dp),
+                                text = "Teste"
+                            )
+                        }
+                    }
+                }
             }
         }
+
+        Spacer(modifier = Modifier.padding(10.dp))
 
         Box(
             modifier = Modifier

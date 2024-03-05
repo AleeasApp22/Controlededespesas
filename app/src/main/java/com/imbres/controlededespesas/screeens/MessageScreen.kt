@@ -62,7 +62,8 @@ fun MessageScreen(
                 valueSize = 35,
                 valueHeightIn = 40,
                 valueTextColor = TextColor,
-                alignText = "Center"
+                alignText = "Center",
+                true
             )
 
             NormalTextComponent(
