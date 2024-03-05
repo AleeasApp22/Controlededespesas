@@ -29,4 +29,6 @@
     <string name="invalid_email">Email inválido ou inexistente</string>
     <string name="already_in_use_email">Email informado já está em uso</string>
     <string name="account_created_successfully">Conta criada com sucesso</string>
+    <string name="user_status_log">Ativo</string>
+    <string name="user_status_n_log">Inativo</string>
 </resources>

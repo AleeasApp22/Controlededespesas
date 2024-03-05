@@ -1,6 +1,7 @@
 package com.imbres.controlededespesas.screeens
 
 import android.annotation.SuppressLint
+import androidx.compose.animation.expandVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -17,6 +18,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Category
+import androidx.compose.material.icons.filled.Circle
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.rememberScaffoldState
@@ -32,6 +34,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -40,11 +44,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import com.imbres.controlededespesas.R
 import com.imbres.controlededespesas.components.BlackNormalTextComponent
+import com.imbres.controlededespesas.components.NormalTitleTextComponent
+import com.imbres.controlededespesas.components.Saudacao
 import com.imbres.controlededespesas.data.home.HomeViewModel
-import com.imbres.controlededespesas.ui.theme.Primary
 import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.greenFinLight
+import com.imbres.controlededespesas.ui.theme.greenFingreenFinHeavy
 
 private val TAG = HomeViewModel::class.simpleName
 
@@ -57,15 +64,20 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
     val userId: String
     val email: String
     var name: String
-    //val usersParam = homeViewModel.getUserData()
 
-    userId = ""
-    email = "marcosgodoy0902@gmail.com"
-    name = "Marcos"
+    val usersParam = homeViewModel.getUserData()
 
-    /*    userId = usersParam.value.userId
-        email = usersParam.value.email
-        name = usersParam.value.name*/
+    userId = usersParam.value.userId
+    email = usersParam.value.email
+    name = usersParam.value.name
+
+
+    /*
+        userId = ""
+        email = "marcosgodoy0902@gmail.com"
+        name = "Marcos"
+    */
+
 
     /*
     Configurando a navegação com a BottomAppBar no App Android | Jetpack Compose
@@ -93,8 +105,8 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     BlackNormalTextComponent(
-                        //valueText = Saudacao(),
-                        valueText = "Bom dia",
+                        valueText = Saudacao(),
+                        //valueText = "Bom dia",
                         valuePadding = 8,
                         valueSize = 15,
                         valueHeightIn = 0,
@@ -127,26 +139,41 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
 
                     Row(
                         modifier = Modifier
-                            .padding(start = 10.dp, end = 10.dp)
-                        //.height(100.dp),
+                            .padding(start = 10.dp, end = 10.dp),
+                        horizontalArrangement = Arrangement.Center
                     ) {
                         Box(
                             modifier = Modifier
                                 .fillMaxHeight()
-                                .weight(0.7f)
+                                .weight(0.6f)
                                 .clip(RoundedCornerShape(topStart = 30.dp, bottomStart = 30.dp))
-                                .background(Primary)
+                                .background(greenFingreenFinHeavy),
                         ) {
-                            Text(
+
+                            Row (
                                 modifier = Modifier
-                                    .padding(start = 20.dp, top = 10.dp),
-                                text = "Teste"
-                            )
+                                    .padding(start = 10.dp, top = 10.dp, end = 10.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ){
+                                Icon(
+                                    imageVector = Icons.Filled.Circle,
+                                    contentDescription = "Notifications",
+                                    tint = Color.Green,
+                                )
+
+                                NormalTitleTextComponent(
+                                    valueText = stringResource(id = R.string.user_status_log),
+                                    valueSize = 15,
+                                    valueTextColor = greenFinLight,
+                                    alignText = "Left"
+                                )
+                            }
+
                         }
                         Box(
                             modifier = Modifier
                                 .fillMaxHeight()
-                                .weight(0.7f)
+                                .weight(0.4f)
                                 .clip(RoundedCornerShape(topEnd = 30.dp, bottomEnd = 30.dp))
                                 .background(Color.White)
                         ) {
