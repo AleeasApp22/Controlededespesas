@@ -6,6 +6,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -74,6 +76,7 @@ import com.imbres.controlededespesas.ui.theme.tagYellow
 
 private val TAG = HomeViewModel::class.simpleName
 
+@OptIn(ExperimentalLayoutApi::class)
 @SuppressLint("UnrememberedMutableState")
 @Composable
 fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
@@ -104,8 +107,7 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
     */
 
     Column(
-        modifier = Modifier
-            .background(greenFinLight)
+        modifier = Modifier.background(greenFinLight)
     ) {
         Box(
             modifier = Modifier
@@ -157,8 +159,7 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                     )
 
                     Row(
-                        modifier = Modifier
-                            .padding(start = 10.dp, end = 10.dp),
+                        modifier = Modifier.padding(start = 10.dp, end = 10.dp),
                         horizontalArrangement = Arrangement.Center
                     ) {
                         Box(
@@ -169,9 +170,9 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                                 .background(greenFingreenFinHeavy),
                         ) {
                             Row(
-                                modifier = Modifier
-                                    .padding(start = 10.dp, top = 10.dp, end = 10.dp),
-                                verticalAlignment = Alignment.CenterVertically
+                                modifier = Modifier.padding(
+                                    start = 10.dp, top = 10.dp, end = 10.dp
+                                ), verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Icon(
                                     imageVector = Icons.Filled.Circle,
@@ -189,8 +190,7 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                             }
 
                             Column(
-                                modifier = Modifier
-                                    .padding(start = 10.dp, top = 40.dp)
+                                modifier = Modifier.padding(start = 10.dp, top = 40.dp)
                             ) {
                                 NormalTitleTextComponent(
                                     valueText = "Jan: ${stringResource(id = R.string.balance)}",
@@ -294,16 +294,14 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
 
             Column(Modifier.fillMaxSize()) {
                 NavHost(
-                    navController = navController,
-                    startDestination = "Home",
-                    Modifier.weight(1f)
+                    navController = navController, startDestination = "Home", Modifier.weight(1f)
                 ) {
                     composable("Home") {
                         Column(
                             verticalArrangement = Arrangement.Center
                         ) {
 
-                            val categories = listOf(
+/*                            val categories = listOf(
                                 "Padaria, lanches, bebidas",
                                 "Empréstimos, tarifas, taxas, IR e impostos",
                                 "Despesas com transporte (Combustível, Sem Parar, oficina, licenciamento)",
@@ -316,6 +314,21 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                                 "Saúde (Unimed, Uniodonto, Medicamentos)",
                                 "EDP, Sabesp, gás, IPTU, empregada, manutenção casa",
                                 "Outros gastos"
+                            )*/
+
+                            val categories = listOf(
+                                "Padaria, ...",
+                                "Empréstimos, tarifas, ...",
+                                "Despesas com transporte (Combustível, ...",
+                                "NÃO CONTABILIZADO",
+                                "Internet, Celular, TV...",
+                                "Vestuário, ensino, cuidados...",
+                                "Supermercado, sacolão, ...",
+                                "Seguros",
+                                "Cacao",
+                                "Saúde",
+                                "EDP, Sabesp, gás, ...",
+                                "Outros gastos"
                             )
 
                             val cores = listOf(
@@ -323,34 +336,103 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                                 tagBlue, tagSkyBlue, tagGreenLemon, tagSoftPink, tagPink,
                                 tagBlack, tagGray,
                             )
-
                             Column(
                                 modifier = Modifier
                                     .fillMaxSize()
-                                    .verticalScroll(rememberScrollState())
+                                    .weight(1f)
+                                    .verticalScroll(rememberScrollState()),
+                                verticalArrangement = Arrangement.Center,
                             ) {
-                                categories.forEachIndexed { index, category ->
-                                    Button(
-                                        onClick = { /* ação do botão */ },
+                                Box(
+                                    modifier = Modifier
+                                        .padding(all = 10.dp)
+                                        .fillMaxSize()
+                                        .weight(1f),
+                                ) {
+                                    /*
+                                    FlowRow()
+                                    https://developer.android.com/jetpack/compose/layouts/flow?hl=pt-br
+
+                                    [COMPOSE ROWS, COLUMNS, BOXES] COMO CRIAR LAYOUT EM JETPACK COMPOSE NO ANDROID
+                                    https://www.youtube.com/watch?v=ov8iCd7UDpw
+
+                                    JETPACK COMPOSE: Criando linhas e colunas flexíveis com Flow Layout
+                                    https://www.youtube.com/watch?v=ljux8p2RXsY
+                                     */
+
+                                    FlowRow(
                                         modifier = Modifier
-                                            .padding(start = 10.dp, top = 10.dp, end = 10.dp, bottom = 10.dp)
-                                            .background(cores[index]),
-                                        colors = ButtonDefaults.buttonColors(backgroundColor = cores[index])
+                                            .fillMaxWidth(),
+                                        horizontalArrangement = Arrangement.SpaceAround,
+                                        maxItemsInEachRow = 3
                                     ) {
-                                        Text(
-                                            text = category
-                                        )
+                                        categories.forEachIndexed { index, category ->
+                                            Button(
+                                                onClick = { /* ação do botão */ },
+                                                modifier = Modifier
+                                                    .padding(
+                                                        start = 5.dp,
+                                                        top = 5.dp,
+                                                        end = 5.dp,
+                                                        bottom = 5.dp
+                                                    )
+                                                    .background(cores[index]),
+                                                colors = ButtonDefaults.buttonColors(backgroundColor = cores[index])
+                                            ) {
+                                                Text(
+                                                    text = category
+                                                )
+                                            }
+                                        }
                                     }
                                 }
                             }
 
+                            /*Column(
+                                modifier = Modifier
+                                    .background(color = Color.LightGray)
+                                    .fillMaxSize()
+                                    .weight(1f)
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        .padding(all = 10.dp)
+                                        .background(color = Color.Gray)
+                                        .fillMaxSize()
+                                        .weight(1f)
+                                ) {
+                                    FlowRow(
+                                        modifier = Modifier
+                                            //.horizontalScroll(rememberScrollState())
+                                            .padding(all = 5.dp)
+                                            .fillMaxWidth(),
+                                        //verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.SpaceEvenly
+                                    ) {
+                                        Text(text = "Text 1")
+                                        Text(text = "Text 3")
+                                        Text(text = "Text 2")
+                                        Text(text = "Text 4")
+                                        Text(text = "Text 5")
+                                        Text(text = "Text 6")
+                                        Text(text = "Text 7")
+                                        Text(text = "Text 8")
+                                        Text(text = "Text 9")
+                                        Text(text = "Text 10")
+                                        Text(text = "Text 11")
+                                    }
+                                }
+                            }*/
+
+/*
                             NormalTitleTextComponent(
                                 valueText = stringResource(id = R.string.categories),
                                 valueSize = 20,
                                 valueTextColor = TextColor,
                                 alignText = "Center"
                             )
-                            Row(
+
+                           Row(
                                 modifier = Modifier
                                     .padding(top = 30.dp)
                                     .fillMaxWidth(),
@@ -380,8 +462,9 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                                         contentAlignment = Alignment.Center
                                     ) {
                                         Column(
-                                            modifier = Modifier
-                                                .padding(start = 10.dp, top = 10.dp, end = 10.dp),
+                                            modifier = Modifier.padding(
+                                                start = 10.dp, top = 10.dp, end = 10.dp
+                                            ),
                                             verticalArrangement = Arrangement.Center,
                                             horizontalAlignment = Alignment.CenterHorizontally
                                         ) {
@@ -425,8 +508,9 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                                         contentAlignment = Alignment.Center
                                     ) {
                                         Column(
-                                            modifier = Modifier
-                                                .padding(start = 10.dp, top = 10.dp, end = 10.dp),
+                                            modifier = Modifier.padding(
+                                                start = 10.dp, top = 10.dp, end = 10.dp
+                                            ),
                                             verticalArrangement = Arrangement.Center,
                                             horizontalAlignment = Alignment.CenterHorizontally
                                         ) {
@@ -448,7 +532,7 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                                         }
                                     }
                                 }
-                            }
+                            }*/
                         }
 
                     }
@@ -491,8 +575,9 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                                         contentAlignment = Alignment.Center
                                     ) {
                                         Column(
-                                            modifier = Modifier
-                                                .padding(start = 10.dp, top = 10.dp, end = 10.dp),
+                                            modifier = Modifier.padding(
+                                                start = 10.dp, top = 10.dp, end = 10.dp
+                                            ),
                                             verticalArrangement = Arrangement.Center,
                                             horizontalAlignment = Alignment.CenterHorizontally
                                         ) {
@@ -536,8 +621,9 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                                         contentAlignment = Alignment.Center
                                     ) {
                                         Column(
-                                            modifier = Modifier
-                                                .padding(start = 10.dp, top = 10.dp, end = 10.dp),
+                                            modifier = Modifier.padding(
+                                                start = 10.dp, top = 10.dp, end = 10.dp
+                                            ),
                                             verticalArrangement = Arrangement.Center,
                                             horizontalAlignment = Alignment.CenterHorizontally
                                         ) {
@@ -601,8 +687,9 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                                         contentAlignment = Alignment.Center
                                     ) {
                                         Column(
-                                            modifier = Modifier
-                                                .padding(start = 10.dp, top = 10.dp, end = 10.dp),
+                                            modifier = Modifier.padding(
+                                                start = 10.dp, top = 10.dp, end = 10.dp
+                                            ),
                                             verticalArrangement = Arrangement.Center,
                                             horizontalAlignment = Alignment.CenterHorizontally
                                         ) {
@@ -646,8 +733,9 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                                         contentAlignment = Alignment.Center
                                     ) {
                                         Column(
-                                            modifier = Modifier
-                                                .padding(start = 10.dp, top = 10.dp, end = 10.dp),
+                                            modifier = Modifier.padding(
+                                                start = 10.dp, top = 10.dp, end = 10.dp
+                                            ),
                                             verticalArrangement = Arrangement.Center,
                                             horizontalAlignment = Alignment.CenterHorizontally
                                         ) {
@@ -678,35 +766,45 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                     items.forEach { item ->
                         val text = item.first
                         val icon = item.second
-                        NavigationBarItem(
-                            selected = selectedItem == item,
-                            onClick = {
-                                selectedItem = item
-                                val route = when (text) {
-                                    "Home" -> "Home"
-                                    "Categorias" -> "Categorias"
-                                    "Perfil" -> "Perfil"
-                                    else -> {
-                                        ""
-                                    }
+                        NavigationBarItem(selected = selectedItem == item, onClick = {
+                            selectedItem = item
+                            val route = when (text) {
+                                "Home" -> "Home"
+                                "Categorias" -> "Categorias"
+                                "Perfil" -> "Perfil"
+                                else -> {
+                                    ""
                                 }
-                                navController.navigate(route, navOptions = navOptions {
-                                    launchSingleTop = true
-                                    popUpTo(navController.graph.startDestinationId)
-                                })
-                            },
-                            icon = {
-                                Icon(icon, contentDescription = null)
-                            },
-                            label = {
-                                Text(text = text)
                             }
-                        )
+                            navController.navigate(route, navOptions = navOptions {
+                                launchSingleTop = true
+                                popUpTo(navController.graph.startDestinationId)
+                            })
+                        }, icon = {
+                            Icon(icon, contentDescription = null)
+                        }, label = {
+                            Text(text = text)
+                        })
                     }
                 })
             }
         }
 
+    }
+}
+
+@Composable
+fun TextRow(texts: List<String>) {
+    Row(
+        modifier = Modifier
+            .padding(all = 10.dp)
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        texts.forEach { text ->
+            Text(text)
+        }
     }
 }
 
