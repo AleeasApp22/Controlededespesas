@@ -32,6 +32,14 @@
     <string name="user_status_log">Ativo</string>
     <string name="user_status_n_log">Inativo</string>
     <string name="balance">R$ 0,00</string>
+    <string name="find_category">Localizar categoria</string>
+    <string name="new_users">Incluir usuários</string>
     <string name="new_category">Nova categoria</string>
-    <string name="operations">Operações</string>
+    <string name="update_data">Alterar dados</string>
+    <string name="category">Categoria</string>
+    <string name="date">Data</string>
+    <string name="value">Valor</string>
+    <string name="categories">Categorias</string>
+    <string name="profile">Perfil</string>
+    <string name="last_purchase">Última compra</string>
 </resources>
