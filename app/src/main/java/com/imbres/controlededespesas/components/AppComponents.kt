@@ -331,6 +331,61 @@ fun ButtonComponent(value: String, onButtonClicked: () -> Unit, isEnabled: Boole
 }
 
 @Composable
+fun ButtonComponentCategories(
+    value: String,
+    onButtonClicked: () -> Unit,
+    cores: List<Color>,
+    index: Int
+) {
+    Button(
+        modifier = Modifier
+            .padding(
+                start = 5.dp,
+                top = 5.dp,
+                end = 5.dp,
+                bottom = 5.dp
+            ),
+        shape = RoundedCornerShape(10.dp),
+        onClick = { onButtonClicked.invoke() },
+        contentPadding = PaddingValues(),
+        colors = ButtonDefaults.buttonColors(cores[index]),
+
+
+        /*colors = ButtonDefaults.buttonColors(
+            Color.Transparent,
+            Color.White,
+            Color.Transparent,
+            Color.Gray,
+        ),*/
+    ) {
+        Box(
+            modifier = Modifier
+                .heightIn(48.dp)
+                .background(color = cores[index]),
+            /*                .background(
+                                brush = Brush.horizontalGradient(listOf(Secondary, Primary))
+                            ),*/
+            contentAlignment = Alignment.Center
+        ) {
+            androidx.compose.material.Text(
+                modifier = Modifier
+                    .padding(
+                        start = 5.dp,
+                        top = 5.dp,
+                        end = 5.dp,
+                        bottom = 5.dp
+                    ),
+                text = "   $value   ",
+                fontSize = 15.sp,
+            )
+        }
+    }
+
+    Spacer(modifier = Modifier.height(10.dp))
+
+}
+
+@Composable
 fun DividerTextComponent() {
     Row(
         modifier = Modifier.fillMaxWidth(),

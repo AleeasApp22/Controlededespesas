@@ -55,6 +55,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import com.imbres.controlededespesas.R
 import com.imbres.controlededespesas.components.BlackNormalTextComponent
+import com.imbres.controlededespesas.components.ButtonComponentCategories
 import com.imbres.controlededespesas.components.NormalTitleTextComponent
 import com.imbres.controlededespesas.components.Saudacao
 import com.imbres.controlededespesas.data.home.HomeViewModel
@@ -317,12 +318,12 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                             )*/
 
                             val categories = listOf(
-                                "Padaria, ...",
+                                "Padaria, lanches, ...",
                                 "Empréstimos, tarifas, ...",
-                                "Despesas com transporte (Combustível, ...",
+                                "Despesas com transporte (Combustível, IPVA ...",
                                 "NÃO CONTABILIZADO",
-                                "Internet, Celular, TV...",
-                                "Vestuário, ensino, cuidados...",
+                                "Internet, Celular, TV ...",
+                                "Vestuário, ensino, cuidados ...",
                                 "Supermercado, sacolão, ...",
                                 "Seguros",
                                 "Cacao",
@@ -341,200 +342,50 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                                     .fillMaxSize()
                                     .weight(1f)
                                     .verticalScroll(rememberScrollState()),
-                                verticalArrangement = Arrangement.Center,
+                                verticalArrangement = Arrangement.SpaceEvenly,
                             ) {
-                                Box(
+                                /*
+                                FlowRow()
+                                https://developer.android.com/jetpack/compose/layouts/flow?hl=pt-br
+
+                                [COMPOSE ROWS, COLUMNS, BOXES] COMO CRIAR LAYOUT EM JETPACK COMPOSE NO ANDROID
+                                https://www.youtube.com/watch?v=ov8iCd7UDpw
+
+                                JETPACK COMPOSE: Criando linhas e colunas flexíveis com Flow Layout
+                                https://www.youtube.com/watch?v=ljux8p2RXsY
+                                 */
+
+                                FlowRow(
                                     modifier = Modifier
-                                        .padding(all = 10.dp)
-                                        .fillMaxSize()
-                                        .weight(1f),
+                                        .fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceAround,
+                                    maxItemsInEachRow = 3
                                 ) {
-                                    /*
-                                    FlowRow()
-                                    https://developer.android.com/jetpack/compose/layouts/flow?hl=pt-br
+                                    categories.forEachIndexed { index, category ->
 
-                                    [COMPOSE ROWS, COLUMNS, BOXES] COMO CRIAR LAYOUT EM JETPACK COMPOSE NO ANDROID
-                                    https://www.youtube.com/watch?v=ov8iCd7UDpw
+                                        ButtonComponentCategories(
+                                            value = category,
+                                            onButtonClicked = {
+                                                "ação do botão"
+                                            },
+                                            cores,
+                                            index,
+                                        )
 
-                                    JETPACK COMPOSE: Criando linhas e colunas flexíveis com Flow Layout
-                                    https://www.youtube.com/watch?v=ljux8p2RXsY
-                                     */
 
-                                    FlowRow(
-                                        modifier = Modifier
-                                            .fillMaxWidth(),
-                                        horizontalArrangement = Arrangement.SpaceAround,
-                                        maxItemsInEachRow = 3
-                                    ) {
-                                        categories.forEachIndexed { index, category ->
-                                            Button(
-                                                onClick = { /* ação do botão */ },
-                                                modifier = Modifier
-                                                    .padding(
-                                                        start = 5.dp,
-                                                        top = 5.dp,
-                                                        end = 5.dp,
-                                                        bottom = 5.dp
-                                                    )
-                                                    .background(cores[index]),
-                                                colors = ButtonDefaults.buttonColors(backgroundColor = cores[index])
-                                            ) {
-                                                Text(
-                                                    text = category
-                                                )
-                                            }
-                                        }
+/*                                        Button(
+                                            onClick = {  "ação do botão"  },
+                                            colors = ButtonDefaults.buttonColors(backgroundColor = cores[index])
+                                        ) {
+                                            Text(
+                                                text = category
+                                            )
+                                        }*/
+
                                     }
                                 }
                             }
-
-                            /*Column(
-                                modifier = Modifier
-                                    .background(color = Color.LightGray)
-                                    .fillMaxSize()
-                                    .weight(1f)
-                            ) {
-                                Box(
-                                    modifier = Modifier
-                                        .padding(all = 10.dp)
-                                        .background(color = Color.Gray)
-                                        .fillMaxSize()
-                                        .weight(1f)
-                                ) {
-                                    FlowRow(
-                                        modifier = Modifier
-                                            //.horizontalScroll(rememberScrollState())
-                                            .padding(all = 5.dp)
-                                            .fillMaxWidth(),
-                                        //verticalAlignment = Alignment.CenterVertically,
-                                        horizontalArrangement = Arrangement.SpaceEvenly
-                                    ) {
-                                        Text(text = "Text 1")
-                                        Text(text = "Text 3")
-                                        Text(text = "Text 2")
-                                        Text(text = "Text 4")
-                                        Text(text = "Text 5")
-                                        Text(text = "Text 6")
-                                        Text(text = "Text 7")
-                                        Text(text = "Text 8")
-                                        Text(text = "Text 9")
-                                        Text(text = "Text 10")
-                                        Text(text = "Text 11")
-                                    }
-                                }
-                            }*/
-
-/*
-                            NormalTitleTextComponent(
-                                valueText = stringResource(id = R.string.categories),
-                                valueSize = 20,
-                                valueTextColor = TextColor,
-                                alignText = "Center"
-                            )
-
-                           Row(
-                                modifier = Modifier
-                                    .padding(top = 30.dp)
-                                    .fillMaxWidth(),
-                                horizontalArrangement = Arrangement.SpaceAround,
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-
-                                Box(
-                                    modifier = Modifier
-                                        .padding(all = 10.dp)
-                                        .background(Color.White)
-                                ) {
-
-                                    Box(
-                                        modifier = Modifier
-                                            .width(130.dp)
-                                            .height(130.dp)
-                                            .clip(
-                                                RoundedCornerShape(
-                                                    topStart = 30.dp,
-                                                    bottomStart = 30.dp,
-                                                    bottomEnd = 30.dp,
-                                                    topEnd = 30.dp
-                                                )
-                                            )
-                                            .background(Color.LightGray),
-                                        contentAlignment = Alignment.Center
-                                    ) {
-                                        Column(
-                                            modifier = Modifier.padding(
-                                                start = 10.dp, top = 10.dp, end = 10.dp
-                                            ),
-                                            verticalArrangement = Arrangement.Center,
-                                            horizontalAlignment = Alignment.CenterHorizontally
-                                        ) {
-                                            Icon(
-                                                modifier = Modifier
-                                                    .width(50.dp)
-                                                    .height(50.dp),
-                                                imageVector = Icons.Filled.Category,
-                                                contentDescription = "New category",
-                                                tint = Color.DarkGray,
-                                            )
-
-                                            NormalTitleTextComponent(
-                                                valueText = stringResource(id = R.string.new_category),
-                                                valueSize = 15,
-                                                valueTextColor = TextColor,
-                                                alignText = "Center"
-                                            )
-                                        }
-                                    }
-                                }
-
-                                Box(
-                                    modifier = Modifier
-                                        .padding(all = 10.dp)
-                                        .background(Color.White)
-                                ) {
-                                    Box(
-                                        modifier = Modifier
-                                            .width(130.dp)
-                                            .height(130.dp)
-                                            .clip(
-                                                RoundedCornerShape(
-                                                    topStart = 30.dp,
-                                                    bottomStart = 30.dp,
-                                                    bottomEnd = 30.dp,
-                                                    topEnd = 30.dp
-                                                )
-                                            )
-                                            .background(Color.LightGray),
-                                        contentAlignment = Alignment.Center
-                                    ) {
-                                        Column(
-                                            modifier = Modifier.padding(
-                                                start = 10.dp, top = 10.dp, end = 10.dp
-                                            ),
-                                            verticalArrangement = Arrangement.Center,
-                                            horizontalAlignment = Alignment.CenterHorizontally
-                                        ) {
-                                            Icon(
-                                                modifier = Modifier
-                                                    .width(50.dp)
-                                                    .height(50.dp),
-                                                imageVector = Icons.Filled.FindInPage,
-                                                contentDescription = "New category",
-                                                tint = Color.DarkGray,
-                                            )
-
-                                            NormalTitleTextComponent(
-                                                valueText = stringResource(id = R.string.find_category),
-                                                valueSize = 15,
-                                                valueTextColor = TextColor,
-                                                alignText = "Center"
-                                            )
-                                        }
-                                    }
-                                }
-                            }*/
                         }
-
                     }
                     composable("Categorias") {
                         Column(
