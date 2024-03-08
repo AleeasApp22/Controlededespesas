@@ -46,8 +46,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -62,6 +67,7 @@ import com.imbres.controlededespesas.data.home.HomeViewModel
 import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.greenFinLight
 import com.imbres.controlededespesas.ui.theme.greenFingreenFinHeavy
+import com.imbres.controlededespesas.ui.theme.robotoFontFamily
 import com.imbres.controlededespesas.ui.theme.tagBlack
 import com.imbres.controlededespesas.ui.theme.tagBlue
 import com.imbres.controlededespesas.ui.theme.tagGray
@@ -342,7 +348,7 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                                     .fillMaxSize()
                                     .weight(1f)
                                     .verticalScroll(rememberScrollState()),
-                                verticalArrangement = Arrangement.SpaceEvenly,
+                                verticalArrangement = Arrangement.SpaceAround,
                             ) {
                                 /*
                                 FlowRow()
@@ -354,6 +360,31 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                                 JETPACK COMPOSE: Criando linhas e colunas flexíveis com Flow Layout
                                 https://www.youtube.com/watch?v=ljux8p2RXsY
                                  */
+
+                                /*BlackNormalTextComponent(
+                                    valueText = stringResource(id = R.string.new_purchase),
+                                    valuePadding = 8,
+                                    valueSize = 15,
+                                    valueHeightIn = 40,
+                                    valueTextColor = TextColor,
+                                    alignText = "Center",
+                                    true
+                                )*/
+
+                                Text(
+                                    text = stringResource(id = R.string.new_purchase),
+                                    modifier = Modifier
+                                        .padding(all = 10.dp)
+                                        .fillMaxWidth(),
+                                    style = TextStyle(
+                                        fontFamily = robotoFontFamily,
+                                        fontSize = 15.sp,
+                                        fontWeight = FontWeight.Black,
+                                        fontStyle = FontStyle.Normal,
+                                    ),
+                                    color = TextColor,
+                                    textAlign = TextAlign.Center
+                                )
 
                                 FlowRow(
                                     modifier = Modifier
@@ -373,14 +404,14 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                                         )
 
 
-/*                                        Button(
-                                            onClick = {  "ação do botão"  },
-                                            colors = ButtonDefaults.buttonColors(backgroundColor = cores[index])
-                                        ) {
-                                            Text(
-                                                text = category
-                                            )
-                                        }*/
+                                        /*                                        Button(
+                                                                                    onClick = {  "ação do botão"  },
+                                                                                    colors = ButtonDefaults.buttonColors(backgroundColor = cores[index])
+                                                                                ) {
+                                                                                    Text(
+                                                                                        text = category
+                                                                                    )
+                                                                                }*/
 
                                     }
                                 }
@@ -641,21 +672,6 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
             }
         }
 
-    }
-}
-
-@Composable
-fun TextRow(texts: List<String>) {
-    Row(
-        modifier = Modifier
-            .padding(all = 10.dp)
-            .fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        texts.forEach { text ->
-            Text(text)
-        }
     }
 }
 

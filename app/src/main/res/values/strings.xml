@@ -40,6 +40,7 @@
     <string name="date">Data</string>
     <string name="value">Valor</string>
     <string name="categories">Categorias</string>
+    <string name="new_purchase">Clique na categoria abaixo para registrar nova compra</string>
     <string name="profile">Perfil</string>
     <string name="last_purchase">Última compra</string>
 </resources>
