@@ -16,7 +16,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -66,15 +68,15 @@ import com.imbres.controlededespesas.ui.theme.greenFingreenFinHeavy
 import com.imbres.controlededespesas.ui.theme.robotoFontFamily
 import com.imbres.controlededespesas.ui.theme.tagBlack
 import com.imbres.controlededespesas.ui.theme.tagBlue
-import com.imbres.controlededespesas.ui.theme.tagGray
 import com.imbres.controlededespesas.ui.theme.tagGreen
+import com.imbres.controlededespesas.ui.theme.tagGreenHeavy
 import com.imbres.controlededespesas.ui.theme.tagGreenLemon
 import com.imbres.controlededespesas.ui.theme.tagOrange
 import com.imbres.controlededespesas.ui.theme.tagPink
+import com.imbres.controlededespesas.ui.theme.tagPinkHard
 import com.imbres.controlededespesas.ui.theme.tagPurple
 import com.imbres.controlededespesas.ui.theme.tagRed
 import com.imbres.controlededespesas.ui.theme.tagSkyBlue
-import com.imbres.controlededespesas.ui.theme.tagSoftPink
 import com.imbres.controlededespesas.ui.theme.tagYellow
 
 private val TAG = HomeViewModel::class.simpleName
@@ -301,7 +303,8 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                 ) {
                     composable("Home") {
                         Column(
-                            verticalArrangement = Arrangement.Center
+                            Modifier.padding(all = 10.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally,
                         ) {
 
                             val categories = listOf(
@@ -321,8 +324,8 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
 
                             val cores = listOf(
                                 tagGreen, tagYellow, tagOrange, tagRed, tagPurple,
-                                tagBlue, tagSkyBlue, tagGreenLemon, tagSoftPink, tagPink,
-                                tagBlack, tagGray,
+                                tagBlue, tagSkyBlue, tagGreenLemon, tagPinkHard, tagPink,
+                                tagBlack, tagGreenHeavy,
                             )
                             /*
                             FlowRow()
@@ -333,6 +336,9 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
 
                             JETPACK COMPOSE: Criando linhas e colunas flexíveis com Flow Layout
                             https://www.youtube.com/watch?v=ljux8p2RXsY
+
+                            Scroll modifiers
+                            https://developer.android.com/jetpack/compose/touch-input/pointer-input/scroll?hl=pt-br
                              */
 
                             /*BlackNormalTextComponent(
@@ -361,9 +367,13 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                             )
 
                             FlowRow(
-                                horizontalArrangement = Arrangement.SpaceEvenly,
+                                modifier = Modifier
+                                    .verticalScroll(rememberScrollState()),
+                                horizontalArrangement = Arrangement.Center,
+                                verticalArrangement = Arrangement.SpaceEvenly,
                                 maxItemsInEachRow = 4
                             ) {
+
                                 categories.forEachIndexed { index, category ->
                                     ButtonComponentCategories(
                                         value = category,
