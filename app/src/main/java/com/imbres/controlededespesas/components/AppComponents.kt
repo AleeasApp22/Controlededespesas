@@ -58,6 +58,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -321,12 +322,12 @@ fun ButtonComponent(value: String, onButtonClicked: () -> Unit, isEnabled: Boole
                 .background(
                     brush = Brush.horizontalGradient(listOf(Secondary, Primary))
                 ),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             Text(
                 text = value,
                 fontSize = 20.sp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
             )
         }
     }
@@ -339,47 +340,52 @@ fun ButtonComponentCategories(
     cores: List<Color>,
     index: Int
 ) {
-    Button(
-        modifier = Modifier
-            .padding(
-                start = 5.dp,
-                top = 5.dp,
-                end = 5.dp,
-                bottom = 5.dp
-            ),
-        shape = RoundedCornerShape(10.dp),
-        onClick = { onButtonClicked.invoke() },
-        contentPadding = PaddingValues(),
-        colors = ButtonDefaults.buttonColors(cores[index]),
-
-
-        /*colors = ButtonDefaults.buttonColors(
-            Color.Transparent,
-            Color.White,
-            Color.Transparent,
-            Color.Gray,
-        ),*/
-    ) {
-        Box(
+    Column (
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceEvenly
+    ){
+        Button(
             modifier = Modifier
-                .heightIn(48.dp)
-                .background(color = cores[index]),
-            /*                .background(
-                                brush = Brush.horizontalGradient(listOf(Secondary, Primary))
-                            ),*/
-            contentAlignment = Alignment.Center
+                .padding(
+                    start = 5.dp,
+                    end = 5.dp,
+                    bottom = 5.dp
+                ),
+            shape = RoundedCornerShape(10.dp),
+            onClick = { onButtonClicked.invoke() },
+            contentPadding = PaddingValues(),
+            colors = ButtonDefaults.buttonColors(cores[index]),
         ) {
-            androidx.compose.material.Text(
+            Box(
                 modifier = Modifier
-                    .padding(
-                        start = 5.dp,
-                        top = 5.dp,
-                        end = 5.dp,
-                        bottom = 5.dp
-                    ),
-                text = "   $value   ",
-                fontSize = 15.sp,
-            )
+                    .background(color = cores[index]),
+                /*                .background(
+                                    brush = Brush.horizontalGradient(listOf(Secondary, Primary))
+                                ),*/
+                contentAlignment = Alignment.Center,
+            ) {
+                Text(
+                    modifier = Modifier
+                        .padding(all = 10.dp),
+                    text = "$value",
+                    fontSize = 15.sp,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1,
+                )
+                /*                androidx.compose.material.Text(
+                                modifier = Modifier
+                                    .padding(
+                                        start = 10.dp,
+                                        top = 5.dp,
+                                        end = 10.dp,
+                                        bottom = 5.dp
+                                    ),
+                                text = "$value",
+                                fontSize = 15.sp,
+                                textAlign = TextAlign.Center,
+                                overflow = TextOverflow.Ellipsis,
+                                maxLines = 1,)*/
+            }
         }
     }
 

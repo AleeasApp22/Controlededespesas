@@ -16,11 +16,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -308,33 +304,18 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                             verticalArrangement = Arrangement.Center
                         ) {
 
-/*                            val categories = listOf(
+                            val categories = listOf(
                                 "Padaria, lanches, bebidas",
                                 "Empréstimos, tarifas, taxas, IR e impostos",
                                 "Despesas com transporte (Combustível, Sem Parar, oficina, licenciamento)",
                                 "NÃO CONTABILIZADO",
-                                "Internet, Celular, TV, site, spotify, hospedagem digital, impressora, email...",
+                                "Internet, Celular, TV, site, spotify, hospedagem digital, impressora, email",
                                 "Vestuário, ensino, cuidados",
-                                "Supermercado, sacolão, açougue, feira ...",
+                                "Supermercado, sacolão, açougue, feira",
                                 "Seguros",
                                 "Cacao",
                                 "Saúde (Unimed, Uniodonto, Medicamentos)",
                                 "EDP, Sabesp, gás, IPTU, empregada, manutenção casa",
-                                "Outros gastos"
-                            )*/
-
-                            val categories = listOf(
-                                "Padaria, lanches, ...",
-                                "Empréstimos, tarifas, ...",
-                                "Despesas com transporte (Combustível, IPVA ...",
-                                "NÃO CONTABILIZADO",
-                                "Internet, Celular, TV ...",
-                                "Vestuário, ensino, cuidados ...",
-                                "Supermercado, sacolão, ...",
-                                "Seguros",
-                                "Cacao",
-                                "Saúde",
-                                "EDP, Sabesp, gás, ...",
                                 "Outros gastos"
                             )
 
@@ -343,77 +324,55 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                                 tagBlue, tagSkyBlue, tagGreenLemon, tagSoftPink, tagPink,
                                 tagBlack, tagGray,
                             )
-                            Column(
+                            /*
+                            FlowRow()
+                            https://developer.android.com/jetpack/compose/layouts/flow?hl=pt-br
+
+                            [COMPOSE ROWS, COLUMNS, BOXES] COMO CRIAR LAYOUT EM JETPACK COMPOSE NO ANDROID
+                            https://www.youtube.com/watch?v=ov8iCd7UDpw
+
+                            JETPACK COMPOSE: Criando linhas e colunas flexíveis com Flow Layout
+                            https://www.youtube.com/watch?v=ljux8p2RXsY
+                             */
+
+                            /*BlackNormalTextComponent(
+                                valueText = stringResource(id = R.string.new_purchase),
+                                valuePadding = 8,
+                                valueSize = 15,
+                                valueHeightIn = 40,
+                                valueTextColor = TextColor,
+                                alignText = "Center",
+                                true
+                            )*/
+
+                            Text(
+                                text = stringResource(id = R.string.new_purchase),
                                 modifier = Modifier
-                                    .fillMaxSize()
-                                    .weight(1f)
-                                    .verticalScroll(rememberScrollState()),
-                                verticalArrangement = Arrangement.SpaceAround,
+                                    .padding(all = 10.dp)
+                                    .fillMaxWidth(),
+                                style = TextStyle(
+                                    fontFamily = robotoFontFamily,
+                                    fontSize = 15.sp,
+                                    fontWeight = FontWeight.Black,
+                                    fontStyle = FontStyle.Normal,
+                                ),
+                                color = TextColor,
+                                textAlign = TextAlign.Center
+                            )
+
+                            FlowRow(
+                                horizontalArrangement = Arrangement.SpaceEvenly,
+                                maxItemsInEachRow = 4
                             ) {
-                                /*
-                                FlowRow()
-                                https://developer.android.com/jetpack/compose/layouts/flow?hl=pt-br
-
-                                [COMPOSE ROWS, COLUMNS, BOXES] COMO CRIAR LAYOUT EM JETPACK COMPOSE NO ANDROID
-                                https://www.youtube.com/watch?v=ov8iCd7UDpw
-
-                                JETPACK COMPOSE: Criando linhas e colunas flexíveis com Flow Layout
-                                https://www.youtube.com/watch?v=ljux8p2RXsY
-                                 */
-
-                                /*BlackNormalTextComponent(
-                                    valueText = stringResource(id = R.string.new_purchase),
-                                    valuePadding = 8,
-                                    valueSize = 15,
-                                    valueHeightIn = 40,
-                                    valueTextColor = TextColor,
-                                    alignText = "Center",
-                                    true
-                                )*/
-
-                                Text(
-                                    text = stringResource(id = R.string.new_purchase),
-                                    modifier = Modifier
-                                        .padding(all = 10.dp)
-                                        .fillMaxWidth(),
-                                    style = TextStyle(
-                                        fontFamily = robotoFontFamily,
-                                        fontSize = 15.sp,
-                                        fontWeight = FontWeight.Black,
-                                        fontStyle = FontStyle.Normal,
-                                    ),
-                                    color = TextColor,
-                                    textAlign = TextAlign.Center
-                                )
-
-                                FlowRow(
-                                    modifier = Modifier
-                                        .fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.SpaceAround,
-                                    maxItemsInEachRow = 3
-                                ) {
-                                    categories.forEachIndexed { index, category ->
-
-                                        ButtonComponentCategories(
-                                            value = category,
-                                            onButtonClicked = {
-                                                "ação do botão"
-                                            },
-                                            cores,
-                                            index,
-                                        )
-
-
-                                        /*                                        Button(
-                                                                                    onClick = {  "ação do botão"  },
-                                                                                    colors = ButtonDefaults.buttonColors(backgroundColor = cores[index])
-                                                                                ) {
-                                                                                    Text(
-                                                                                        text = category
-                                                                                    )
-                                                                                }*/
-
-                                    }
+                                categories.forEachIndexed { index, category ->
+                                    ButtonComponentCategories(
+                                        value = category,
+                                        onButtonClicked = {
+                                            "ação do botão"
+                                        },
+                                        cores,
+                                        index,
+                                    )
                                 }
                             }
                         }
