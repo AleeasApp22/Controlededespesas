@@ -42,7 +42,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -285,7 +284,6 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                 .clip(RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp))
                 .background(Color.White)
         ) {
-
             val navController = rememberNavController()
             val items = remember {
                 listOf(
@@ -298,13 +296,37 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                 mutableStateOf(items.first())
             }
 
+            Row(
+                Modifier
+                    .background(greenFingreenFinHeavy),
+            ) {
+                Column(
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.new_purchase),
+                        modifier = Modifier
+                            .padding(all = 5.dp)
+                            .fillMaxWidth(),
+                        style = TextStyle(
+                            fontFamily = robotoFontFamily,
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Black,
+                            fontStyle = FontStyle.Normal,
+                        ),
+                        color = greenFinLight,
+                        textAlign = TextAlign.Center
+                    )
+                }
+            }
+
             Column(Modifier.fillMaxSize()) {
                 NavHost(
                     navController = navController, startDestination = "Home", Modifier.weight(1f)
                 ) {
                     composable("Home") {
+
                         Column(
-                            Modifier.padding(all = 10.dp),
+                            Modifier.padding(top = 30.dp),
                             horizontalAlignment = Alignment.CenterHorizontally,
                         ) {
 
@@ -327,35 +349,36 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                                 tagGreen, tagYellow, tagOrange, tagRed, tagPurple,
                                 tagBlue, tagSkyBlue, tagGreenLemon, tagPinkHard, tagPink,
                                 tagBlack, tagGreenHeavy,
-                            )/*
-                            FlowRow()
-                            https://developer.android.com/jetpack/compose/layouts/flow?hl=pt-br
-
-                            [COMPOSE ROWS, COLUMNS, BOXES] COMO CRIAR LAYOUT EM JETPACK COMPOSE NO ANDROID
-                            https://www.youtube.com/watch?v=ov8iCd7UDpw
-
-                            JETPACK COMPOSE: Criando linhas e colunas flexíveis com Flow Layout
-                            https://www.youtube.com/watch?v=ljux8p2RXsY
-
-                            Scroll modifiers
-                            https://developer.android.com/jetpack/compose/touch-input/pointer-input/scroll?hl=pt-br
-                             */
-
-
-                            Text(
-                                text = stringResource(id = R.string.new_purchase),
-                                modifier = Modifier
-                                    .padding(all = 10.dp)
-                                    .fillMaxWidth(),
-                                style = TextStyle(
-                                    fontFamily = robotoFontFamily,
-                                    fontSize = 15.sp,
-                                    fontWeight = FontWeight.Black,
-                                    fontStyle = FontStyle.Normal,
-                                ),
-                                color = TextColor,
-                                textAlign = TextAlign.Center
                             )
+                            /*
+                        FlowRow()
+                        https://developer.android.com/jetpack/compose/layouts/flow?hl=pt-br
+
+                        [COMPOSE ROWS, COLUMNS, BOXES] COMO CRIAR LAYOUT EM JETPACK COMPOSE NO ANDROID
+                        https://www.youtube.com/watch?v=ov8iCd7UDpw
+
+                        JETPACK COMPOSE: Criando linhas e colunas flexíveis com Flow Layout
+                        https://www.youtube.com/watch?v=ljux8p2RXsY
+
+                        Scroll modifiers
+                        https://developer.android.com/jetpack/compose/touch-input/pointer-input/scroll?hl=pt-br
+                         */
+
+
+                            /*                            Text(
+                                                            text = stringResource(id = R.string.new_purchase),
+                                                            modifier = Modifier
+                                                                .padding(all = 10.dp)
+                                                                .fillMaxWidth(),
+                                                            style = TextStyle(
+                                                                fontFamily = robotoFontFamily,
+                                                                fontSize = 15.sp,
+                                                                fontWeight = FontWeight.Black,
+                                                                fontStyle = FontStyle.Normal,
+                                                            ),
+                                                            color = TextColor,
+                                                            textAlign = TextAlign.Center
+                                                        )*/
 
                             FlowRow(
                                 modifier = Modifier
@@ -631,6 +654,7 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                     }
                 })
             }
+
         }
 
     }
