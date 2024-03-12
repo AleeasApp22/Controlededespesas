@@ -42,6 +42,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -326,8 +327,7 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                                 tagGreen, tagYellow, tagOrange, tagRed, tagPurple,
                                 tagBlue, tagSkyBlue, tagGreenLemon, tagPinkHard, tagPink,
                                 tagBlack, tagGreenHeavy,
-                            )
-                            /*
+                            )/*
                             FlowRow()
                             https://developer.android.com/jetpack/compose/layouts/flow?hl=pt-br
 
@@ -341,15 +341,6 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                             https://developer.android.com/jetpack/compose/touch-input/pointer-input/scroll?hl=pt-br
                              */
 
-                            /*BlackNormalTextComponent(
-                                valueText = stringResource(id = R.string.new_purchase),
-                                valuePadding = 8,
-                                valueSize = 15,
-                                valueHeightIn = 40,
-                                valueTextColor = TextColor,
-                                alignText = "Center",
-                                true
-                            )*/
 
                             Text(
                                 text = stringResource(id = R.string.new_purchase),
@@ -368,7 +359,8 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
 
                             FlowRow(
                                 modifier = Modifier
-                                    .verticalScroll(rememberScrollState()),
+                                    .verticalScroll(rememberScrollState())
+                                    .weight(0.8f),
                                 horizontalArrangement = Arrangement.Center,
                                 verticalArrangement = Arrangement.SpaceEvenly,
                                 maxItemsInEachRow = 4

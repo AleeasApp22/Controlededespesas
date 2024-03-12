@@ -5,9 +5,7 @@ import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -15,7 +13,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -39,7 +36,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.AbsoluteAlignment
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -76,6 +72,29 @@ import java.util.Calendar
 
 @Composable
 fun NormalTitleTextComponent(
+    valueText: String,
+    valueSize: Int,
+    valueTextColor: Color,
+    alignText: String
+) {
+    Text(
+        text = valueText,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+        style = TextStyle(
+            fontFamily = robotoFontFamily,
+            fontSize = valueSize.sp,
+            fontWeight = FontWeight.Normal,
+            fontStyle = FontStyle.Normal,
+        ),
+        color = valueTextColor,
+        textAlign = if (alignText == "Left") TextAlign.Left else TextAlign.Center,
+    )
+}
+
+@Composable
+fun NormalTitleTextComponentOrientation(
     valueText: String,
     valueSize: Int,
     valueTextColor: Color,
@@ -371,19 +390,6 @@ fun ButtonComponentCategories(
                 maxLines = 1,
 
                 )
-            /*                androidx.compose.material.Text(
-                            modifier = Modifier
-                                .padding(
-                                    start = 10.dp,
-                                    top = 5.dp,
-                                    end = 10.dp,
-                                    bottom = 5.dp
-                                ),
-                            text = "$value",
-                            fontSize = 15.sp,
-                            textAlign = TextAlign.Center,
-                            overflow = TextOverflow.Ellipsis,
-                            maxLines = 1,)*/
         }
     }
 
