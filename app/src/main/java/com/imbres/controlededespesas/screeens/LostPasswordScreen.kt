@@ -1,6 +1,5 @@
 package com.imbres.controlededespesas.screeens
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -12,7 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.structuralEqualityPolicy
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -33,7 +31,6 @@ import com.imbres.controlededespesas.components.LoadingAnimation
 import com.imbres.controlededespesas.components.MyTextFieldComponent
 import com.imbres.controlededespesas.components.NormalTitleTextComponent
 import com.imbres.controlededespesas.components.ToastDisplay
-import com.imbres.controlededespesas.data.home.HomeViewModel
 import com.imbres.controlededespesas.data.login.LoginUIEvent
 import com.imbres.controlededespesas.data.login.LoginViewModel
 import com.imbres.controlededespesas.data.lostpassword.LostPasswordUIEvent

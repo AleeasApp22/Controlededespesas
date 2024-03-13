@@ -303,7 +303,7 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                 Column(
                 ) {
                     Text(
-                        text = stringResource(id = R.string.new_purchase),
+                        text = stringResource(id = R.string.function),
                         modifier = Modifier
                             .padding(all = 5.dp)
                             .fillMaxWidth(),
@@ -317,6 +317,7 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                         textAlign = TextAlign.Center
                     )
                 }
+
             }
 
             Column(Modifier.fillMaxSize()) {
@@ -326,10 +327,10 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                     composable("Home") {
 
                         Column(
-                            Modifier.padding(top = 30.dp),
+                            Modifier
+                                .padding(top = 30.dp),
                             horizontalAlignment = Alignment.CenterHorizontally,
                         ) {
-
                             val categories = listOf(
                                 "Padaria, lanches, bebidas",
                                 "Empréstimos, tarifas, taxas, IR e impostos",
@@ -379,16 +380,14 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                                                             color = TextColor,
                                                             textAlign = TextAlign.Center
                                                         )*/
-
                             FlowRow(
                                 modifier = Modifier
-                                    .verticalScroll(rememberScrollState())
+                                    .verticalScroll(rememberScrollState(), true, null, false)
                                     .weight(0.8f),
                                 horizontalArrangement = Arrangement.Center,
                                 verticalArrangement = Arrangement.SpaceEvenly,
                                 maxItemsInEachRow = 4
                             ) {
-
                                 categories.forEachIndexed { index, category ->
                                     ButtonComponentCategories(
                                         value = category,
@@ -628,7 +627,9 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                     }
                 }
 
-                BottomAppBar(actions = {
+                BottomAppBar(
+                    containerColor = greenFinLight,
+                    actions = {
                     items.forEach { item ->
                         val text = item.first
                         val icon = item.second
