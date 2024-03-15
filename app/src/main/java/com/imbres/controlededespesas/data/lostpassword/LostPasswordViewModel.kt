@@ -3,10 +3,8 @@ package com.imbres.controlededespesas.data.lostpassword
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.google.firebase.FirebaseError.ERROR_EMAIL_ALREADY_IN_USE
 import com.google.firebase.FirebaseError.ERROR_INVALID_CREDENTIAL
 import com.google.firebase.FirebaseError.ERROR_INVALID_EMAIL
-import com.google.firebase.FirebaseError.ERROR_WRONG_PASSWORD
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.imbres.controlededespesas.navigation.AppRouter
@@ -81,9 +79,9 @@ class LostPasswordViewModel : ViewModel() {
                                     lostPasswordFail.value = true
                                 }
 
-/*                                ERROR_WRONG_PASSWORD.toString() -> {
-                                    lostPasswordFail.value = true
-                                }*/
+                                /*                                ERROR_WRONG_PASSWORD.toString() -> {
+                                                                    lostPasswordFail.value = true
+                                                                }*/
                                 else -> {
                                     lostPasswordFail.value = true
                                     lostPasswordInProgress.value = false

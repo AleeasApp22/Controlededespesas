@@ -10,6 +10,7 @@ sealed class ScreenApp {
     object LoginScreen : ScreenApp()
     object HomeScreen : ScreenApp()
     object LostPasswordScreen : ScreenApp()
+    object NewExpenseScreen : ScreenApp()
 }
 
 object AppRouter {

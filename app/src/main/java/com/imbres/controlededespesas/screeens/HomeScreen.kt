@@ -52,6 +52,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -62,6 +63,8 @@ import com.imbres.controlededespesas.components.ButtonComponentCategories
 import com.imbres.controlededespesas.components.NormalTitleTextComponent
 import com.imbres.controlededespesas.components.Saudacao
 import com.imbres.controlededespesas.data.home.HomeViewModel
+import com.imbres.controlededespesas.data.newexpense.NewExpenseUIEvent
+import com.imbres.controlededespesas.data.newexpense.NewExpenseViewModel
 import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.greenFinLight
 import com.imbres.controlededespesas.ui.theme.greenFingreenFinHeavy
@@ -84,7 +87,10 @@ private val TAG = HomeViewModel::class.simpleName
 @OptIn(ExperimentalLayoutApi::class)
 @SuppressLint("UnrememberedMutableState")
 @Composable
-fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
+fun HomeScreen(
+    navController: NavHostController,
+    newExpenseViewModel: NewExpenseViewModel = viewModel(),
+) {
 
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
@@ -392,7 +398,7 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                                     ButtonComponentCategories(
                                         value = category,
                                         onButtonClicked = {
-                                            "ação do botão"
+                                            newExpenseViewModel.onEvent(NewExpenseUIEvent.NewExpenseButtonClicked)
                                         },
                                         cores,
                                         index,
@@ -630,39 +636,39 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                 BottomAppBar(
                     containerColor = greenFinLight,
                     actions = {
-                    items.forEach { item ->
-                        val text = item.first
-                        val icon = item.second
-                        NavigationBarItem(selected = selectedItem == item, onClick = {
-                            selectedItem = item
-                            val route = when (text) {
-                                "Home" -> "Home"
-                                "Categorias" -> "Categorias"
-                                "Perfil" -> "Perfil"
-                                else -> {
-                                    ""
+                        items.forEach { item ->
+                            val text = item.first
+                            val icon = item.second
+                            NavigationBarItem(selected = selectedItem == item, onClick = {
+                                selectedItem = item
+                                val route = when (text) {
+                                    "Home" -> "Home"
+                                    "Categorias" -> "Categorias"
+                                    "Perfil" -> "Perfil"
+                                    else -> {
+                                        ""
+                                    }
                                 }
-                            }
-                            navController.navigate(route, navOptions = navOptions {
-                                launchSingleTop = true
-                                popUpTo(navController.graph.startDestinationId)
+                                navController.navigate(route, navOptions = navOptions {
+                                    launchSingleTop = true
+                                    popUpTo(navController.graph.startDestinationId)
+                                })
+                            }, icon = {
+                                Icon(icon, contentDescription = null)
+                            }, label = {
+                                Text(text = text)
                             })
-                        }, icon = {
-                            Icon(icon, contentDescription = null)
-                        }, label = {
-                            Text(text = text)
-                        })
-                    }
-                })
+                        }
+                    })
             }
-
         }
-
     }
 }
 
 @Preview
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen()
+    val navController = rememberNavController()
+
+    HomeScreen(navController)
 }
