@@ -1,6 +1,7 @@
 package com.imbres.controlededespesas.screeens
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -62,9 +63,8 @@ import com.imbres.controlededespesas.components.BlackNormalTextComponent
 import com.imbres.controlededespesas.components.ButtonComponentCategories
 import com.imbres.controlededespesas.components.NormalTitleTextComponent
 import com.imbres.controlededespesas.components.Saudacao
+import com.imbres.controlededespesas.data.home.HomeUIEvent
 import com.imbres.controlededespesas.data.home.HomeViewModel
-import com.imbres.controlededespesas.data.newexpense.NewExpenseUIEvent
-import com.imbres.controlededespesas.data.newexpense.NewExpenseViewModel
 import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.greenFinLight
 import com.imbres.controlededespesas.ui.theme.greenFingreenFinHeavy
@@ -89,7 +89,7 @@ private val TAG = HomeViewModel::class.simpleName
 @Composable
 fun HomeScreen(
     navController: NavHostController,
-    newExpenseViewModel: NewExpenseViewModel = viewModel(),
+    homeViewModel: HomeViewModel = viewModel()
 ) {
 
     val scaffoldState = rememberScaffoldState()
@@ -397,9 +397,7 @@ fun HomeScreen(
                                 categories.forEachIndexed { index, category ->
                                     ButtonComponentCategories(
                                         value = category,
-                                        onButtonClicked = {
-                                            newExpenseViewModel.onEvent(NewExpenseUIEvent.NewExpenseButtonClicked)
-                                        },
+                                        onButtonClicked = { },
                                         cores,
                                         index,
                                     )
