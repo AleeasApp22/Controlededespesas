@@ -1,7 +1,6 @@
 package com.imbres.controlededespesas.screeens
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -61,10 +60,14 @@ import androidx.navigation.navOptions
 import com.imbres.controlededespesas.R
 import com.imbres.controlededespesas.components.BlackNormalTextComponent
 import com.imbres.controlededespesas.components.ButtonComponentCategories
+import com.imbres.controlededespesas.components.LoadingAnimation
 import com.imbres.controlededespesas.components.NormalTitleTextComponent
 import com.imbres.controlededespesas.components.Saudacao
-import com.imbres.controlededespesas.data.home.HomeUIEvent
 import com.imbres.controlededespesas.data.home.HomeViewModel
+import com.imbres.controlededespesas.data.newexpense.NewExpenseUIEvent
+import com.imbres.controlededespesas.data.newexpense.NewExpenseViewModel
+import com.imbres.controlededespesas.data.signup.SignupViewModel
+import com.imbres.controlededespesas.navigation.Screen
 import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.greenFinLight
 import com.imbres.controlededespesas.ui.theme.greenFingreenFinHeavy
@@ -89,7 +92,8 @@ private val TAG = HomeViewModel::class.simpleName
 @Composable
 fun HomeScreen(
     navController: NavHostController,
-    homeViewModel: HomeViewModel = viewModel()
+    homeViewModel: HomeViewModel = viewModel(),
+    newExpenseViewModel: NewExpenseViewModel = viewModel(),
 ) {
 
     val scaffoldState = rememberScaffoldState()
@@ -397,7 +401,9 @@ fun HomeScreen(
                                 categories.forEachIndexed { index, category ->
                                     ButtonComponentCategories(
                                         value = category,
-                                        onButtonClicked = { },
+                                        onButtonClicked = {
+                                            newExpenseViewModel.onEvent(NewExpenseUIEvent.NewExpenseButtonClicked)
+                                        },
                                         cores,
                                         index,
                                     )
@@ -405,6 +411,7 @@ fun HomeScreen(
                             }
                         }
                     }
+
                     composable("Categorias") {
                         Column(
                             verticalArrangement = Arrangement.Center
@@ -517,6 +524,7 @@ fun HomeScreen(
                             }
                         }
                     }
+
                     composable("Perfil") {
                         Column(
                             verticalArrangement = Arrangement.Center
@@ -629,6 +637,18 @@ fun HomeScreen(
                             }
                         }
                     }
+                }
+
+                if (newExpenseViewModel.newExpenseInProgress.value) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.SpaceAround
+                    ) {
+                        LoadingAnimation()
+                    }
+                    NewExpenseScreen(navController = navController)
                 }
 
                 BottomAppBar(
