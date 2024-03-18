@@ -1,6 +1,7 @@
 package com.imbres.controlededespesas.screeens
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -64,10 +65,10 @@ import com.imbres.controlededespesas.components.LoadingAnimation
 import com.imbres.controlededespesas.components.NormalTitleTextComponent
 import com.imbres.controlededespesas.components.Saudacao
 import com.imbres.controlededespesas.data.home.HomeViewModel
+import com.imbres.controlededespesas.data.model.CategoryParam
+import com.imbres.controlededespesas.data.model.UsersParam
 import com.imbres.controlededespesas.data.newexpense.NewExpenseUIEvent
 import com.imbres.controlededespesas.data.newexpense.NewExpenseViewModel
-import com.imbres.controlededespesas.data.signup.SignupViewModel
-import com.imbres.controlededespesas.navigation.Screen
 import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.greenFinLight
 import com.imbres.controlededespesas.ui.theme.greenFingreenFinHeavy
@@ -100,20 +101,17 @@ fun HomeScreen(
     val coroutineScope = rememberCoroutineScope()
     val userId: String
     val email: String
-    var name: String
+    val name: String
 
-    /*
-        val usersParam = homeViewModel.getUserData()
+    val usersParam = homeViewModel.getUserData()
 
-        userId = usersParam.value.userId
-        email = usersParam.value.email
-        name = usersParam.value.name
-    */
+    userId = usersParam.value.userId
+    email = usersParam.value.email
+    name = usersParam.value.name
 
-
-    userId = ""
+/*    userId = ""
     email = "marcosgodoy0902@gmail.com"
-    name = "Marcos"
+    name = "Marcos"*/
 
 
     /*
@@ -399,10 +397,18 @@ fun HomeScreen(
                                 maxItemsInEachRow = 4
                             ) {
                                 categories.forEachIndexed { index, category ->
+                                    //val usersParam = homeViewModel.getUserData()
+                                    val categoryParam = CategoryParam(index, category)
+
+/*
+                                    Log.d(TAG, "HomeScreen: categoryParamId ${categoryParam.categoryId}")
+                                    Log.d(TAG, "HomeScreen: categoryParam ${categoryParam.name}")
+*/
+
                                     ButtonComponentCategories(
                                         value = category,
                                         onButtonClicked = {
-                                            newExpenseViewModel.onEvent(NewExpenseUIEvent.NewExpenseButtonClicked)
+                                            newExpenseViewModel.onEvent(NewExpenseUIEvent.NewExpenseButtonClicked, usersParam, categoryParam)
                                         },
                                         cores,
                                         index,

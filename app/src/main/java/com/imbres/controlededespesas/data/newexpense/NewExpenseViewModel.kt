@@ -1,11 +1,14 @@
 package com.imbres.controlededespesas.data.newexpense
 
 import android.util.Log
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.imbres.controlededespesas.data.model.CategoryParam
+import com.imbres.controlededespesas.data.model.UsersParam
 import com.imbres.controlededespesas.navigation.AppRouter
 import com.imbres.controlededespesas.navigation.ScreenApp
 import com.imbres.controlededespesas.rules.Validator
@@ -24,7 +27,14 @@ class NewExpenseViewModel : ViewModel() {
 
     var newExpenseFail = mutableStateOf(false)
 
-    fun onEvent(event: NewExpenseUIEvent) {
+    fun onEvent(
+        event: NewExpenseUIEvent,
+        usersParam: MutableState<UsersParam>,
+        categoryParam: CategoryParam
+    ) {
+        val name = usersParam.value.name
+        Log.d(TAG, "NewExpenseViewModel: categoryParamId ${categoryParam.categoryId}")
+        Log.d(TAG, "NewExpenseViewModel: categoryParam ${categoryParam.name}")
         when (event) {
             is NewExpenseUIEvent.NameChanged -> {
                 newExpenseUIState.value = newExpenseUIState.value.copy(
@@ -51,7 +61,7 @@ class NewExpenseViewModel : ViewModel() {
             }
 
             is NewExpenseUIEvent.NewExpenseButtonClicked -> {
-                signUp()
+                signUp(name)
             }
         }
         validateLostUIDataWithRules()
@@ -87,9 +97,8 @@ class NewExpenseViewModel : ViewModel() {
 
     }
 
-    private fun signUp() {
+    private fun signUp(name : String) {
 
-        Log.d(TAG, "signUp name: ${newExpenseUIState.value.name}")
         newExpenseInProgress.value = true
         createUserInFirebase(
             name = newExpenseUIState.value.name,
