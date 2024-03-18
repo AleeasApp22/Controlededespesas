@@ -32,9 +32,10 @@ class NewExpenseViewModel : ViewModel() {
         usersParam: MutableState<UsersParam>,
         categoryParam: CategoryParam
     ) {
-        val name = usersParam.value.name
-        Log.d(TAG, "NewExpenseViewModel: categoryParamId ${categoryParam.categoryId}")
-        Log.d(TAG, "NewExpenseViewModel: categoryParam ${categoryParam.name}")
+        val usersName = usersParam.value.name
+        val categoryId = categoryParam.categoryId
+        val categoryName = categoryParam.categoryId
+
         when (event) {
             is NewExpenseUIEvent.NameChanged -> {
                 newExpenseUIState.value = newExpenseUIState.value.copy(
@@ -61,7 +62,7 @@ class NewExpenseViewModel : ViewModel() {
             }
 
             is NewExpenseUIEvent.NewExpenseButtonClicked -> {
-                signUp(name)
+                signUp(usersName)
             }
         }
         validateLostUIDataWithRules()
@@ -97,7 +98,7 @@ class NewExpenseViewModel : ViewModel() {
 
     }
 
-    private fun signUp(name : String) {
+    private fun signUp(usersName : String) {
 
         newExpenseInProgress.value = true
         createUserInFirebase(
