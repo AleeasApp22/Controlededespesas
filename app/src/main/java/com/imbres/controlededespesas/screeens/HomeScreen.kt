@@ -91,35 +91,35 @@ private val TAG = HomeViewModel::class.simpleName
 @SuppressLint("UnrememberedMutableState")
 @Composable
 fun HomeScreen(
-    navControllerHome: NavHostController,
+    navController: NavHostController,
     homeViewModel: HomeViewModel = viewModel(),
     newExpenseViewModel: NewExpenseViewModel = viewModel(),
 ) {
 
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
-    val usersParam = homeViewModel.stateUsersParam
 
     // trecho comentado para funcionar preview
-    /*
-        val usersParam = homeViewModel.getUserData()
-        val userId: String
-        val email: String
-        val name: String
-
-        userId = usersParam.value.userId
-        email = usersParam.value.email
-        name = usersParam.value.name
-    */
-
-    // trecho comentado para funcionar acesso ao Firebase - Authentication e Firebase - Cloud Firestore
+    val usersParam = homeViewModel.getUserData()
     val userId: String
     val email: String
     val name: String
 
-    userId = ""
-    email = "marcosgodoy0902@gmail.com"
-    name = "Marcos"
+    userId = usersParam.value.userId
+    email = usersParam.value.email
+    name = usersParam.value.name
+
+    // trecho comentado para funcionar acesso ao Firebase - Authentication e Firebase - Cloud Firestore
+    /*
+        val usersParam = homeViewModel.stateUsersParam
+        val userId: String
+        val email: String
+        val name: String
+
+        userId = ""
+        email = "marcosgodoy0902@gmail.com"
+        name = "Marcos"
+    */
 
 
     /*
@@ -300,7 +300,8 @@ fun HomeScreen(
                 .clip(RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp))
                 .background(Color.White)
         ) {
-            val navController = rememberNavController()
+            val navControllerInicio = rememberNavController()
+
             val items = remember {
                 listOf(
                     Pair("Inicio", Icons.Filled.Home),
@@ -338,7 +339,9 @@ fun HomeScreen(
 
             Column(Modifier.fillMaxSize()) {
                 NavHost(
-                    navController = navController, startDestination = "Inicio", Modifier.weight(1f)
+                    navController = navControllerInicio,
+                    startDestination = "Inicio",
+                    Modifier.weight(1f)
                 ) {
                     composable("Inicio") {
 
@@ -645,8 +648,7 @@ fun HomeScreen(
                     ) {
                         LoadingAnimation()
                     }
-                    //NewExpenseScreen(navController = navController)
-                    navControllerHome.navigate(Screen.NewExpense.route)
+                    navController.navigate(Screen.NewExpense.route)
                 }
 
                 BottomAppBar(
@@ -665,9 +667,9 @@ fun HomeScreen(
                                         ""
                                     }
                                 }
-                                navController.navigate(route, navOptions = navOptions {
+                                navControllerInicio.navigate(route, navOptions = navOptions {
                                     launchSingleTop = true
-                                    popUpTo(navController.graph.startDestinationId)
+                                    popUpTo(navControllerInicio.graph.startDestinationId)
                                 })
                             }, icon = {
                                 Icon(icon, contentDescription = null)
