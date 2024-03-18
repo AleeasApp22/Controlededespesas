@@ -23,6 +23,8 @@ class NewExpenseViewModel : ViewModel() {
 
     var newExpenseInProgress = mutableStateOf(false)
 
+    var homeInProgress = mutableStateOf(false)
+
     var newExpensePass = mutableStateOf(false)
 
     var newExpenseFail = mutableStateOf(false)
@@ -64,8 +66,14 @@ class NewExpenseViewModel : ViewModel() {
             is NewExpenseUIEvent.NewExpenseButtonClicked -> {
                 signUp(usersName)
             }
+
         }
         validateLostUIDataWithRules()
+    }
+
+    private fun home() {
+        homeInProgress.value = true
+        AppRouter.navigateTo(ScreenApp.HomeScreen)
     }
 
     private fun validateLostUIDataWithRules() {

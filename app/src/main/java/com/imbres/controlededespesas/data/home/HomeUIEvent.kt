@@ -1,5 +1,7 @@
 package com.imbres.controlededespesas.data.home
 
+import com.imbres.controlededespesas.data.message.MessageUIEvent
+
 sealed class HomeUIEvent {
 
     data class EmailChanged(val email: String) : HomeUIEvent()

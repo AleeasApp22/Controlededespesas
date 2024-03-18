@@ -11,6 +11,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.firestore.FirebaseFirestore
+import com.imbres.controlededespesas.data.login.LoginUIEvent
 import com.imbres.controlededespesas.data.model.CategoryParam
 import com.imbres.controlededespesas.data.model.UsersParam
 import com.imbres.controlededespesas.navigation.AppRouter
@@ -30,7 +31,16 @@ class HomeViewModel : ViewModel() {
     }
 
     fun onEvent(event: HomeUIEvent) {
-        home()
+
+        when (event) {
+            is HomeUIEvent.HomeButtonClicked -> {
+                home()
+            }
+
+            is HomeUIEvent.EmailChanged -> TODO()
+            is HomeUIEvent.PasswordChanged -> TODO()
+        }
+        //home()
     }
 
     private fun home() {

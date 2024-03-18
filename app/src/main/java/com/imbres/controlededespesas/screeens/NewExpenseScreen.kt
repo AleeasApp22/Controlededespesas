@@ -34,10 +34,12 @@ import com.imbres.controlededespesas.components.MyTextFieldComponent
 import com.imbres.controlededespesas.components.NormalTitleTextComponent
 import com.imbres.controlededespesas.components.PasswordTextFieldComponent
 import com.imbres.controlededespesas.components.ToastDisplay
+import com.imbres.controlededespesas.data.home.HomeViewModel
 import com.imbres.controlededespesas.data.login.LoginUIEvent
 import com.imbres.controlededespesas.data.login.LoginViewModel
-import com.imbres.controlededespesas.data.lostpassword.LostPasswordUIEvent
 import com.imbres.controlededespesas.data.lostpassword.LostPasswordViewModel
+import com.imbres.controlededespesas.data.newexpense.NewExpenseUIEvent
+import com.imbres.controlededespesas.data.newexpense.NewExpenseViewModel
 import com.imbres.controlededespesas.data.signup.SignupUIEvent
 import com.imbres.controlededespesas.data.signup.SignupViewModel
 import com.imbres.controlededespesas.navigation.Screen
@@ -51,7 +53,8 @@ fun NewExpenseScreen(
     navController: NavHostController,
     loginViewModel: LoginViewModel = viewModel(),
     lostPasswordViewModel: LostPasswordViewModel = viewModel(),
-    signUpViewModel: SignupViewModel = viewModel()
+    signUpViewModel: SignupViewModel = viewModel(),
+    newExpenseViewModel: NewExpenseViewModel = viewModel()
 ) {
 
     val context = LocalContext.current
@@ -166,18 +169,9 @@ fun NewExpenseScreen(
                 Spacer(modifier = Modifier.height(40.dp))
 
                 ClickableUnderLinedTextComponent(
-                    stringResource(id = R.string.lost_password),
-                    onButtonClicked = {
-                        lostPasswordViewModel.onEvent(LostPasswordUIEvent.LostPasswordButtonClicked)
-                    },
-                )
-
-                Spacer(modifier = Modifier.height(40.dp))
-
-                ClickableUnderLinedTextComponent(
-                    stringResource(id = R.string.have_an_account),
-                    onButtonClicked = {
-                        loginViewModel.onEvent(LoginUIEvent.LoginButtonClicked)
+                    stringResource(id = R.string.back),
+                    onButtonClicked = { navController.navigate(Screen.Home.route)
+                        //newExpenseViewModel.onEvent(NewExpenseUIEvent.NewExpenseReturnButtonClicked)
                     },
                 )
             }
@@ -252,5 +246,5 @@ fun NewExpenseScreen(
 fun NewExpenseScreenPreview() {
     val navController = rememberNavController()
 
-    SignUpScreen(navController = navController)
+    NewExpenseScreen(navController = navController)
 }
