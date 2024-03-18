@@ -9,6 +9,7 @@ import com.imbres.controlededespesas.app.ControleScreen
 import com.imbres.controlededespesas.screeens.HomeScreen
 import com.imbres.controlededespesas.screeens.LoginScreen
 import com.imbres.controlededespesas.screeens.LostPasswordScreen
+import com.imbres.controlededespesas.screeens.NewExpenseScreen
 import com.imbres.controlededespesas.screeens.SignUpScreen
 
 @Composable
@@ -24,7 +25,7 @@ fun SetupNavGraph(navController: NavHostController) {
             ControleScreen(navController = navController)
         }
         composable(route = Screen.Home.route) {
-            HomeScreen(navController = navController)
+            HomeScreen(navControllerHome = navController)
         }
         composable(route = Screen.Login.route) {
             LoginScreen(navController = navController)
@@ -36,7 +37,7 @@ fun SetupNavGraph(navController: NavHostController) {
             SignUpScreen(navController = navController)
         }
         composable(route = Screen.NewExpense.route) {
-            SignUpScreen(navController = navController)
+            NewExpenseScreen(navController = navController)
         }
     }
 }

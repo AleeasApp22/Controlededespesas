@@ -1,7 +1,6 @@
 package com.imbres.controlededespesas.screeens
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -66,9 +65,9 @@ import com.imbres.controlededespesas.components.NormalTitleTextComponent
 import com.imbres.controlededespesas.components.Saudacao
 import com.imbres.controlededespesas.data.home.HomeViewModel
 import com.imbres.controlededespesas.data.model.CategoryParam
-import com.imbres.controlededespesas.data.model.UsersParam
 import com.imbres.controlededespesas.data.newexpense.NewExpenseUIEvent
 import com.imbres.controlededespesas.data.newexpense.NewExpenseViewModel
+import com.imbres.controlededespesas.navigation.Screen
 import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.greenFinLight
 import com.imbres.controlededespesas.ui.theme.greenFingreenFinHeavy
@@ -92,26 +91,35 @@ private val TAG = HomeViewModel::class.simpleName
 @SuppressLint("UnrememberedMutableState")
 @Composable
 fun HomeScreen(
-    navController: NavHostController,
+    navControllerHome: NavHostController,
     homeViewModel: HomeViewModel = viewModel(),
     newExpenseViewModel: NewExpenseViewModel = viewModel(),
 ) {
 
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
+    val usersParam = homeViewModel.stateUsersParam
+
+    // trecho comentado para funcionar preview
+    /*
+        val usersParam = homeViewModel.getUserData()
+        val userId: String
+        val email: String
+        val name: String
+
+        userId = usersParam.value.userId
+        email = usersParam.value.email
+        name = usersParam.value.name
+    */
+
+    // trecho comentado para funcionar acesso ao Firebase - Authentication e Firebase - Cloud Firestore
     val userId: String
     val email: String
     val name: String
 
-    val usersParam = homeViewModel.getUserData()
-
-    userId = usersParam.value.userId
-    email = usersParam.value.email
-    name = usersParam.value.name
-
-/*    userId = ""
+    userId = ""
     email = "marcosgodoy0902@gmail.com"
-    name = "Marcos"*/
+    name = "Marcos"
 
 
     /*
@@ -295,7 +303,7 @@ fun HomeScreen(
             val navController = rememberNavController()
             val items = remember {
                 listOf(
-                    Pair("Home", Icons.Filled.Home),
+                    Pair("Inicio", Icons.Filled.Home),
                     Pair("Categorias", Icons.Filled.Category),
                     Pair("Perfil", Icons.Filled.Person)
                 )
@@ -330,9 +338,9 @@ fun HomeScreen(
 
             Column(Modifier.fillMaxSize()) {
                 NavHost(
-                    navController = navController, startDestination = "Home", Modifier.weight(1f)
+                    navController = navController, startDestination = "Inicio", Modifier.weight(1f)
                 ) {
-                    composable("Home") {
+                    composable("Inicio") {
 
                         Column(
                             Modifier
@@ -359,35 +367,21 @@ fun HomeScreen(
                                 tagBlue, tagSkyBlue, tagGreenLemon, tagPinkHard, tagPink,
                                 tagBlack, tagGreenHeavy,
                             )
+
                             /*
-                        FlowRow()
-                        https://developer.android.com/jetpack/compose/layouts/flow?hl=pt-br
+                                                        FlowRow()
+                                                        https://developer.android.com/jetpack/compose/layouts/flow?hl=pt-br
 
-                        [COMPOSE ROWS, COLUMNS, BOXES] COMO CRIAR LAYOUT EM JETPACK COMPOSE NO ANDROID
-                        https://www.youtube.com/watch?v=ov8iCd7UDpw
+                                                        [COMPOSE ROWS, COLUMNS, BOXES] COMO CRIAR LAYOUT EM JETPACK COMPOSE NO ANDROID
+                                                        https://www.youtube.com/watch?v=ov8iCd7UDpw
 
-                        JETPACK COMPOSE: Criando linhas e colunas flexíveis com Flow Layout
-                        https://www.youtube.com/watch?v=ljux8p2RXsY
+                                                        JETPACK COMPOSE: Criando linhas e colunas flexíveis com Flow Layout
+                                                        https://www.youtube.com/watch?v=ljux8p2RXsY
 
-                        Scroll modifiers
-                        https://developer.android.com/jetpack/compose/touch-input/pointer-input/scroll?hl=pt-br
-                         */
+                                                        Scroll modifiers
+                                                                https://developer.android.com/jetpack/compose/touch-input/pointer-input/scroll?hl=pt-br
+                            */
 
-
-                            /*                            Text(
-                                                            text = stringResource(id = R.string.new_purchase),
-                                                            modifier = Modifier
-                                                                .padding(all = 10.dp)
-                                                                .fillMaxWidth(),
-                                                            style = TextStyle(
-                                                                fontFamily = robotoFontFamily,
-                                                                fontSize = 15.sp,
-                                                                fontWeight = FontWeight.Black,
-                                                                fontStyle = FontStyle.Normal,
-                                                            ),
-                                                            color = TextColor,
-                                                            textAlign = TextAlign.Center
-                                                        )*/
                             FlowRow(
                                 modifier = Modifier
                                     .verticalScroll(rememberScrollState(), true, null, false)
@@ -397,18 +391,15 @@ fun HomeScreen(
                                 maxItemsInEachRow = 4
                             ) {
                                 categories.forEachIndexed { index, category ->
-                                    //val usersParam = homeViewModel.getUserData()
                                     val categoryParam = CategoryParam(index, category)
-
-/*
-                                    Log.d(TAG, "HomeScreen: categoryParamId ${categoryParam.categoryId}")
-                                    Log.d(TAG, "HomeScreen: categoryParam ${categoryParam.name}")
-*/
-
                                     ButtonComponentCategories(
                                         value = category,
                                         onButtonClicked = {
-                                            newExpenseViewModel.onEvent(NewExpenseUIEvent.NewExpenseButtonClicked, usersParam, categoryParam)
+                                            newExpenseViewModel.onEvent(
+                                                NewExpenseUIEvent.NewExpenseButtonClicked,
+                                                usersParam,
+                                                categoryParam
+                                            )
                                         },
                                         cores,
                                         index,
@@ -654,7 +645,8 @@ fun HomeScreen(
                     ) {
                         LoadingAnimation()
                     }
-                    NewExpenseScreen(navController = navController)
+                    //NewExpenseScreen(navController = navController)
+                    navControllerHome.navigate(Screen.NewExpense.route)
                 }
 
                 BottomAppBar(
@@ -666,7 +658,7 @@ fun HomeScreen(
                             NavigationBarItem(selected = selectedItem == item, onClick = {
                                 selectedItem = item
                                 val route = when (text) {
-                                    "Home" -> "Home"
+                                    "Inicio" -> "Inicio"
                                     "Categorias" -> "Categorias"
                                     "Perfil" -> "Perfil"
                                     else -> {
