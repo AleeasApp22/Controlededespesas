@@ -1,6 +1,7 @@
 package com.imbres.controlededespesas.screeens
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -104,6 +105,8 @@ fun HomeScreen(
     val userId: String
     val email: String
     val name: String
+
+    var categoryParam:  CategoryParam
 
     userId = usersParam.value.userId
     email = usersParam.value.email
@@ -393,8 +396,9 @@ fun HomeScreen(
                                 verticalArrangement = Arrangement.SpaceEvenly,
                                 maxItemsInEachRow = 4
                             ) {
+                                categoryParam = CategoryParam(0,"")
                                 categories.forEachIndexed { index, category ->
-                                    val categoryParam = CategoryParam(index, category)
+                                    categoryParam = CategoryParam(index, category)
                                     ButtonComponentCategories(
                                         value = category,
                                         onButtonClicked = {

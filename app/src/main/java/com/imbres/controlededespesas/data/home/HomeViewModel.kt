@@ -11,8 +11,6 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.firestore.FirebaseFirestore
-import com.imbres.controlededespesas.data.login.LoginUIEvent
-import com.imbres.controlededespesas.data.model.CategoryParam
 import com.imbres.controlededespesas.data.model.UsersParam
 import com.imbres.controlededespesas.navigation.AppRouter
 import com.imbres.controlededespesas.navigation.ScreenApp

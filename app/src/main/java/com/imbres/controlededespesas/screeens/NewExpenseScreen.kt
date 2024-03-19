@@ -1,5 +1,6 @@
 package com.imbres.controlededespesas.screeens
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -34,11 +35,10 @@ import com.imbres.controlededespesas.components.MyTextFieldComponent
 import com.imbres.controlededespesas.components.NormalTitleTextComponent
 import com.imbres.controlededespesas.components.PasswordTextFieldComponent
 import com.imbres.controlededespesas.components.ToastDisplay
-import com.imbres.controlededespesas.data.home.HomeViewModel
 import com.imbres.controlededespesas.data.login.LoginUIEvent
 import com.imbres.controlededespesas.data.login.LoginViewModel
 import com.imbres.controlededespesas.data.lostpassword.LostPasswordViewModel
-import com.imbres.controlededespesas.data.newexpense.NewExpenseUIEvent
+import com.imbres.controlededespesas.data.model.CategoryParam
 import com.imbres.controlededespesas.data.newexpense.NewExpenseViewModel
 import com.imbres.controlededespesas.data.signup.SignupUIEvent
 import com.imbres.controlededespesas.data.signup.SignupViewModel
@@ -47,6 +47,7 @@ import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.greenFinLight
 
 private var errorButton = false
+private val TAG = NewExpenseViewModel::class.simpleName
 
 @Composable
 fun NewExpenseScreen(
@@ -54,10 +55,12 @@ fun NewExpenseScreen(
     loginViewModel: LoginViewModel = viewModel(),
     lostPasswordViewModel: LostPasswordViewModel = viewModel(),
     signUpViewModel: SignupViewModel = viewModel(),
-    newExpenseViewModel: NewExpenseViewModel = viewModel()
+    categoryParam: CategoryParam
 ) {
 
     val context = LocalContext.current
+    var categoryId: Int = categoryParam.id
+    var categoryName: String = categoryParam.name
 
     Column(
         modifier = Modifier
@@ -77,13 +80,20 @@ fun NewExpenseScreen(
                 verticalArrangement = Arrangement.SpaceEvenly
             ) {
                 BlackNormalTextComponent(
-                    valueText = stringResource(id = R.string.create_an_account),
+                    valueText = stringResource(id = R.string.create_an_expense),
                     valuePadding = 8,
                     valueSize = 25,
                     valueHeightIn = 40,
                     valueTextColor = TextColor,
                     alignText = "Left",
                     true
+                )
+
+                NormalTitleTextComponent(
+                    valueText = categoryName.toString(),
+                    valueSize = 20,
+                    valueTextColor = TextColor,
+                    alignText = "Left"
                 )
 
                 NormalTitleTextComponent(
@@ -170,7 +180,8 @@ fun NewExpenseScreen(
 
                 ClickableUnderLinedTextComponent(
                     stringResource(id = R.string.back),
-                    onButtonClicked = { navController.navigate(Screen.Home.route)
+                    onButtonClicked = {
+                        navController.navigate(Screen.Home.route)
                         //newExpenseViewModel.onEvent(NewExpenseUIEvent.NewExpenseReturnButtonClicked)
                     },
                 )
@@ -246,5 +257,7 @@ fun NewExpenseScreen(
 fun NewExpenseScreenPreview() {
     val navController = rememberNavController()
 
-    NewExpenseScreen(navController = navController)
+    NewExpenseScreen(
+        navController = navController, categoryParam = CategoryParam()
+    )
 }

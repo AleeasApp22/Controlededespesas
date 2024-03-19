@@ -3,6 +3,7 @@ package com.imbres.controlededespesas.data.newexpense
 import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -14,29 +15,25 @@ import com.imbres.controlededespesas.navigation.ScreenApp
 import com.imbres.controlededespesas.rules.Validator
 
 class NewExpenseViewModel : ViewModel() {
-
     private val TAG = NewExpenseViewModel::class.simpleName
-
     var newExpenseUIState = mutableStateOf(NewExpenseUIState())
-
     var allValidationsPassed = mutableStateOf(false)
-
     var newExpenseInProgress = mutableStateOf(false)
-
     var homeInProgress = mutableStateOf(false)
-
     var newExpensePass = mutableStateOf(false)
-
     var newExpenseFail = mutableStateOf(false)
+    val stateCategoryParam = mutableStateOf(CategoryParam())
+    var categoryId: Int = 0
+    var categoryName: String = ""
 
     fun onEvent(
         event: NewExpenseUIEvent,
         usersParam: MutableState<UsersParam>,
-        categoryParam: CategoryParam
-    ) {
+        categoryParam: CategoryParam,
+    ): CategoryParam {
         val usersName = usersParam.value.name
-        val categoryId = categoryParam.categoryId
-        val categoryName = categoryParam.categoryId
+        categoryId = categoryParam.id
+        categoryName = categoryParam.name
 
         when (event) {
             is NewExpenseUIEvent.NameChanged -> {
@@ -64,11 +61,13 @@ class NewExpenseViewModel : ViewModel() {
             }
 
             is NewExpenseUIEvent.NewExpenseButtonClicked -> {
-                signUp(usersName)
+                signUp(categoryParam)
             }
 
         }
         validateLostUIDataWithRules()
+
+        return categoryParam
     }
 
     private fun home() {
@@ -106,14 +105,15 @@ class NewExpenseViewModel : ViewModel() {
 
     }
 
-    private fun signUp(usersName : String) {
+    private fun signUp(categoryParam: CategoryParam): CategoryParam {
+
+        categoryParam.id = categoryId
+        categoryParam.name = categoryName
 
         newExpenseInProgress.value = true
-        createUserInFirebase(
-            name = newExpenseUIState.value.name,
-            email = newExpenseUIState.value.email,
-            password = newExpenseUIState.value.password1,
-        )
+
+        return categoryParam
+
     }
 
     private fun createUserInFirebase(name: String, email: String, password: String) {
