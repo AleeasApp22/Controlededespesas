@@ -1,7 +1,6 @@
 package com.imbres.controlededespesas.screeens
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -61,14 +60,10 @@ import androidx.navigation.navOptions
 import com.imbres.controlededespesas.R
 import com.imbres.controlededespesas.components.BlackNormalTextComponent
 import com.imbres.controlededespesas.components.ButtonComponentCategories
-import com.imbres.controlededespesas.components.LoadingAnimation
 import com.imbres.controlededespesas.components.NormalTitleTextComponent
 import com.imbres.controlededespesas.components.Saudacao
 import com.imbres.controlededespesas.data.home.HomeViewModel
 import com.imbres.controlededespesas.data.model.CategoryParam
-import com.imbres.controlededespesas.data.newexpense.NewExpenseUIEvent
-import com.imbres.controlededespesas.data.newexpense.NewExpenseViewModel
-import com.imbres.controlededespesas.navigation.Screen
 import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.greenFinLight
 import com.imbres.controlededespesas.ui.theme.greenFingreenFinHeavy
@@ -94,7 +89,6 @@ private val TAG = HomeViewModel::class.simpleName
 fun HomeScreen(
     navController: NavHostController,
     homeViewModel: HomeViewModel = viewModel(),
-    newExpenseViewModel: NewExpenseViewModel = viewModel(),
 ) {
 
     val scaffoldState = rememberScaffoldState()
@@ -106,7 +100,7 @@ fun HomeScreen(
     val email: String
     val name: String
 
-    var categoryParam:  CategoryParam
+    var categoryParam: CategoryParam
 
     userId = usersParam.value.userId
     email = usersParam.value.email
@@ -396,18 +390,11 @@ fun HomeScreen(
                                 verticalArrangement = Arrangement.SpaceEvenly,
                                 maxItemsInEachRow = 4
                             ) {
-                                categoryParam = CategoryParam(0,"")
                                 categories.forEachIndexed { index, category ->
                                     categoryParam = CategoryParam(index, category)
                                     ButtonComponentCategories(
                                         value = category,
-                                        onButtonClicked = {
-                                            newExpenseViewModel.onEvent(
-                                                NewExpenseUIEvent.NewExpenseButtonClicked,
-                                                usersParam,
-                                                categoryParam
-                                            )
-                                        },
+                                        onButtonClicked = {},
                                         cores,
                                         index,
                                     )
@@ -641,18 +628,6 @@ fun HomeScreen(
                             }
                         }
                     }
-                }
-
-                if (newExpenseViewModel.newExpenseInProgress.value) {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxSize(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.SpaceAround
-                    ) {
-                        LoadingAnimation()
-                    }
-                    navController.navigate(Screen.NewExpense.route)
                 }
 
                 BottomAppBar(
