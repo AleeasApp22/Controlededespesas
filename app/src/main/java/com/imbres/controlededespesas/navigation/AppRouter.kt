@@ -4,13 +4,8 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 
 sealed class ScreenApp {
-    object ControleScreen : ScreenApp()
     object SignUpScreen : ScreenApp()
-    object TermsAndConditionsScreen : ScreenApp()
     object LoginScreen : ScreenApp()
-    object HomeScreen : ScreenApp()
-    object LostPasswordScreen : ScreenApp()
-    object NewExpenseScreen : ScreenApp()
 }
 
 object AppRouter {

@@ -60,10 +60,14 @@ import androidx.navigation.navOptions
 import com.imbres.controlededespesas.R
 import com.imbres.controlededespesas.components.BlackNormalTextComponent
 import com.imbres.controlededespesas.components.ButtonComponentCategories
+import com.imbres.controlededespesas.components.LoadingAnimation
 import com.imbres.controlededespesas.components.NormalTitleTextComponent
 import com.imbres.controlededespesas.components.Saudacao
 import com.imbres.controlededespesas.data.home.HomeViewModel
 import com.imbres.controlededespesas.data.model.CategoryParam
+import com.imbres.controlededespesas.data.newexpense.NewExpenseUIEvent
+import com.imbres.controlededespesas.data.newexpense.NewExpenseViewModel
+import com.imbres.controlededespesas.navigation.Screen
 import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.greenFinLight
 import com.imbres.controlededespesas.ui.theme.greenFingreenFinHeavy
@@ -89,10 +93,13 @@ private val TAG = HomeViewModel::class.simpleName
 fun HomeScreen(
     navController: NavHostController,
     homeViewModel: HomeViewModel = viewModel(),
+    newExpenseViewModel: NewExpenseViewModel = viewModel()
 ) {
 
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
+    val indexCategorySelected: Int
+    val nameCategorySelected: String
 
     // trecho comentado para funcionar preview
     val usersParam = homeViewModel.getUserData()
@@ -394,11 +401,29 @@ fun HomeScreen(
                                     categoryParam = CategoryParam(index, category)
                                     ButtonComponentCategories(
                                         value = category,
-                                        onButtonClicked = {},
+                                        onButtonClicked = {
+                                            newExpenseViewModel.onEvent(
+                                                NewExpenseUIEvent.NewExpenseButtonClicked,
+                                                index,
+                                                category
+                                            )
+                                        },
                                         cores,
                                         index,
                                     )
                                 }
+                            }
+                        }
+
+                        if (newExpenseViewModel.newExpenseInProgress.value) {
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxSize(),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.SpaceAround
+                            ) {
+                                LoadingAnimation()
+                                navController.navigate(Screen.NewExpense.route)
                             }
                         }
                     }
