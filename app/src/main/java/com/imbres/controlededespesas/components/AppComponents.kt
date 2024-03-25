@@ -34,6 +34,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -166,6 +167,54 @@ fun NormalTextComponent(value: String, size: Int, valueTextColor: Color) {
 Request Focus on a TextField using Jetpack Compose
 https://www.youtube.com/shorts/cXIN99PRgsc
 */
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun MyTextFieldComponentWithValue(
+    labelValue: String,
+    dateValue: MutableState<String>,
+    painterResource: Painter,
+    onTextChanged: (String) -> Unit,
+    errorStatus: Boolean = false
+) {
+    val localFocusManager = LocalFocusManager.current
+
+    val textValue = remember {
+        mutableStateOf("")
+    }
+    val labelValue = "${stringResource(id = R.string.date_purchase)} ${dateValue.value}"
+
+    OutlinedTextField(
+        modifier = Modifier
+            .fillMaxWidth(),
+        label = { Text(text = labelValue) },
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+
+            focusedBorderColor = Color.Gray,
+            focusedLabelColor = Color.Gray,
+            unfocusedBorderColor = Color.Gray,
+            unfocusedLabelColor = Color.Gray,
+//            errorCursorColor = Color.Black,
+//            errorBorderColor = Color.Black,
+//            errorLabelColor = Color.Black,
+//backgroundColor = BgColor
+        ),
+        singleLine = true,
+        maxLines = 1,
+        value = textValue.value,
+
+        onValueChange = {
+            textValue.value = it
+            onTextChanged(it)
+        },
+        leadingIcon = {
+            Icon(painter = painterResource, contentDescription = "")
+        },
+        isError = !errorStatus,
+        enabled = false
+    )
+
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
