@@ -50,6 +50,13 @@ object Validator {
             statusValue
         )
     }
+
+    fun validateDatePurchase(date_purchase: String): ValidationResult {
+        return ValidationResult(
+            (!date_purchase.isNullOrEmpty() && date_purchase.length >= 2)
+        )
+
+    }
 }
 
 fun isValidEmail(email: String): Boolean {

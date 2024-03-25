@@ -16,6 +16,8 @@
     <string name="create_account">Informe os dados abaixo:</string>
     <string name="login">Login</string>
     <string name="validar">Validar</string>
+    <string name="today">Hoje</string>
+    <string name="select_a_date">Selecionar</string>
     <string name="email">Email</string>
     <string name="name_user">Nome</string>
     <string name="password">Senha</string>
@@ -39,6 +41,7 @@
     <string name="update_data">Alterar dados</string>
     <string name="category">Categoria</string>
     <string name="date">Data</string>
+    <string name="date_purchase">Data da compra</string>
     <string name="value">Valor</string>
     <string name="categories">Categorias</string>
     <string name="function">Selecione a função desejada</string>

@@ -67,7 +67,9 @@ import com.imbres.controlededespesas.data.home.HomeViewModel
 import com.imbres.controlededespesas.data.model.CategoryParam
 import com.imbres.controlededespesas.data.newexpense.NewExpenseUIEvent
 import com.imbres.controlededespesas.data.newexpense.NewExpenseViewModel
+import com.imbres.controlededespesas.navigation.AppRouter
 import com.imbres.controlededespesas.navigation.Screen
+import com.imbres.controlededespesas.navigation.ScreenApp
 import com.imbres.controlededespesas.ui.theme.TextColor
 import com.imbres.controlededespesas.ui.theme.greenFinLight
 import com.imbres.controlededespesas.ui.theme.greenFingreenFinHeavy
@@ -424,6 +426,7 @@ fun HomeScreen(
                             ) {
                                 LoadingAnimation()
                                 navController.navigate(Screen.NewExpense.route)
+                                //AppRouter.navigateTo(ScreenApp.NewExpenseScreen)
                             }
                         }
                     }

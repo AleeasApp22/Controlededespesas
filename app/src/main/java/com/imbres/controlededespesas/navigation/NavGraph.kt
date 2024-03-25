@@ -1,6 +1,8 @@
 package com.imbres.controlededespesas.navigation
 
+import android.content.Context
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -38,7 +40,7 @@ fun SetupNavGraph(navController: NavHostController) {
             SignUpScreen(navController = navController)
         }
         composable(route = Screen.NewExpense.route) {
-            NewExpenseScreen(navController = navController, categoryParam = CategoryParam())
+            NewExpenseScreen(navController = navController, categoryParam = CategoryParam(), context = LocalContext.current)
         }
     }
 }

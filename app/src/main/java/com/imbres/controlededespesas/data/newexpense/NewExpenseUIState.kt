@@ -1,7 +1,8 @@
 package com.imbres.controlededespesas.data.newexpense
 
 data class NewExpenseUIState(
-    var email: String = "",
-    var emailError: Boolean = false,
-    var categorySelected: Int = 0
+    var date_purchase: String = "",
+    var categorySelected: Int = 0,
+
+    var datePurchaseError: Boolean = false
 )
